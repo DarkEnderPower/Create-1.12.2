@@ -1,0 +1,6 @@
+{
+  "variants":
+  {
+    "normal": { "model": "create:creative_gearbox/block" }
+  }
+}

@@ -1,0 +1,16 @@
+[
+{
+  "modid": "create",
+  "name": "Create",
+  "description": "Create for 1.12.2",
+  "version": "${version}",
+  "mcversion": "1.12.2",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["DarkEnderHilda"],
+  "credits": "Authors of this project",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

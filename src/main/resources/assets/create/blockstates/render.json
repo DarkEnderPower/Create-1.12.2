@@ -1,0 +1,11 @@
+{
+  "variants":
+  {
+    "type=shaft_half_u": { "model": "create:shaft_half" },
+    "type=shaft_half_d": { "model": "create:shaft_half", "x": 180 },
+    "type=shaft_half_e": { "model": "create:shaft_half", "y": 90, "x": 90 },
+    "type=shaft_half_s": { "model": "create:shaft_half", "y": 180, "x": 90 },
+    "type=shaft_half_w": { "model": "create:shaft_half", "y": 270, "x": 90 },
+    "type=shaft_half_n": { "model": "create:shaft_half", "y": 0, "x": 90 }
+  }
+}

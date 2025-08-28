@@ -1,0 +1,15 @@
+itemGroup.create_tab=Create
+itemGroup.create_tab_deco=Create Decorations
+
+# Items
+item.create:wrench.name=Wrench
+
+# Tile Kinetic
+tile.create:shaft.name=Shaft
+tile.create:cogwheel.name=Cogwheel
+tile.create:large_cogwheel.name=Large Cogwheel
+tile.create:creative_motor.name=Creative Motor
+tile.create:creative_gearbox.name=Creative Gearbox
+
+# Tile
+tile.create:depot.name=Depot
