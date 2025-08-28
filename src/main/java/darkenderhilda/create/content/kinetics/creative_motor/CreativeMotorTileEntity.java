@@ -4,7 +4,9 @@ import darkenderhilda.create.content.kinetics.base.GeneratingKineticTileEntity;
 
 public class CreativeMotorTileEntity extends GeneratingKineticTileEntity {
 
-    public static final int DEFAULT_SPEED = 32;
+    public static final int DEFAULT_SPEED = 16;
+    public static final int MAX_SPEED = 256;
+
 
     @Override
     public void initialize() {
@@ -15,6 +17,9 @@ public class CreativeMotorTileEntity extends GeneratingKineticTileEntity {
 
     @Override
     public float getGeneratedSpeed() {
+//        if (!AllBlocks.CREATIVE_MOTOR.has(getBlockState()))
+//            return 0;
+//        return convertToDirection(generatedSpeed.getValue(), getBlockState().getValue(CreativeMotorBlock.FACING));
         return DEFAULT_SPEED;
     }
 }

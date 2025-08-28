@@ -5,17 +5,24 @@ import darkenderhilda.create.api.equipment.goggles.IHaveGoggleInformation;
 import darkenderhilda.create.api.equipment.goggles.IHaveHoveringInformation;
 import darkenderhilda.create.content.kinetics.KineticNetwork;
 import darkenderhilda.create.content.kinetics.RotationPropagator;
+import darkenderhilda.create.content.kinetics.simpleRelays.ICogWheel;
 import darkenderhilda.create.foundation.tileEntity.SmartTileEntity;
+import darkenderhilda.create.foundation.utils.WorldUtils;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
+import java.util.List;
 
 import static darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTESR.isAxisShifted;
+import static darkenderhilda.create.foundation.utils.WorldUtils.choose;
 
 public abstract class KineticTileEntity extends SmartTileEntity implements IHaveGoggleInformation, IHaveHoveringInformation {
 
@@ -23,6 +30,7 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
     public @Nullable BlockPos source;
     public boolean networkDirty;
     public boolean updateSpeed;
+    public int preventSpeedUpdate;
 
     //protected KineticEffectHandler effects;
     protected float speed;
@@ -34,12 +42,19 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
     private int flickerTally;
     private int networkSize;
     private int validationCountdown;
-    private float lastStressApplied;
-    private float lastCapacityProvided;
+    protected float lastStressApplied;
+    protected float lastCapacityProvided;
+
+    //public SequenceContext sequenceContext;
+
+
+    public KineticTileEntity() {
+        updateSpeed = true;
+    }
 
     @Override
     public void initialize() {
-        if (hasNetwork()) {
+        if (hasNetwork() && !world.isRemote) {
             KineticNetwork network = getOrCreateNetwork();
             if (!network.initialized)
                 network.initFromTE(capacity, stress, networkSize);
@@ -57,11 +72,15 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
         super.update();
         //effects.tick();
 
-        if (world.isRemote)
+        preventSpeedUpdate = 0;
+
+        if (world.isRemote) {
+            //DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> this.tickAudio());
             return;
+        }
 
         if (validationCountdown-- <= 0) {
-            validationCountdown = 60;//AllConfigs.SERVER.kinetics.kineticValidationFrequency.get();
+            validationCountdown = 60;//AllConfigs.server().kinetics.kineticValidationFrequency.get();
             validateKinetics();
         }
 
@@ -73,6 +92,77 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
                 getOrCreateNetwork().updateNetwork();
             networkDirty = false;
         }
+    }
+
+    private void validateKinetics() {
+        if (hasSource()) {
+            if (!hasNetwork()) {
+                removeSource();
+                return;
+            }
+
+            if (!world.isBlockLoaded(source))
+                return;
+
+            TileEntity blockEntity = world.getTileEntity(source);
+            KineticTileEntity sourceBE = blockEntity instanceof KineticTileEntity ? (KineticTileEntity) blockEntity : null;
+            if (sourceBE == null || sourceBE.speed == 0) {
+                removeSource();
+                detachKinetics();
+                return;
+            }
+
+            return;
+        }
+
+        if (speed != 0) {
+            if (getGeneratedSpeed() == 0)
+                speed = 0;
+        }
+    }
+
+    public void updateFromNetwork(float maxStress, float currentStress, int networkSize) {
+        networkDirty = false;
+        this.capacity = maxStress;
+        this.stress = currentStress;
+        this.networkSize = networkSize;
+        boolean overStressed = maxStress < currentStress && true;//StressImpact.isEnabled();
+        //TODO
+        //setChanged();
+
+        if (overStressed != this.overStressed) {
+            float prevSpeed = getSpeed();
+            this.overStressed = overStressed;
+            onSpeedChanged(prevSpeed);
+            sendData();
+        }
+    }
+
+    protected Block getStressConfigKey() {
+        return WorldUtils.stateFormTE(this).getBlock();
+    }
+
+    public float calculateStressApplied() {
+        //float impact = (float) BlockStressValues.getImpact(getStressConfigKey());
+        float impact = 1;
+        this.lastStressApplied = impact;
+        return impact;
+    }
+
+    public float calculateAddedStressCapacity() {
+        //float capacity = (float) BlockStressValues.getCapacity(getStressConfigKey());
+        float capacity = 128;
+        this.lastCapacityProvided = capacity;
+        return capacity;
+    }
+
+    public void onSpeedChanged(float previousSpeed) {
+        boolean fromOrToZero = (previousSpeed == 0) != (getSpeed() == 0);
+        boolean directionSwap = !fromOrToZero && Math.signum(previousSpeed) != Math.signum(getSpeed());
+        if (fromOrToZero || directionSwap)
+            flickerTally = getFlickerScore() + 5;
+        //TODO
+        //setChanged();
     }
 
     @Override
@@ -88,6 +178,8 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound.setFloat("Speed", speed);
+        //if (sequenceContext != null && (!clientPacket || syncSequenceContext()))
+        //    compound.put("Sequence", sequenceContext.serializeNBT());
 
         if (needsSpeedUpdate())
             compound.setBoolean("NeedsSpeedUpdate", true);
@@ -113,8 +205,14 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
         return super.writeToNBT(compound);
     }
 
+
+    public boolean needsSpeedUpdate() {
+        return updateSpeed;
+    }
+
     @Override
     public void readFromNBT(NBTTagCompound compound) {
+        boolean overStressedBefore = overStressed;
         clearKineticInformation();
 
         // DO NOT READ kinetic information when placed after movement
@@ -124,6 +222,7 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
         }
 
         speed = compound.getFloat("Speed");
+        //sequenceContext = SequenceContext.fromNBT(compound.getCompound("Sequence"));
 
         if (compound.hasKey("Source"))
             source = NBTUtil.getPosFromTag((NBTTagCompound) compound.getTag("Source"));
@@ -136,162 +235,16 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
             networkSize = networkTag.getInteger("Size");
             lastStressApplied = networkTag.getFloat("AddedStress");
             lastCapacityProvided = networkTag.getFloat("AddedCapacity");
-            overStressed = capacity < stress && true;//StressImpact.isEnabled();
+            overStressed = capacity < stress &&  true;//StressImpact.isEnabled();
         }
 
         super.readFromNBT(compound);
-    }
 
-    @Override
-    public void readClientUpdate(NBTTagCompound tag) {
-        boolean overStressedBefore = overStressed;
-        super.readClientUpdate(tag);
-        //if (overStressedBefore != overStressed && speed != 0)
-            //effects.triggerOverStressedEffect();
-    }
-
-    private void validateKinetics() {
-        if (hasSource()) {
-            if (!hasNetwork()) {
-                removeSource();
-                return;
-            }
-
-            if (!world.isBlockLoaded(source))
-                return;
-
-            TileEntity tileEntity = world.getTileEntity(source);
-            KineticTileEntity sourceTe = tileEntity instanceof KineticTileEntity ? (KineticTileEntity) tileEntity : null;
-            if (sourceTe == null || sourceTe.speed == 0) {
-                removeSource();
-                detachKinetics();
-                return;
-            }
-
-            return;
-        }
-
-        if (speed != 0) {
-            if (getGeneratedSpeed() == 0)
-                speed = 0;
-        }
-    }
-
-    public float calculateAddedStressCapacity() {
-       // Map<ResourceLocation, ConfigValue<Double>> capacityMap = AllConfigs.SERVER.kinetics.stressValues.capacities;
-       // ResourceLocation path = getBlockState().getBlock().getRegistryName();
-
-        //float capacity = capacityMap.containsKey(path) ? capacityMap.get(path).get().floatValue() : 0;
-        float capacity = 128;
-        this.lastCapacityProvided = capacity;
-        return capacity;
-    }
-
-    public float calculateStressApplied() {
-        //Map<ResourceLocation, ConfigValue<Double>> stressEntries = AllConfigs.SERVER.kinetics.stressValues.impacts;
-        //ResourceLocation path = getBlockState().getBlock().getRegistryName();
-
-        //float impact = stressEntries.containsKey(path) ? stressEntries.get(path).get().floatValue() : 1;
-        float impact = 1;
-        this.lastStressApplied = impact;
-        return impact;
-    }
-
-    public boolean hasSource() {
-        return source != null;
-    }
-
-    public void setSource(BlockPos source) {
-        this.source = source;
-        if (world == null || world.isRemote)
-            return;
-
-        TileEntity tileEntity = world.getTileEntity(source);
-        if (!(tileEntity instanceof KineticTileEntity)) {
-            removeSource();
-            return;
-        }
-
-        KineticTileEntity sourceTe = (KineticTileEntity) tileEntity;
-        setNetwork(sourceTe.network);
-    }
-
-    public void removeSource() {
-        float prevSpeed = getSpeed();
-
-        speed = 0;
-        source = null;
-        setNetwork(null);
-
-        onSpeedChanged(prevSpeed);
-    }
-
-    public void setNetwork(@Nullable Long networkIn) {
-        if (network == networkIn)
-            return;
-        if (network != null)
-            getOrCreateNetwork().remove(this);
-
-        network = networkIn;
-
-        if (networkIn == null)
-            return;
-
-        network = networkIn;
-        KineticNetwork network = getOrCreateNetwork();
-        network.initialized = true;
-        network.add(this);
-    }
-
-    public void attachKinetics() {
-        updateSpeed = false;
-        RotationPropagator.handleAdded(world, pos, this);
-    }
-
-    public void detachKinetics() {
-        RotationPropagator.handleRemoved(world, pos, this);
-    }
-
-    public void onSpeedChanged(float previousSpeed) {
-        boolean fromOrToZero = (previousSpeed == 0) != (getSpeed() == 0);
-        boolean directionSwap = !fromOrToZero && Math.signum(previousSpeed) != Math.signum(getSpeed());
-        if (fromOrToZero || directionSwap)
-            flickerTally = getFlickerScore() + 5;
-
-//        if (fromOrToZero && previousSpeed == 0 && !world.isRemote)
-//            AllTriggers
-//                    .getPlayersInRange(world, pos, 4)
-//                    .forEach(p -> AllTriggers.KINETIC_BLOCK.trigger(p, getBlockState()));
-    }
-
-    public void updateFromNetwork(float maxStress, float currentStress, int networkSize) {
-        networkDirty = false;
-        this.capacity = maxStress;
-        this.stress = currentStress;
-        this.networkSize = networkSize;
-        boolean overStressed = maxStress < currentStress && true;
-                //StressImpact.isEnabled();
-
-        if (overStressed != this.overStressed) {
-            //if (speed != 0 && overStressed)
-                //AllTriggers.triggerForNearbyPlayers(AllTriggers.OVERSTRESSED, world, pos, 8);
-            float prevSpeed = getSpeed();
-            this.overStressed = overStressed;
-            onSpeedChanged(prevSpeed);
-            sendData();
-        }
-    }
-
-    public boolean needsSpeedUpdate() {
-        return updateSpeed;
-    }
-
-    public KineticNetwork getOrCreateNetwork() {
-        return Create.TORQUE_PROPAGATOR.getOrCreateNetworkFor(this);
-    }
-
-    public boolean hasNetwork() {
-        return network != null;
+//        if (clientPacket && overStressedBefore != overStressed && speed != 0)
+//            effects.triggerOverStressedEffect();
+//
+//        if (clientPacket)
+//            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> VisualizationHelper.queueUpdate(this));
     }
 
     public float getGeneratedSpeed() {
@@ -316,6 +269,130 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
         this.speed = speed;
     }
 
+    public boolean hasSource() {
+        return source != null;
+    }
+
+    public void setSource(BlockPos source) {
+        this.source = source;
+        if (world == null || world.isRemote)
+            return;
+
+        TileEntity blockEntity = world.getTileEntity(source);
+        KineticTileEntity sourceBE;
+        if (!(blockEntity instanceof KineticTileEntity)) {
+            removeSource();
+            return;
+        } else {
+            sourceBE = (KineticTileEntity) blockEntity;
+        }
+
+        setNetwork(sourceBE.network);
+        //copySequenceContextFrom(sourceBE);
+    }
+
+//    protected void copySequenceContextFrom(KineticBlockEntity sourceBE) {
+//        sequenceContext = sourceBE.sequenceContext;
+//    }
+
+    public void removeSource() {
+        float prevSpeed = getSpeed();
+
+        speed = 0;
+        source = null;
+        setNetwork(null);
+        //sequenceContext = null;
+
+        onSpeedChanged(prevSpeed);
+    }
+
+    public void setNetwork(@Nullable Long networkIn) {
+        if (network == networkIn)
+            return;
+        if (network != null)
+            getOrCreateNetwork().remove(this);
+
+        network = networkIn;
+        //TODO
+        //setChanged();
+
+        if (networkIn == null)
+            return;
+
+        network = networkIn;
+        KineticNetwork network = getOrCreateNetwork();
+        network.initialized = true;
+        network.add(this);
+    }
+
+    public KineticNetwork getOrCreateNetwork() {
+        return Create.TORQUE_PROPAGATOR.getOrCreateNetworkFor(this);
+    }
+
+    public boolean hasNetwork() {
+        return network != null;
+    }
+
+    public void attachKinetics() {
+        updateSpeed = false;
+        RotationPropagator.handleAdded(world, getPos(), this);
+    }
+
+    public void detachKinetics() {
+        RotationPropagator.handleRemoved(world, getPos(), this);
+    }
+
+    public boolean isSpeedRequirementFulfilled() {
+        IBlockState state = WorldUtils.stateFormTE(this);
+        if (!(WorldUtils.stateFormTE(this).getBlock() instanceof IRotate))
+            return true;
+        IRotate def = (IRotate) state.getBlock();
+        IRotate.SpeedLevel minimumRequiredSpeedLevel = def.getMinimumRequiredSpeedLevel();
+        return Math.abs(getSpeed()) >= minimumRequiredSpeedLevel.getSpeedValue();
+    }
+
+    public static void switchToBlockState(World world, BlockPos pos, IBlockState state) {
+        if (world.isRemote)
+            return;
+
+        TileEntity blockEntity = world.getTileEntity(pos);
+        IBlockState currentState = world.getBlockState(pos);
+        boolean isKinetic = blockEntity instanceof KineticTileEntity;
+
+        if (currentState == state)
+            return;
+        if (blockEntity == null || !isKinetic) {
+            world.setBlockState(pos, state, 3);
+            return;
+        }
+
+        KineticTileEntity kineticBlockEntity = (KineticTileEntity) blockEntity;
+        if (state.getBlock() instanceof KineticBlock
+                && !((KineticBlock) state.getBlock()).areStatesKineticallyEquivalent(currentState, state)) {
+            if (kineticBlockEntity.hasNetwork())
+                kineticBlockEntity.getOrCreateNetwork()
+                        .remove(kineticBlockEntity);
+            kineticBlockEntity.detachKinetics();
+            kineticBlockEntity.removeSource();
+        }
+
+        if (blockEntity instanceof GeneratingKineticTileEntity) {
+            ((GeneratingKineticTileEntity) blockEntity).reActivateSource = true;
+        }
+
+        world.setBlockState(pos, state, 3);
+    }
+
+    @Override
+    public boolean addToTooltip(List<String> tooltip, boolean isPlayerSneaking) {
+        return IHaveHoveringInformation.super.addToTooltip(tooltip, isPlayerSneaking);
+    }
+
+    @Override
+    public boolean addToGoggleTooltip(List<String> tooltip, boolean isPlayerSneaking) {
+        return IHaveGoggleInformation.super.addToGoggleTooltip(tooltip, isPlayerSneaking);
+    }
+
     public void clearKineticInformation() {
         speed = 0;
         source = null;
@@ -333,6 +410,54 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
 
     public int getFlickerScore() {
         return flickerTally;
+    }
+
+    public static float convertToDirection(float axisSpeed, EnumFacing d) {
+        return d.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE ? axisSpeed : -axisSpeed;
+    }
+
+    public static float convertToLinear(float speed) {
+        return speed / 512f;
+    }
+
+    public static float convertToAngular(float speed) {
+        return speed * 3 / 10f;
+    }
+
+    public boolean isOverStressed() {
+        return overStressed;
+    }
+
+    public float propagateRotationTo(KineticTileEntity target, IBlockState stateFrom, IBlockState stateTo, BlockPos diff, boolean connectedViaAxes, boolean connectedViaCogs) {
+        return 0;
+    }
+
+    public List<BlockPos> addPropagationLocations(IRotate block, IBlockState state, List<BlockPos> neighbours) {
+        if (!canPropagateDiagonally(block, state))
+            return neighbours;
+
+        EnumFacing.Axis axis = block.getRotationAxis(state);
+        BlockPos.getAllInBox(new BlockPos(-1, -1, -1), new BlockPos(1, 1, 1))
+                .forEach(offset -> {
+                    if (choose(axis, offset.getX(), offset.getY(), offset.getZ()) != 0)
+                        return;
+                    if (WorldUtils.distSqr(offset, BlockPos.ORIGIN) != 2)
+                        return;
+                    neighbours.add(getPos().subtract(offset));
+                });
+        return neighbours;
+    }
+
+    public boolean isCustomConnection(KineticTileEntity other, IBlockState state, IBlockState otherState) {
+        return false;
+    }
+
+    protected boolean canPropagateDiagonally(IRotate block, IBlockState state) {
+        return ICogWheel.isSmallCog(state);
+    }
+
+    protected boolean isNoisy() {
+        return true;
     }
 
     public float getAxisShift(EnumFacing.Axis axis) {

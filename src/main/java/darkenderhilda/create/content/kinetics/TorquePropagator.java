@@ -21,16 +21,16 @@ public class TorquePropagator {
         Create.logger.debug("Removed Kinetic Network Space for " + world.provider.getDimensionType().getName());
     }
 
-    public KineticNetwork getOrCreateNetworkFor(KineticTileEntity te) {
-        Long id = te.network;
+    public KineticNetwork getOrCreateNetworkFor(KineticTileEntity be) {
+        Long id = be.network;
         KineticNetwork network;
-        Map<Long, KineticNetwork> map = networks.get(te.getWorld());
+        Map<Long, KineticNetwork> map = networks.computeIfAbsent(be.getWorld(), $ -> new HashMap<>());
         if (id == null)
             return null;
 
         if (!map.containsKey(id)) {
             network = new KineticNetwork();
-            network.id = te.network;
+            network.id = be.network;
             map.put(id, network);
         }
         network = map.get(id);

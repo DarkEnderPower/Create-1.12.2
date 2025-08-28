@@ -4,6 +4,7 @@ import darkenderhilda.create.content.kinetics.KineticNetwork;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 
+
 public class GeneratingKineticTileEntity extends KineticTileEntity {
 
     public boolean reActivateSource;
@@ -22,11 +23,14 @@ public class GeneratingKineticTileEntity extends KineticTileEntity {
     @Override
     public void setSource(BlockPos source) {
         super.setSource(source);
-        TileEntity tileEntity = world.getTileEntity(source);
-        if (!(tileEntity instanceof KineticTileEntity))
+        TileEntity blockEntity = world.getTileEntity(source);
+        KineticTileEntity sourceBE;
+        if (!(blockEntity instanceof KineticTileEntity)) {
             return;
-        KineticTileEntity sourceTe = (KineticTileEntity) tileEntity;
-        if (reActivateSource && sourceTe != null && Math.abs(sourceTe.getSpeed()) >= Math.abs(getGeneratedSpeed()))
+        } else {
+            sourceBE = (KineticTileEntity) blockEntity;
+        }
+        if (reActivateSource && Math.abs(sourceBE.getSpeed()) >= Math.abs(getGeneratedSpeed()))
             reActivateSource = false;
     }
 
@@ -39,11 +43,44 @@ public class GeneratingKineticTileEntity extends KineticTileEntity {
         }
     }
 
+//    @Override
+//    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+//        boolean added = super.addToGoggleTooltip(tooltip, isPlayerSneaking);
+//        if (!StressImpact.isEnabled())
+//            return added;
+//
+//        float stressBase = calculateAddedStressCapacity();
+//        if (Mth.equal(stressBase, 0))
+//            return added;
+//
+//        CreateLang.translate("gui.goggles.generator_stats")
+//                .forGoggles(tooltip);
+//        CreateLang.translate("tooltip.capacityProvided")
+//                .style(ChatFormatting.GRAY)
+//                .forGoggles(tooltip);
+//
+//        float speed = getTheoreticalSpeed();
+//        if (speed != getGeneratedSpeed() && speed != 0)
+//            stressBase *= getGeneratedSpeed() / speed;
+//
+//        float stressTotal = Math.abs(stressBase * speed);
+//
+//        CreateLang.number(stressTotal)
+//                .translate("generic.unit.stress")
+//                .style(ChatFormatting.AQUA)
+//                .space()
+//                .add(CreateLang.translate("gui.goggles.at_current_speed")
+//                        .style(ChatFormatting.DARK_GRAY))
+//                .forGoggles(tooltip, 1);
+//
+//        return true;
+//    }
+
     public void updateGeneratedRotation() {
         float speed = getGeneratedSpeed();
         float prevSpeed = this.speed;
 
-        if (world.isRemote)
+        if (world == null || world.isRemote)
             return;
 
         if (prevSpeed != speed) {
@@ -97,7 +134,7 @@ public class GeneratingKineticTileEntity extends KineticTileEntity {
             // Staying below Overpowered speed
             if (Math.abs(prevSpeed) >= Math.abs(speed)) {
                 if (Math.signum(prevSpeed) != Math.signum(speed))
-                    world.destroyBlock(pos, true);
+                    world.destroyBlock(getPos(), true);
                 return;
             }
 
@@ -117,7 +154,6 @@ public class GeneratingKineticTileEntity extends KineticTileEntity {
     }
 
     public Long createNetworkId() {
-        return pos.toLong();
+        return getPos().toLong();
     }
-
 }

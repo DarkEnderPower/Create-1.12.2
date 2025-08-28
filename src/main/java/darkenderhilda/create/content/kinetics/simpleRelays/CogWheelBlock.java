@@ -4,8 +4,6 @@ import darkenderhilda.create.AllShapes;
 import darkenderhilda.create.foundation.block.BlockProperties;
 import darkenderhilda.create.foundation.shapes.ExtendedShape;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 
 public class CogWheelBlock extends AbstractSimpleShaftBlock implements ICogWheel {
 
@@ -40,7 +38,7 @@ public class CogWheelBlock extends AbstractSimpleShaftBlock implements ICogWheel
     }
 
     @Override
-    public boolean hasIntegratedCogwheel(IBlockAccess world, BlockPos pos, IBlockState state) {
-        return !isLarge;
+    public boolean isDedicatedCogWheel() {
+        return true;
     }
-}
+ }

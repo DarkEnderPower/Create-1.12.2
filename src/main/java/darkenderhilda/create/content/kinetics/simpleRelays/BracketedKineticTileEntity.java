@@ -5,7 +5,7 @@ import net.minecraft.util.EnumFacing;
 
 import static darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTESR.isAxisShifted;
 
-public class BracketedKineticTileEntity extends KineticTileEntity {
+public class BracketedKineticTileEntity extends SimpleKineticBlockEntity {
 
 
 }

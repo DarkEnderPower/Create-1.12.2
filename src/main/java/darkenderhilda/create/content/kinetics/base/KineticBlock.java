@@ -23,23 +23,22 @@ public abstract class KineticBlock extends BlockWithTE implements IRotate {
 
 
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        if (worldIn.isRemote)
-            return;
+        TileEntity blockEntity = worldIn.getTileEntity(pos);
 
-        TileEntity tileEntity = worldIn.getTileEntity(pos);
-        if (!(tileEntity instanceof KineticTileEntity))
-            return;
+        KineticTileEntity kineticBlockEntity;
+        if (blockEntity instanceof KineticTileEntity) {
+            kineticBlockEntity = (KineticTileEntity) blockEntity;
+            kineticBlockEntity.preventSpeedUpdate = 0;
 
-        // Remove previous information when block is added
-        KineticTileEntity kte = (KineticTileEntity) tileEntity;
-        kte.warnOfMovement();
-        kte.clearKineticInformation();
-        kte.updateSpeed = true;
-    }
+//            if (oldState.getBlock() != state.getBlock())
+//                return;
+//            if (state.hasBlockEntity() != oldState.hasBlockEntity())
+//                return;
+//            if (!areStatesKineticallyEquivalent(oldState, state))
+//                return;
 
-    @Override
-    public boolean hasIntegratedCogwheel(IBlockAccess world, BlockPos pos, IBlockState state) {
-        return false;
+            kineticBlockEntity.preventSpeedUpdate = 2;
+        }
     }
 
     @Override
@@ -47,10 +46,12 @@ public abstract class KineticBlock extends BlockWithTE implements IRotate {
         return false;
     }
 
-    @Override
-    public EnumFacing.Axis getRotationAxis(IBlockState state) {
-        return null;
+    protected boolean areStatesKineticallyEquivalent(IBlockState oldState, IBlockState newState) {
+        if (oldState.getBlock() != newState.getBlock())
+            return false;
+        return getRotationAxis(newState) == getRotationAxis(oldState);
     }
+
 
     @Override
     public boolean isOpaqueCube(IBlockState state) {

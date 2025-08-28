@@ -34,4 +34,9 @@ public class CreativeGearBoxBlock extends KineticBlock {
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
+
+    @Override
+    public EnumFacing.Axis getRotationAxis(IBlockState state) {
+        return null;
+    }
 }

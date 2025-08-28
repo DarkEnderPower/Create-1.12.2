@@ -19,6 +19,15 @@ public abstract class AbstractShaftBlock extends RotatedPillarKineticBlock imple
         super(properties);
     }
 
+    @Override
+    public boolean hasShaftTowards(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing face) {
+        return face.getAxis() == state.getValue(AXIS);
+    }
+
+    @Override
+    public EnumFacing.Axis getRotationAxis(IBlockState state) {
+        return state.getValue(AXIS);
+    }
 
     @SideOnly(Side.CLIENT)
     @Override
@@ -34,15 +43,5 @@ public abstract class AbstractShaftBlock extends RotatedPillarKineticBlock imple
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
-    }
-
-    @Override
-    public boolean hasShaftTowards(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing face) {
-        return face.getAxis() == state.getValue(AXIS);
-    }
-
-    @Override
-    public EnumFacing.Axis getRotationAxis(IBlockState state) {
-        return state.getValue(AXIS);
     }
 }

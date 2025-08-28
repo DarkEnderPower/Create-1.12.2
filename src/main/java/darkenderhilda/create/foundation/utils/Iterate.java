@@ -4,5 +4,5 @@ import net.minecraft.util.EnumFacing;
 
 public class Iterate {
 
-    public static final EnumFacing[] facing = EnumFacing.values();
+    public static final EnumFacing[] direction = EnumFacing.values();
 }
