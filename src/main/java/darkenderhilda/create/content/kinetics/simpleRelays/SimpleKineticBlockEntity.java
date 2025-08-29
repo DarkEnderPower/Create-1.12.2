@@ -10,7 +10,6 @@ import java.util.List;
 
 public class SimpleKineticBlockEntity extends KineticTileEntity {
 
-
     @Override
     public List<BlockPos> addPropagationLocations(IRotate block, IBlockState state, List<BlockPos> neighbours) {
         if (!ICogWheel.isLargeCog(state))

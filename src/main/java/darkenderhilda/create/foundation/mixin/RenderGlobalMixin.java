@@ -42,7 +42,7 @@ public class RenderGlobalMixin {
                     double d5 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double)partialTicks;
 
                     GlStateManager.translate(blockpos.getX(), blockpos. getY(), blockpos.getZ());
-                    for(AxisAlignedBB aabb : ((IHasExtendedShape) block).getShape(state).getShapes()) {
+                    for(AxisAlignedBB aabb : ((IHasExtendedShape) block).getShape(state)) {
                         drawSelectionBoundingBox(aabb.grow(0.0020000000949949026D).offset(-d3, -d4, -d5), 0.0F, 0.0F, 0.0F, 0.4F);
                     }
                 }

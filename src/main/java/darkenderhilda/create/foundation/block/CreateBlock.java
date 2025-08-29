@@ -3,8 +3,7 @@ package darkenderhilda.create.foundation.block;
 import com.mojang.realmsclient.util.Pair;
 import darkenderhilda.create.AllShapes;
 import darkenderhilda.create.Create;
-import darkenderhilda.create.foundation.utils.WorldUtils;
-import darkenderhilda.create.foundation.shapes.ExtendedShape;
+import darkenderhilda.create.foundation.shapes.ShapeUtils;
 import darkenderhilda.create.foundation.shapes.IHasExtendedShape;
 import darkenderhilda.create.foundation.register.IHasModel;
 import net.minecraft.block.Block;
@@ -19,7 +18,6 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.List;
-
 
 public class CreateBlock extends Block implements IHasModel, IHasExtendedShape {
 
@@ -39,23 +37,21 @@ public class CreateBlock extends Block implements IHasModel, IHasExtendedShape {
         setLightLevel(properties.getLightLevel());
     }
 
-
-
     @Override
-    public ExtendedShape getShape(IBlockState state) {
-        return AllShapes.FULL_BLOCK;
+    public List<AxisAlignedBB> getShape(IBlockState state) {
+        return AllShapes.FULL_BLOCK.get();
     }
 
     @Override
     public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
-        getShape(state).getShapes()
+        getShape(state)
                 .forEach(s -> addCollisionBoxToList(pos, entityBox, collidingBoxes, s));
     }
 
     @Nullable
     @Override
     public RayTraceResult collisionRayTrace(IBlockState state, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
-        return WorldUtils.raytraceMultiAABB(getShape(state).getShapes(), pos, start, end);
+        return ShapeUtils.raytraceMultiAABB(getShape(state), pos, start, end);
     }
 
     @Override

@@ -1,11 +1,18 @@
 {
   "variants":
   {
-    "type=shaft_half_u": { "model": "create:shaft_half" },
-    "type=shaft_half_d": { "model": "create:shaft_half", "x": 180 },
-    "type=shaft_half_e": { "model": "create:shaft_half", "y": 90, "x": 90 },
+    "type=shaft_half_u": { "model": "create:shaft_half"                    },
+    "type=shaft_half_d": { "model": "create:shaft_half", "x": 180          },
+    "type=shaft_half_e": { "model": "create:shaft_half", "y": 90,  "x": 90 },
     "type=shaft_half_s": { "model": "create:shaft_half", "y": 180, "x": 90 },
     "type=shaft_half_w": { "model": "create:shaft_half", "y": 270, "x": 90 },
-    "type=shaft_half_n": { "model": "create:shaft_half", "y": 0, "x": 90 }
+    "type=shaft_half_n": { "model": "create:shaft_half", "y": 0,   "x": 90 },
+
+    "type=drill_head_u" : { "model": "create:mechanical_drill/head"                    },
+    "type=drill_head_d" : { "model": "create:mechanical_drill/head", "x": 180          },
+    "type=drill_head_e" : { "model": "create:mechanical_drill/head", "y": 90,  "x": 90 },
+    "type=drill_head_s" : { "model": "create:mechanical_drill/head", "y": 180, "x": 90 },
+    "type=drill_head_w" : { "model": "create:mechanical_drill/head", "y": 270, "x": 90 },
+    "type=drill_head_n" : { "model": "create:mechanical_drill/head", "y": 0,   "x": 90 }
   }
 }

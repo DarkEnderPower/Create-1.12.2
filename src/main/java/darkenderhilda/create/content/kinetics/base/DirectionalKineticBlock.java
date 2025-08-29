@@ -1,6 +1,7 @@
 package darkenderhilda.create.content.kinetics.base;
 
 import darkenderhilda.create.foundation.block.BlockProperties;
+import darkenderhilda.create.foundation.utils.Iterate;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
@@ -16,6 +17,12 @@ public abstract class DirectionalKineticBlock extends KineticBlock {
 
     public DirectionalKineticBlock(BlockProperties properties) {
         super(properties);
+    }
+
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        EnumFacing facingToPlace = EnumFacing.getDirectionFromEntityLiving(pos, placer);
+        return getDefaultState().withProperty(FACING, placer.isSneaking() ? facingToPlace : facingToPlace.getOpposite());
     }
 
     protected BlockStateContainer createBlockState() {

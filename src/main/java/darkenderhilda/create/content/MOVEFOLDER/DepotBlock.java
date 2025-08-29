@@ -3,16 +3,18 @@ package darkenderhilda.create.content.MOVEFOLDER;
 import darkenderhilda.create.foundation.block.BlockProperties;
 import darkenderhilda.create.foundation.block.CreateBlock;
 import darkenderhilda.create.AllShapes;
-import darkenderhilda.create.foundation.shapes.ExtendedShape;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class DepotBlock extends CreateBlock {
 
@@ -21,7 +23,7 @@ public class DepotBlock extends CreateBlock {
     }
 
     @Override
-    public ExtendedShape getShape(IBlockState state) {
+    public List<AxisAlignedBB> getShape(IBlockState state) {
         return AllShapes.CASING_13PX;
     }
 

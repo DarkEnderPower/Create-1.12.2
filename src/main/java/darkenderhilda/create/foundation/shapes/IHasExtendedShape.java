@@ -1,9 +1,12 @@
 package darkenderhilda.create.foundation.shapes;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.math.AxisAlignedBB;
+
+import java.util.List;
 
 public interface IHasExtendedShape {
 
-    ExtendedShape getShape(IBlockState state);
+    List<AxisAlignedBB> getShape(IBlockState state);
 
 }

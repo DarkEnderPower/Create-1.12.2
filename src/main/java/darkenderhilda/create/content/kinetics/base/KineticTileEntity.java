@@ -129,6 +129,7 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
         boolean overStressed = maxStress < currentStress && true;//StressImpact.isEnabled();
         //TODO
         //setChanged();
+        sendData();
 
         if (overStressed != this.overStressed) {
             float prevSpeed = getSpeed();
@@ -163,6 +164,7 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
             flickerTally = getFlickerScore() + 5;
         //TODO
         //setChanged();
+        sendData();
     }
 
     @Override
@@ -315,6 +317,7 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
         network = networkIn;
         //TODO
         //setChanged();
+        sendData();
 
         if (networkIn == null)
             return;
@@ -385,12 +388,16 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
 
     @Override
     public boolean addToTooltip(List<String> tooltip, boolean isPlayerSneaking) {
-        return IHaveHoveringInformation.super.addToTooltip(tooltip, isPlayerSneaking);
+        tooltip.add("Speed = " + getSpeed());
+        tooltip.add("Net = " + network);
+        return true;
     }
 
     @Override
     public boolean addToGoggleTooltip(List<String> tooltip, boolean isPlayerSneaking) {
-        return IHaveGoggleInformation.super.addToGoggleTooltip(tooltip, isPlayerSneaking);
+        tooltip.add("Speed = " + getSpeed());
+        tooltip.add("Net = " + network);
+        return true;
     }
 
     public void clearKineticInformation() {

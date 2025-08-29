@@ -27,6 +27,10 @@ public abstract class SmartTileEntity extends SyncedTileEntity implements ITicka
         }
     }
 
+    public void destroy() {
+        //forEachBehaviour(BlockEntityBehaviour::destroy);
+    }
+
 
     public void initialize() {
         lazyTick();

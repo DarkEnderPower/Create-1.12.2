@@ -4,8 +4,10 @@ import darkenderhilda.create.api.kinetics.PlacementHelper;
 import darkenderhilda.create.foundation.block.BlockProperties;
 import darkenderhilda.create.foundation.block.BlockWithTE;
 import darkenderhilda.create.foundation.block.CreateBlock;
+import darkenderhilda.create.foundation.block.IBE;
 import darkenderhilda.create.foundation.utils.SideUtils;
 import darkenderhilda.create.foundation.utils.WorldUtils;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -41,6 +43,11 @@ public abstract class KineticBlock extends BlockWithTE implements IRotate {
         }
     }
 
+//    @Override
+//    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+//        IBE.onRemove();
+//    }
+
     @Override
     public boolean hasShaftTowards(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing face) {
         return false;
@@ -71,5 +78,10 @@ public abstract class KineticBlock extends BlockWithTE implements IRotate {
     @Override
     public boolean isNormalCube(IBlockState state) {
         return false;
+    }
+
+    @Override
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+        return BlockFaceShape.UNDEFINED;
     }
 }

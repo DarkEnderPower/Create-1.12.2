@@ -2,8 +2,10 @@ package darkenderhilda.create.content.kinetics.simpleRelays;
 
 import darkenderhilda.create.AllShapes;
 import darkenderhilda.create.foundation.block.BlockProperties;
-import darkenderhilda.create.foundation.shapes.ExtendedShape;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.math.AxisAlignedBB;
+
+import java.util.List;
 
 public class CogWheelBlock extends AbstractSimpleShaftBlock implements ICogWheel {
 
@@ -33,8 +35,8 @@ public class CogWheelBlock extends AbstractSimpleShaftBlock implements ICogWheel
     }
 
     @Override
-    public ExtendedShape getShape(IBlockState state) {
-        return ExtendedShape.rotate((isLarge) ? AllShapes.LARGE_GEAR : AllShapes.SMALL_GEAR, state.getValue(AXIS));
+    public List<AxisAlignedBB> getShape(IBlockState state) {
+        return (isLarge ? AllShapes.LARGE_GEAR : AllShapes.SMALL_GEAR).get(state.getValue(AXIS));
     }
 
     @Override

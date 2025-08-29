@@ -21,8 +21,6 @@ import java.util.List;
 
 import static darkenderhilda.create.content.kinetics.base.RotatedPillarKineticBlock.AXIS;
 import static darkenderhilda.create.foundation.utils.WorldUtils.choose;
-import static net.minecraft.util.EnumFacing.NORTH;
-import static net.minecraft.util.EnumFacing.VALUES;
 
 public class RotationPropagator {
 
@@ -69,8 +67,7 @@ public class RotationPropagator {
                 alignedAxes && definitionFrom.hasShaftTowards(world, from.getPos(), stateFrom, direction)
                         && definitionTo.hasShaftTowards(world, to.getPos(), stateTo, direction.getOpposite());
 
-        boolean connectedByGears = ICogWheel.isSmallCog(stateFrom)
-                && ICogWheel.isSmallCog(stateTo);
+        boolean connectedByGears = ICogWheel.isSmallCog(stateFrom) && ICogWheel.isSmallCog(stateTo);
 
         float custom = from.propagateRotationTo(to, stateFrom, stateTo, diff, connectedByAxis, connectedByGears);
         if (custom != 0)
@@ -92,6 +89,7 @@ public class RotationPropagator {
 
         // Large Gear <-> Large Gear
         if (isLargeToLargeGear(stateFrom, stateTo, diff)) {
+            //System.out.println("me");
             EnumFacing.Axis sourceAxis = stateFrom.getValue(AXIS);
             EnumFacing.Axis targetAxis = stateTo.getValue(AXIS);
             int sourceAxisDiff = choose(sourceAxis, diff.getX(), diff.getY(), diff.getZ());
@@ -416,8 +414,8 @@ public class RotationPropagator {
     public static boolean isConnected(KineticTileEntity from, KineticTileEntity to) {
         final IBlockState stateFrom = WorldUtils.stateFormTE(from);
         final IBlockState stateTo = WorldUtils.stateFormTE(to);
-        return isLargeCogToSpeedController(stateFrom, stateTo, to.getPos()
-                .subtract(from.getPos())) || getRotationSpeedModifier(from, to) != 0
+        return isLargeCogToSpeedController(stateFrom, stateTo, to.getPos().subtract(from.getPos()))
+                || getRotationSpeedModifier(from, to) != 0
                 || from.isCustomConnection(to, stateFrom, stateTo);
     }
 

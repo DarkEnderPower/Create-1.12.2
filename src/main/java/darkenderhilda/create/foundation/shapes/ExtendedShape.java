@@ -1,5 +1,6 @@
 package darkenderhilda.create.foundation.shapes;
 
+import darkenderhilda.create.Create;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 
@@ -11,8 +12,6 @@ import static darkenderhilda.create.foundation.shapes.ShapeUtils.createAABB;
 public class ExtendedShape {
 
     private final List<AxisAlignedBB> shapes = new ArrayList<>();
-
-    private Type type = Type.STATIC;
 
     private ExtendedShape() {
     }
@@ -44,7 +43,7 @@ public class ExtendedShape {
     }
 
     public ExtendedShape and(ExtendedShape shape) {
-        shapes.addAll(shape.getShapes());
+        shapes.addAll(shape.get());
         return this;
     }
 
@@ -53,83 +52,126 @@ public class ExtendedShape {
         return this;
     }
 
-    /**
-     * Allows rotating shape for axes : X, Y, Z
-     */
-    public ExtendedShape forAxis() {
-        type = Type.AXIS;
-        return this;
-    }
-
-    /**
-     * Allows rotating shape for sides : WEST, EAST, NORTH, SOUTH
-     */
-    public ExtendedShape forSide() {
-        type = Type.SIDE;
-        return this;
-    }
-
-    /**
-     * Allows rotating shape for directions : UP, DOWN, WEST, EAST, NORTH, SOUTH
-     */
-    public ExtendedShape forDirection() {
-        type = Type.DIRECTIONAL;
-        return this;
-    }
-
-    public List<AxisAlignedBB> get(EnumFacing.Axis axis) {
-        return rotate(this, axis).shapes;
-    }
-
-    public List<AxisAlignedBB> getShapes() {
+    public List<AxisAlignedBB> get() {
         return shapes;
     }
 
-    public static ExtendedShape rotate(ExtendedShape shape, EnumFacing.Axis axis) {
+    public List<AxisAlignedBB> get(EnumFacing.Axis axis) {
+        return rotateAxis(this, axis).shapes;
+    }
+
+    public List<AxisAlignedBB> get(EnumFacing facing) {
+        return null;
+    }
+
+    public static ExtendedShape UpToNorth(ExtendedShape shape) {
+
+
+        return null;
+    }
+
+    /**
+     * Initial rotation should be north
+     */
+    public static ExtendedShape rotateHorizontal(ExtendedShape shape, EnumFacing facing) {
+        switch (facing) {
+            case NORTH: return shape;
+            case EAST:  return rotate90(shape);
+            case WEST:  return rotate180(shape);
+            case SOUTH: return rotate270(shape);
+            default: {
+                Create.logger.debug("Can't rotate horizontal shape to " + facing.getName());
+                return shape;
+            }
+        }
+
+    }
+
+    private static ExtendedShape rotate90(ExtendedShape shape) {
         ExtendedShape extendedShape = new ExtendedShape();
-        for(AxisAlignedBB aabb : shape.getShapes()) {
-            extendedShape.and(ShapeUtils.rotateToAxis(aabb, axis));
+        for(AxisAlignedBB aabb : shape.get()) {
+            double newMinX = 0.5 + (aabb.minZ - 0.5);
+            double newMaxX = 0.5 + (aabb.maxZ - 0.5);
+            double newMinZ = 0.5 - (aabb.maxX - 0.5);
+            double newMaxZ = 0.5 - (aabb.minX - 0.5);
+
+            double minX = Math.min(newMinX, newMaxX);
+            double maxX = Math.max(newMinX, newMaxX);
+            double minZ = Math.min(newMinZ, newMaxZ);
+            double maxZ = Math.max(newMinZ, newMaxZ);
+
+            extendedShape.and(createAABB(minX, aabb.minY, minZ, maxX, aabb.maxY, maxZ));
         }
 
         return extendedShape;
     }
 
-    public static ExtendedShape rotate(ExtendedShape shape, EnumFacing facing) {
+    private static ExtendedShape rotate180(ExtendedShape shape) {
         ExtendedShape extendedShape = new ExtendedShape();
+        for(AxisAlignedBB aabb : shape.get()) {
+            double newMinX = 1.0 - aabb.maxX;
+            double newMaxX = 1.0 - aabb.minX;
+            double newMinZ = 1.0 - aabb.maxZ;
+            double newMaxZ = 1.0 - aabb.minZ;
 
+            double minX = Math.min(newMinX, newMaxX);
+            double maxX = Math.max(newMinX, newMaxX);
+            double minZ = Math.min(newMinZ, newMaxZ);
+            double maxZ = Math.max(newMinZ, newMaxZ);
+
+            extendedShape.and(createAABB(minX, aabb.minY, minZ, maxX, aabb.maxY, maxZ));
+        }
 
         return extendedShape;
     }
+
+    private static ExtendedShape rotate270(ExtendedShape shape) {
+        ExtendedShape extendedShape = new ExtendedShape();
+        for(AxisAlignedBB aabb : shape.get()) {
+            double newMinX = 0.5 - (aabb.maxZ - 0.5);
+            double newMaxX = 0.5 - (aabb.minZ - 0.5);
+            double newMinZ = 0.5 + (aabb.minX - 0.5);
+            double newMaxZ = 0.5 + (aabb.maxX - 0.5);
+
+            double minX = Math.min(newMinX, newMaxX);
+            double maxX = Math.max(newMinX, newMaxX);
+            double minZ = Math.min(newMinZ, newMaxZ);
+            double maxZ = Math.max(newMinZ, newMaxZ);
+
+            extendedShape.and(createAABB(minX, aabb.minY, minZ, maxX, aabb.maxY, maxZ));
+        }
+
+        return extendedShape;
+    }
+
 
     /**
-     * Works only for Directional and Side types
+     * Initial axis should be Y
      */
-    public static ExtendedShape mirror(ExtendedShape shape, EnumFacing initialFacing) {
+    public static ExtendedShape rotateAxis(ExtendedShape shape, EnumFacing.Axis axis) {
         ExtendedShape extendedShape = new ExtendedShape();
-
+        for(AxisAlignedBB aabb : shape.get()) {
+            extendedShape.and(rotateToAxis(aabb, axis));
+        }
 
         return extendedShape;
     }
 
-    private enum Type {
-        /**
-         * Cannot be rotated
-         */
-        STATIC,
-        /**
-         * X, Y, Z </br>
-         * Initial axis Y
-         */
-        AXIS,
-        /**
-         * WEST, EAST, NORTH, SOUTH </br>
-         * Initial side NORTH
-         */
-        SIDE,
-        /**
-         * UP, DOWN, WEST, EAST, NORTH, SOUTH </br>
-         * Initial direction UP
-         */
-        DIRECTIONAL
+    public static AxisAlignedBB rotateYtoX(AxisAlignedBB aabb) {
+        return new AxisAlignedBB(aabb.minY, aabb.minX, aabb.minZ, aabb.maxY, aabb.maxX, aabb.maxZ);
+    }
+
+    public static AxisAlignedBB rotateYtoZ(AxisAlignedBB aabb) {
+        return new AxisAlignedBB(aabb.minX, aabb.minZ, aabb.minY, aabb.maxX, aabb.maxZ, aabb.maxY);
+    }
+
+    public static AxisAlignedBB rotateToAxis(AxisAlignedBB aabb, EnumFacing.Axis axis) {
+        if(axis == EnumFacing.Axis.X) {
+            return rotateYtoX(aabb);
+        } else if(axis == EnumFacing.Axis.Z){
+            return rotateYtoZ(aabb);
+        } else {
+            return aabb;
+        }
     }
 }

@@ -20,7 +20,14 @@ public class AllPartialModels extends CreateBlock {
         SHAFT_HALF_N("shaft_half_n"),
         SHAFT_HALF_E("shaft_half_e"),
         SHAFT_HALF_S("shaft_half_s"),
-        SHAFT_HALF_W("shaft_half_w");
+        SHAFT_HALF_W("shaft_half_w"),
+
+        DRILL_HEAD_U("drill_head_u"),
+        DRILL_HEAD_D("drill_head_d"),
+        DRILL_HEAD_N("drill_head_n"),
+        DRILL_HEAD_E("drill_head_e"),
+        DRILL_HEAD_S("drill_head_s"),
+        DRILL_HEAD_W("drill_head_w");
 
 
         private final String name;

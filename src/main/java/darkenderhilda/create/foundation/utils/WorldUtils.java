@@ -9,6 +9,8 @@ import net.minecraft.util.math.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static darkenderhilda.create.content.kinetics.base.DirectionalKineticBlock.FACING;
+import static darkenderhilda.create.content.kinetics.base.RotatedPillarKineticBlock.AXIS;
 import static net.minecraft.util.EnumFacing.NORTH;
 import static net.minecraft.util.EnumFacing.VALUES;
 
@@ -16,6 +18,14 @@ public class WorldUtils {
 
     public static IBlockState stateFormTE(TileEntity te) {
         return te.getWorld().getBlockState(te.getPos());
+    }
+
+    public static EnumFacing getTEFacing(TileEntity te) {
+        return stateFormTE(te).getValue(FACING);
+    }
+
+    public static EnumFacing.Axis getTEAxis(TileEntity te) {
+        return stateFormTE(te).getValue(AXIS);
     }
 
     public static boolean typeOf(Block block, IBlockState state) {
@@ -60,36 +70,5 @@ public class WorldUtils {
         } else {
             return z;
         }
-    }
-
-    public static RayTraceResult raytraceMultiAABB(List<AxisAlignedBB> aabbs, BlockPos pos, Vec3d start, Vec3d end) {
-        List<RayTraceResult> list = new ArrayList<>();
-
-        for(AxisAlignedBB axisalignedbb : aabbs) {
-            list.add(rayTrace2(pos, start, end, axisalignedbb));
-        }
-
-        RayTraceResult raytraceresult1 = null;
-        double d1 = 0.0D;
-
-        for(RayTraceResult raytraceresult : list) {
-            if(raytraceresult != null) {
-                double d0 = raytraceresult.hitVec.squareDistanceTo(end);
-
-                if(d0 > d1) {
-                    raytraceresult1 = raytraceresult;
-                    d1 = d0;
-                }
-            }
-        }
-
-        return raytraceresult1;
-    }
-
-    private static RayTraceResult rayTrace2(BlockPos pos, Vec3d start, Vec3d end, AxisAlignedBB boundingBox) {
-        Vec3d vec3d = start.subtract(pos.getX(), pos.getY(), pos.getZ());
-        Vec3d vec3d1 = end.subtract(pos.getX(), pos.getY(), pos.getZ());
-        RayTraceResult raytraceresult = boundingBox.calculateIntercept(vec3d, vec3d1);
-        return raytraceresult == null ? null : new RayTraceResult(raytraceresult.hitVec.add(pos.getX(), pos.getY(), pos.getZ()), raytraceresult.sideHit, pos);
     }
 }

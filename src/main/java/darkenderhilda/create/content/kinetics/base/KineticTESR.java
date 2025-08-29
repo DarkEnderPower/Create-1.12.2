@@ -37,18 +37,21 @@ public abstract class KineticTESR<T extends KineticTileEntity> extends TileEntit
     }
 
     protected void renderShaftHalf(KineticTileEntity te, double x, double y, double z, float partialTicks, EnumFacing facing, boolean reverseSpeed) {
+        spinModel(te, x, y, z, partialTicks, facing.getAxis(), halfShaftState(facing), reverseSpeed);
+    }
+
+    protected IBlockState halfShaftState(EnumFacing facing) {
         final IBlockState render = AllBlocks.RENDER.getDefaultState();
-        IBlockState shaftHalf = null;
         switch (facing) {
-            case UP: shaftHalf = render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_U); break;
-            case DOWN: shaftHalf = render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_D); break;
-            case NORTH: shaftHalf = render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_N); break;
-            case EAST: shaftHalf = render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_E); break;
-            case SOUTH: shaftHalf = render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_S); break;
-            case WEST: shaftHalf = render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_W);
+            case UP:    return render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_U);
+            case DOWN:  return render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_D);
+            case NORTH: return render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_N);
+            case EAST:  return render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_E);
+            case SOUTH: return render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_S);
+            case WEST:  return render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_W);
         }
 
-        spinModel(te, x, y, z, partialTicks, facing.getAxis(), shaftHalf, reverseSpeed);
+        return null;
     }
 
     protected void renderBiDirectionalShaftHalf(KineticTileEntity te, double x, double y, double z, float partialTicks, EnumFacing.Axis axis) {

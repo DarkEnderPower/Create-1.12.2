@@ -4,9 +4,10 @@ import darkenderhilda.create.content.kinetics.creative_gearbox.CreativeGearBoxTE
 import darkenderhilda.create.content.kinetics.creative_gearbox.CreativeGearBoxTileEntity;
 import darkenderhilda.create.content.kinetics.creative_motor.CreativeMotorTESR;
 import darkenderhilda.create.content.kinetics.creative_motor.CreativeMotorTileEntity;
+import darkenderhilda.create.content.kinetics.drill.DrillTESR;
+import darkenderhilda.create.content.kinetics.drill.DrillTileEntity;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTESR;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTileEntity;
-import darkenderhilda.create.foundation.tileEntity.TileEntityRegister;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 
@@ -35,6 +36,10 @@ public class AllTileEntity {
                 .visual(new CreativeMotorTESR())
                 .register();
 
+        REGISTER.tileEntity(DrillTileEntity.class, "drillTileEntity")
+                .validBlocks(AllBlocks.MECHANICAL_DRILL)
+                .visual(new DrillTESR())
+                .register();
     }
 
     public static TileEntity getTEForBlock(Block block) throws InstantiationException, IllegalAccessException {

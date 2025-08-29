@@ -3,7 +3,6 @@ package darkenderhilda.create.content.kinetics.creative_motor;
 import darkenderhilda.create.content.kinetics.base.DirectionalKineticBlock;
 import darkenderhilda.create.foundation.block.BlockProperties;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.BlockRenderLayer;
@@ -22,12 +21,6 @@ public class CreativeMotorBlock extends DirectionalKineticBlock implements ITile
     }
 
     @Override
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        EnumFacing facingToPlace = EnumFacing.getDirectionFromEntityLiving(pos, placer);
-        return getDefaultState().withProperty(FACING, placer.isSneaking() ? facingToPlace : facingToPlace.getOpposite());
-    }
-
-    @Override
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.MODEL;
     }
@@ -38,10 +31,6 @@ public class CreativeMotorBlock extends DirectionalKineticBlock implements ITile
         return BlockRenderLayer.CUTOUT;
     }
 
-    @Override
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-        return BlockFaceShape.UNDEFINED;
-    }
 
     @Override
     public boolean hasShaftTowards(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing face) {

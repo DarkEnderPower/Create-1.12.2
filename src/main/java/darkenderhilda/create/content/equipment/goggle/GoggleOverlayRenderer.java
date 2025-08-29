@@ -20,8 +20,6 @@ public class GoggleOverlayRenderer {
 
     @SubscribeEvent
     public static void lookingAtBlocksThroughGogglesShowsTooltip(RenderGameOverlayEvent.Post event) {
-        if(true) return;
-
         if (event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR) {
             return;
         }

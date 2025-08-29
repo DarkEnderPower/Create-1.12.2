@@ -10,6 +10,7 @@ tile.create:cogwheel.name=Cogwheel
 tile.create:large_cogwheel.name=Large Cogwheel
 tile.create:creative_motor.name=Creative Motor
 tile.create:creative_gearbox.name=Creative Gearbox
+tile.create:mechanical_drill.name=Mechanical Drill
 
 # Tile
 tile.create:depot.name=Depot
