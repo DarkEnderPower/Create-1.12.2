@@ -10,9 +10,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public abstract class RotatedPillarKineticBlock extends KineticBlock {
+import static darkenderhilda.create.foundation.block.BlockData.AXIS;
 
-    public static final PropertyEnum<EnumFacing.Axis> AXIS = BlockRotatedPillar.AXIS;
+public abstract class RotatedPillarKineticBlock extends KineticBlock {
 
     public RotatedPillarKineticBlock(BlockProperties properties) {
         super(properties);

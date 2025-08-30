@@ -6,6 +6,8 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -13,9 +15,6 @@ public class BlockRegister {
 
     private final Function<BlockProperties, Block> block;
     private final BlockProperties blockProperties;
-
-    private Consumer<BlockProperties> properties;
-
     private boolean registerItem = false;
     private Function<Block, ItemBlock> itemBlock;
 
@@ -35,8 +34,8 @@ public class BlockRegister {
     }
 
     public BlockRegister item(Function<Block, ItemBlock> itemBlock) {
-        this.itemBlock = itemBlock;
         registerItem = true;
+        this.itemBlock = itemBlock;
         return this;
     }
 

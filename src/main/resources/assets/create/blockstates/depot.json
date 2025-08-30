@@ -1,6 +1,5 @@
 {
   "variants":
-  {
-    "normal": { "model": "create:depot" }
+  { "normal": { "model": "create:depot" }
   }
 }

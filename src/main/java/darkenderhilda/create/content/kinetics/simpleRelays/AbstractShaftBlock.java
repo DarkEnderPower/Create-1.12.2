@@ -13,6 +13,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import static darkenderhilda.create.foundation.block.BlockData.AXIS;
+
 public abstract class AbstractShaftBlock extends RotatedPillarKineticBlock implements ITileEntityProvider {
 
     public AbstractShaftBlock(BlockProperties properties) {

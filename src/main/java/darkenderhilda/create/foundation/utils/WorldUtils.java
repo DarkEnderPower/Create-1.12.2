@@ -6,11 +6,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static darkenderhilda.create.content.kinetics.base.DirectionalKineticBlock.FACING;
-import static darkenderhilda.create.content.kinetics.base.RotatedPillarKineticBlock.AXIS;
+import static darkenderhilda.create.foundation.block.BlockData.AXIS;
+import static darkenderhilda.create.foundation.block.BlockData.FACING;
 import static net.minecraft.util.EnumFacing.NORTH;
 import static net.minecraft.util.EnumFacing.VALUES;
 

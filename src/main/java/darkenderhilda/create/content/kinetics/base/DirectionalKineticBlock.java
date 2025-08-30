@@ -11,9 +11,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public abstract class DirectionalKineticBlock extends KineticBlock {
+import static darkenderhilda.create.foundation.block.BlockData.FACING;
 
-    public static final PropertyDirection FACING = BlockDirectional.FACING;
+public abstract class DirectionalKineticBlock extends KineticBlock {
 
     public DirectionalKineticBlock(BlockProperties properties) {
         super(properties);

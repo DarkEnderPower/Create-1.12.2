@@ -1,5 +1,6 @@
 package darkenderhilda.create.content.kinetics.drill;
 
+import darkenderhilda.create.AllShapes;
 import darkenderhilda.create.content.kinetics.base.DirectionalKineticBlock;
 import darkenderhilda.create.foundation.block.BlockProperties;
 import net.minecraft.block.material.Material;
@@ -19,6 +20,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.List;
+
+import static darkenderhilda.create.foundation.block.BlockData.FACING;
 
 public class DrillBlock extends DirectionalKineticBlock {
 
@@ -40,7 +43,7 @@ public class DrillBlock extends DirectionalKineticBlock {
 
     @Override
     public List<AxisAlignedBB> getShape(IBlockState state) {
-        return super.getShape(state);
+        return AllShapes.CASING_12PX.getShape(state.getValue(FACING));
     }
 
     @Override

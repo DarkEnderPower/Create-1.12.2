@@ -5,12 +5,20 @@ import darkenderhilda.create.foundation.shapes.ExtendedShape;
 public class AllShapes {
 
     public static final ExtendedShape
-            FULL_BLOCK = ExtendedShape.of(0, 0, 0, 16, 16, 16),
+    FULL_BLOCK = shape(0, 0, 0, 16, 16, 16),
 
-            CASING_13PX = ExtendedShape.of(0, 0, 0, 16, 13, 16),
-            SIX_VOXEL_POLE = ExtendedShape.of(5, 0, 5, 11, 16, 11),
-            SMALL_GEAR = ExtendedShape.of(2, 6, 2, 14, 10, 14).
-                    and(SIX_VOXEL_POLE),
-            LARGE_GEAR = ExtendedShape.of(0, 6, 0, 16, 10, 16)
-                    .and(SIX_VOXEL_POLE);
+    CASING_12PX = shape(0, 0, 0, 16, 12, 16),
+    CASING_13PX = shape(0, 0, 0, 16, 13, 16),
+    SIX_VOXEL_POLE = shape(5, 0, 5, 11, 16, 11),
+    SMALL_GEAR = shape(2, 6, 2, 14, 10, 14)
+                    .and(SIX_VOXEL_POLE),
+    LARGE_GEAR = shape(0, 6, 0, 16, 10, 16)
+                    .and(SIX_VOXEL_POLE),
+    MOTOR_BLOCK = shape(13, 14, 13, 3, 0, 3);
+
+
+
+    public static ExtendedShape shape(double x1, double y1, double z1, double x2, double y2, double z2) {
+        return ExtendedShape.of(x1, y1, z1, x2, y2, z2);
+    }
 }

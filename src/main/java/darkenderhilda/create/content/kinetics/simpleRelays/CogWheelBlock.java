@@ -7,9 +7,11 @@ import net.minecraft.util.math.AxisAlignedBB;
 
 import java.util.List;
 
+import static darkenderhilda.create.foundation.block.BlockData.AXIS;
+
 public class CogWheelBlock extends AbstractSimpleShaftBlock implements ICogWheel {
 
-    protected boolean isLarge;
+    protected final boolean isLarge;
 
     protected CogWheelBlock(boolean large, BlockProperties properties) {
         super(properties);
@@ -36,7 +38,7 @@ public class CogWheelBlock extends AbstractSimpleShaftBlock implements ICogWheel
 
     @Override
     public List<AxisAlignedBB> getShape(IBlockState state) {
-        return (isLarge ? AllShapes.LARGE_GEAR : AllShapes.SMALL_GEAR).get(state.getValue(AXIS));
+        return (isLarge ? AllShapes.LARGE_GEAR : AllShapes.SMALL_GEAR).getShape(state.getValue(AXIS));
     }
 
     @Override

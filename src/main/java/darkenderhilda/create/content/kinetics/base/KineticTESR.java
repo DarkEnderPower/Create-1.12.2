@@ -13,6 +13,8 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
+import static darkenderhilda.create.foundation.block.BlockData.AXIS;
+
 public abstract class KineticTESR<T extends KineticTileEntity> extends TileEntitySpecialRenderer<T> {
 
     public KineticTESR() {
@@ -29,7 +31,7 @@ public abstract class KineticTESR<T extends KineticTileEntity> extends TileEntit
     protected abstract void renderMe(T te, double x, double y, double z, float partialTicks, int destroyStage, float alpha);
 
     protected void renderShaft(KineticTileEntity te, double x, double y, double z, float partialTicks, EnumFacing.Axis axis) {
-        spinModel(te, x, y, z, partialTicks, axis, AllBlocks.SHAFT.getDefaultState().withProperty(AbstractShaftBlock.AXIS, axis));
+        spinModel(te, x, y, z, partialTicks, axis, AllBlocks.SHAFT.getDefaultState().withProperty(AXIS, axis));
     }
 
     protected void renderShaftHalf(KineticTileEntity te, double x, double y, double z, float partialTicks, EnumFacing facing) {
@@ -55,6 +57,10 @@ public abstract class KineticTESR<T extends KineticTileEntity> extends TileEntit
     }
 
     protected void renderBiDirectionalShaftHalf(KineticTileEntity te, double x, double y, double z, float partialTicks, EnumFacing.Axis axis) {
+        renderBiDirectionalShaftHalf(te, x, y, z, partialTicks, axis, false);
+    }
+
+    protected void renderBiDirectionalShaftHalf(KineticTileEntity te, double x, double y, double z, float partialTicks, EnumFacing.Axis axis, boolean reverseSpeed) {
         EnumFacing facing;
         if(axis == EnumFacing.Axis.X) {
             facing = EnumFacing.EAST;
@@ -63,8 +69,10 @@ public abstract class KineticTESR<T extends KineticTileEntity> extends TileEntit
         } else {
             facing = EnumFacing.NORTH;
         }
-        renderShaftHalf(te, x, y, z, partialTicks, facing, false);
-        renderShaftHalf(te, x, y, z, partialTicks, facing.getOpposite(), true);
+        renderShaftHalf(te, x, y, z, partialTicks, facing, reverseSpeed);
+        renderShaftHalf(te, x, y, z, partialTicks, facing.getOpposite(), !reverseSpeed);
+
+
     }
 
     protected void spinModel(KineticTileEntity te, double x, double y, double z, float partialTicks, EnumFacing.Axis axis, IBlockState state) {

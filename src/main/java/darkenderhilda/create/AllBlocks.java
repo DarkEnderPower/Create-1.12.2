@@ -3,7 +3,9 @@ package darkenderhilda.create;
 import darkenderhilda.create.content.kinetics.creative_gearbox.CreativeGearBoxBlock;
 import darkenderhilda.create.content.kinetics.creative_gearbox.CreativeGearBoxItemBlock;
 import darkenderhilda.create.content.kinetics.creative_motor.CreativeMotorBlock;
+import darkenderhilda.create.content.kinetics.creative_motor.CreativeMotorItemBlock;
 import darkenderhilda.create.content.kinetics.drill.DrillBlock;
+import darkenderhilda.create.content.kinetics.gearbox.GearboxBlock;
 import darkenderhilda.create.content.kinetics.simpleRelays.CogWheelBlock;
 import darkenderhilda.create.content.kinetics.simpleRelays.ShaftBlock;
 import darkenderhilda.create.content.MOVEFOLDER.DepotBlock;
@@ -44,7 +46,7 @@ public class AllBlocks {
                     .hardness(BlockData.STONE_HARDNESS)
                     .resistance(BlockData.STONE_RESISTANCE)
                     .soundType(SoundType.STONE)
-                    .mapColor(MapColor.GRAY))
+                    .mapColor(MapColor.WOOD))
             .item()
             .register();
 
@@ -57,7 +59,31 @@ public class AllBlocks {
                     .hardness(BlockData.STONE_HARDNESS)
                     .resistance(BlockData.STONE_RESISTANCE)
                     .soundType(SoundType.STONE)
-                    .mapColor(MapColor.GRAY))
+                    .mapColor(MapColor.WOOD))
+            .item()
+            .register();
+
+    public static final Block GEARBOX = REGISTER.block(GearboxBlock::gearbox)
+            .properties(p -> p
+                    .name("gearbox")
+                    .tool("pickaxe", 1)
+                    .material(Material.ROCK)
+                    .hardness(BlockData.STONE_HARDNESS)
+                    .resistance(BlockData.STONE_RESISTANCE)
+                    .soundType(SoundType.STONE)
+                    .mapColor(MapColor.OBSIDIAN))
+            .item()
+            .register();
+
+    public static final Block GEARBOX_VERTICAL = REGISTER.block(GearboxBlock::gearboxVertical)
+            .properties(p -> p
+                    .name("gearbox_vertical")
+                    .tool("pickaxe", 1)
+                    .material(Material.ROCK)
+                    .hardness(BlockData.STONE_HARDNESS)
+                    .resistance(BlockData.STONE_RESISTANCE)
+                    .soundType(SoundType.STONE)
+                    .mapColor(MapColor.OBSIDIAN))
             .item()
             .register();
 
@@ -82,7 +108,7 @@ public class AllBlocks {
                     .resistance(BlockData.STONE_RESISTANCE)
                     .soundType(SoundType.STONE)
                     .mapColor(MapColor.PURPLE))
-            .item(CreativeGearBoxItemBlock::new)
+            .item(CreativeMotorItemBlock::new)
             .register();
 
     public static final Block MECHANICAL_DRILL = REGISTER.block(DrillBlock::new)

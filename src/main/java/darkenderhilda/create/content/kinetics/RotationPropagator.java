@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 import java.util.LinkedList;
 import java.util.List;
 
-import static darkenderhilda.create.content.kinetics.base.RotatedPillarKineticBlock.AXIS;
+import static darkenderhilda.create.foundation.block.BlockData.AXIS;
 import static darkenderhilda.create.foundation.utils.WorldUtils.choose;
 
 public class RotationPropagator {

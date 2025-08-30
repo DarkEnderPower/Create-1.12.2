@@ -6,6 +6,8 @@ import darkenderhilda.create.content.kinetics.creative_motor.CreativeMotorTESR;
 import darkenderhilda.create.content.kinetics.creative_motor.CreativeMotorTileEntity;
 import darkenderhilda.create.content.kinetics.drill.DrillTESR;
 import darkenderhilda.create.content.kinetics.drill.DrillTileEntity;
+import darkenderhilda.create.content.kinetics.gearbox.GearboxTESR;
+import darkenderhilda.create.content.kinetics.gearbox.GearboxTileEntity;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTESR;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTileEntity;
 import net.minecraft.block.Block;
@@ -26,15 +28,21 @@ public class AllTileEntity {
                 .visual(new BracketedKineticTESR())
                 .register();
 
-        REGISTER.tileEntity(CreativeGearBoxTileEntity.class, "creativeGearBoxTileEntity")
-                .validBlocks(AllBlocks.CREATIVE_GEARBOX)
-                .visual(new CreativeGearBoxTESR())
+        REGISTER.tileEntity(GearboxTileEntity.class, "gearboxTileEntity")
+                .validBlocks(AllBlocks.GEARBOX, AllBlocks.GEARBOX_VERTICAL)
+                .visual(new GearboxTESR())
                 .register();
 
         REGISTER.tileEntity(CreativeMotorTileEntity.class, "creativeMotorTileEntity")
                 .validBlocks(AllBlocks.CREATIVE_MOTOR)
                 .visual(new CreativeMotorTESR())
                 .register();
+
+        REGISTER.tileEntity(CreativeGearBoxTileEntity.class, "creativeGearBoxTileEntity")
+                .validBlocks(AllBlocks.CREATIVE_GEARBOX)
+                .visual(new CreativeGearBoxTESR())
+                .register();
+
 
         REGISTER.tileEntity(DrillTileEntity.class, "drillTileEntity")
                 .validBlocks(AllBlocks.MECHANICAL_DRILL)

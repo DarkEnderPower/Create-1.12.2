@@ -7,7 +7,7 @@ import darkenderhilda.create.foundation.register.IHasModel;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
-public class CreateItem extends Item implements IHasModel {
+public abstract class CreateItem extends Item implements IHasModel {
 
     public CreateItem(String name) {
         super();
