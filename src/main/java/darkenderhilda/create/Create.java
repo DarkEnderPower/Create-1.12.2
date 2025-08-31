@@ -1,7 +1,7 @@
 package darkenderhilda.create;
 
 import darkenderhilda.create.content.kinetics.TorquePropagator;
-import darkenderhilda.create.foundation.register.CreateRegistrate;
+import darkenderhilda.create.foundation.register.CreateRegister;
 import darkenderhilda.create.foundation.utility.CreateMixinEarly;
 import darkenderhilda.create.foundation.proxy.CommonProxy;
 import net.minecraft.util.ResourceLocation;
@@ -24,7 +24,7 @@ public class Create {
     @Mod.Instance
     public static Create instance;
 
-    public static final CreateRegistrate REGISTER = new CreateRegistrate();
+    public static final CreateRegister REGISTER = new CreateRegister();
 
     public static final Logger logger = LogManager.getLogger();
 

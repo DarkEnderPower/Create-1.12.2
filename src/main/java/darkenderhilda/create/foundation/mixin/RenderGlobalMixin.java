@@ -25,6 +25,7 @@ public class RenderGlobalMixin {
 
     @Inject(method = "drawSelectionBox", at = @At("HEAD"), cancellable = true)
     private void drawSelectionBox(EntityPlayer player, RayTraceResult movingObjectPositionIn, int execute, float partialTicks, CallbackInfo ci) {
+        System.out.println("da");
         if (execute == 0 && movingObjectPositionIn.typeOfHit == RayTraceResult.Type.BLOCK) {
             BlockPos blockpos = movingObjectPositionIn.getBlockPos();
             IBlockState state = world.getBlockState(blockpos);

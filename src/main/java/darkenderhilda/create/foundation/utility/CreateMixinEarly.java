@@ -13,6 +13,16 @@ import java.util.Map;
 @IFMLLoadingPlugin.MCVersion(ForgeVersion.mcVersion)
 public class CreateMixinEarly implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
+    public CreateMixinEarly() {
+        System.out.println("Mixin init");
+        System.out.println("Mixin init");
+        System.out.println("Mixin init");
+        System.out.println("Mixin init");
+        System.out.println("Mixin init");
+        System.out.println("Mixin init");
+        System.out.println("Mixin init");
+    }
+
     @Override
     public String[] getASMTransformerClass() {
         return new String[0];
@@ -31,7 +41,6 @@ public class CreateMixinEarly implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
     @Override
     public void injectData(Map<String, Object> data) {
-
     }
 
     @Override

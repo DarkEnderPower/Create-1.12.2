@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import java.util.function.Function;
 
-public class CreateRegistrate {
+public class CreateRegister {
 
     public TileEntityRegister tileEntity(Class<? extends TileEntity> te, String registry) {
         return new TileEntityRegister(te, registry);
