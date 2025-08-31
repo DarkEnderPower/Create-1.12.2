@@ -1,9 +1,6 @@
 package darkenderhilda.create.content.kinetics.base;
 
 import darkenderhilda.create.foundation.block.BlockProperties;
-import darkenderhilda.create.foundation.utils.Iterate;
-import net.minecraft.block.BlockDirectional;
-import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;

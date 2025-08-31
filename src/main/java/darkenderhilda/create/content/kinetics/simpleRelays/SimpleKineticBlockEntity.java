@@ -2,7 +2,7 @@ package darkenderhilda.create.content.kinetics.simpleRelays;
 
 import darkenderhilda.create.content.kinetics.base.IRotate;
 import darkenderhilda.create.content.kinetics.base.KineticTileEntity;
-import darkenderhilda.create.foundation.utils.WorldUtils;
+import darkenderhilda.create.foundation.utility.WorldUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 

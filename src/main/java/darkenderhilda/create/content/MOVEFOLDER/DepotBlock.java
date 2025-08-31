@@ -24,7 +24,7 @@ public class DepotBlock extends CreateBlock {
 
     @Override
     public List<AxisAlignedBB> getShape(IBlockState state) {
-        return AllShapes.CASING_13PX.getShape();
+        return AllShapes.CASING_13PX.get();
     }
 
     @Override

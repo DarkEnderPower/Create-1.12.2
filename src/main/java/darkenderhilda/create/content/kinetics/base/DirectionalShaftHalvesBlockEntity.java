@@ -1,6 +1,6 @@
 package darkenderhilda.create.content.kinetics.base;
 
-import darkenderhilda.create.foundation.utils.WorldUtils;
+import darkenderhilda.create.foundation.utility.WorldUtils;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 

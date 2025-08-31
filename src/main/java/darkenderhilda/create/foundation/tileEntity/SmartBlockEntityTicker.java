@@ -1,7 +1,6 @@
 package darkenderhilda.create.foundation.tileEntity;
 
-import darkenderhilda.create.foundation.utils.SideUtils;
-import net.minecraft.util.ITickable;
+import darkenderhilda.create.foundation.utility.SideUtils;
 
 public class SmartBlockEntityTicker
         //implements ITickable

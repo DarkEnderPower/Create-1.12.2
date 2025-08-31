@@ -2,9 +2,8 @@ package darkenderhilda.create.content.kinetics.drill;
 
 import darkenderhilda.create.AllBlocks;
 import darkenderhilda.create.AllPartialModels;
-import darkenderhilda.create.content.kinetics.base.DirectionalKineticBlock;
 import darkenderhilda.create.content.kinetics.base.KineticTESR;
-import darkenderhilda.create.foundation.utils.WorldUtils;
+import darkenderhilda.create.foundation.utility.WorldUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 

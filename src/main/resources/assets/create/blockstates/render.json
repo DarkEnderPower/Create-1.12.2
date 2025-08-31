@@ -13,6 +13,8 @@
     "type=drill_head_e" : { "model": "create:mechanical_drill/head", "y": 90,  "x": 90 },
     "type=drill_head_s" : { "model": "create:mechanical_drill/head", "y": 180, "x": 90 },
     "type=drill_head_w" : { "model": "create:mechanical_drill/head", "y": 270, "x": 90 },
-    "type=drill_head_n" : { "model": "create:mechanical_drill/head", "y": 0,   "x": 90 }
+    "type=drill_head_n" : { "model": "create:mechanical_drill/head", "y": 0,   "x": 90 },
+
+    "type=millstone_cog" : { "model": "create:millstone/inner"}
   }
 }

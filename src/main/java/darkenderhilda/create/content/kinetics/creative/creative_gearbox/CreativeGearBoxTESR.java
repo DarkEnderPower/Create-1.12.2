@@ -1,4 +1,4 @@
-package darkenderhilda.create.content.kinetics.creative_gearbox;
+package darkenderhilda.create.content.kinetics.creative.creative_gearbox;
 
 import darkenderhilda.create.content.kinetics.base.KineticTESR;
 

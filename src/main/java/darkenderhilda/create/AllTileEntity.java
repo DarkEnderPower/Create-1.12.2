@@ -1,13 +1,15 @@
 package darkenderhilda.create;
 
-import darkenderhilda.create.content.kinetics.creative_gearbox.CreativeGearBoxTESR;
-import darkenderhilda.create.content.kinetics.creative_gearbox.CreativeGearBoxTileEntity;
-import darkenderhilda.create.content.kinetics.creative_motor.CreativeMotorTESR;
-import darkenderhilda.create.content.kinetics.creative_motor.CreativeMotorTileEntity;
+import darkenderhilda.create.content.kinetics.creative.creative_gearbox.CreativeGearBoxTESR;
+import darkenderhilda.create.content.kinetics.creative.creative_gearbox.CreativeGearBoxTileEntity;
+import darkenderhilda.create.content.kinetics.creative.creative_motor.CreativeMotorTESR;
+import darkenderhilda.create.content.kinetics.creative.creative_motor.CreativeMotorTileEntity;
 import darkenderhilda.create.content.kinetics.drill.DrillTESR;
 import darkenderhilda.create.content.kinetics.drill.DrillTileEntity;
 import darkenderhilda.create.content.kinetics.gearbox.GearboxTESR;
 import darkenderhilda.create.content.kinetics.gearbox.GearboxTileEntity;
+import darkenderhilda.create.content.kinetics.millstone.MillstoneTESR;
+import darkenderhilda.create.content.kinetics.millstone.MillstoneTileEntity;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTESR;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTileEntity;
 import net.minecraft.block.Block;
@@ -33,6 +35,16 @@ public class AllTileEntity {
                 .visual(new GearboxTESR())
                 .register();
 
+        REGISTER.tileEntity(MillstoneTileEntity.class, "millstoneTileEntity")
+                .validBlocks(AllBlocks.MILLSTONE)
+                .visual(new MillstoneTESR())
+                .register();
+
+        REGISTER.tileEntity(DrillTileEntity.class, "drillTileEntity")
+                .validBlocks(AllBlocks.MECHANICAL_DRILL)
+                .visual(new DrillTESR())
+                .register();
+
         REGISTER.tileEntity(CreativeMotorTileEntity.class, "creativeMotorTileEntity")
                 .validBlocks(AllBlocks.CREATIVE_MOTOR)
                 .visual(new CreativeMotorTESR())
@@ -44,10 +56,7 @@ public class AllTileEntity {
                 .register();
 
 
-        REGISTER.tileEntity(DrillTileEntity.class, "drillTileEntity")
-                .validBlocks(AllBlocks.MECHANICAL_DRILL)
-                .visual(new DrillTESR())
-                .register();
+
     }
 
     public static TileEntity getTEForBlock(Block block) throws InstantiationException, IllegalAccessException {

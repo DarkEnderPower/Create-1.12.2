@@ -3,11 +3,14 @@ package darkenderhilda.create.content.kinetics.drill;
 import darkenderhilda.create.AllShapes;
 import darkenderhilda.create.content.kinetics.base.DirectionalKineticBlock;
 import darkenderhilda.create.foundation.block.BlockProperties;
+import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -35,25 +38,22 @@ public class DrillBlock extends DirectionalKineticBlock {
         return getDefaultState().withProperty(FACING, placer.isSneaking() ? facingToPlace.getOpposite() : facingToPlace);
     }
 
-        @Nullable
+    @Nullable
     @Override
     public Boolean isEntityInsideMaterial(IBlockAccess world, BlockPos blockpos, IBlockState iblockstate, Entity entity, double yToTest, Material materialIn, boolean testingHead) {
+        if(!(entity instanceof EntityItem)) {
+            if(entity.getPosition().compareTo(blockpos) < 0) {
+                entity.attackEntityFrom(DamageSource.GENERIC, (float) getDamage(16));
+                return true;
+            }
+        }
+
         return super.isEntityInsideMaterial(world, blockpos, iblockstate, entity, yToTest, materialIn, testingHead);
     }
 
     @Override
     public List<AxisAlignedBB> getShape(IBlockState state) {
-        return AllShapes.CASING_12PX.getShape(state.getValue(FACING));
-    }
-
-    @Override
-    public EnumFacing.Axis getRotationAxis(IBlockState state) {
-        return state.getValue(FACING).getAxis();
-    }
-
-    @Override
-    public boolean hasShaftTowards(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing face) {
-        return face == state.getValue(FACING).getOpposite();
+        return AllShapes.CASING_12PX.get(state.getValue(FACING));
     }
 
     public static double getDamage(float speed) {
@@ -65,6 +65,16 @@ public class DrillBlock extends DirectionalKineticBlock {
     }
 
     @Override
+    public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
+        return super.isPassable(worldIn, pos);
+    }
+
+    @Override
+    public EnumPushReaction getPushReaction(IBlockState state) {
+        return EnumPushReaction.NORMAL;
+    }
+
+    @Override
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.MODEL;
     }
@@ -73,5 +83,15 @@ public class DrillBlock extends DirectionalKineticBlock {
     @Override
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
+    }
+
+    @Override
+    public EnumFacing.Axis getRotationAxis(IBlockState state) {
+        return state.getValue(FACING).getAxis();
+    }
+
+    @Override
+    public boolean hasShaftTowards(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing face) {
+        return face == state.getValue(FACING).getOpposite();
     }
 }

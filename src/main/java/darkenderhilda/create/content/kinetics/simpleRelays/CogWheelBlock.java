@@ -38,7 +38,7 @@ public class CogWheelBlock extends AbstractSimpleShaftBlock implements ICogWheel
 
     @Override
     public List<AxisAlignedBB> getShape(IBlockState state) {
-        return (isLarge ? AllShapes.LARGE_GEAR : AllShapes.SMALL_GEAR).getShape(state.getValue(AXIS));
+        return (isLarge ? AllShapes.LARGE_GEAR : AllShapes.SMALL_GEAR).get(state.getValue(AXIS));
     }
 
     @Override

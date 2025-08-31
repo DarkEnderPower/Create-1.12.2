@@ -6,8 +6,8 @@ import darkenderhilda.create.content.kinetics.base.KineticTileEntity;
 import darkenderhilda.create.content.kinetics.gearbox.GearboxTileEntity;
 import darkenderhilda.create.content.kinetics.simpleRelays.ICogWheel;
 import darkenderhilda.create.content.kinetics.transmission.SplitShaftTileEntity;
-import darkenderhilda.create.foundation.utils.Iterate;
-import darkenderhilda.create.foundation.utils.WorldUtils;
+import darkenderhilda.create.foundation.utility.Iterate;
+import darkenderhilda.create.foundation.utility.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
@@ -20,7 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static darkenderhilda.create.foundation.block.BlockData.AXIS;
-import static darkenderhilda.create.foundation.utils.WorldUtils.choose;
+import static darkenderhilda.create.foundation.utility.WorldUtils.choose;
 
 public class RotationPropagator {
 

@@ -7,7 +7,7 @@ import darkenderhilda.create.content.kinetics.KineticNetwork;
 import darkenderhilda.create.content.kinetics.RotationPropagator;
 import darkenderhilda.create.content.kinetics.simpleRelays.ICogWheel;
 import darkenderhilda.create.foundation.tileEntity.SmartTileEntity;
-import darkenderhilda.create.foundation.utils.WorldUtils;
+import darkenderhilda.create.foundation.utility.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 import static darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTESR.isAxisShifted;
-import static darkenderhilda.create.foundation.utils.WorldUtils.choose;
+import static darkenderhilda.create.foundation.utility.WorldUtils.choose;
 
 public abstract class KineticTileEntity extends SmartTileEntity implements IHaveGoggleInformation, IHaveHoveringInformation {
 

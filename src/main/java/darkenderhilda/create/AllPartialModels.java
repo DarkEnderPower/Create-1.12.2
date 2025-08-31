@@ -27,7 +27,9 @@ public class AllPartialModels extends CreateBlock {
         DRILL_HEAD_N("drill_head_n"),
         DRILL_HEAD_E("drill_head_e"),
         DRILL_HEAD_S("drill_head_s"),
-        DRILL_HEAD_W("drill_head_w");
+        DRILL_HEAD_W("drill_head_w"),
+
+        MILLSTONE_COG("millstone_cog");
 
 
         private final String name;

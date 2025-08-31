@@ -1,10 +1,11 @@
-package darkenderhilda.create.foundation.utils;
+package darkenderhilda.create.foundation.utility;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.*;
+import net.minecraft.world.World;
 
 import static darkenderhilda.create.foundation.block.BlockData.AXIS;
 import static darkenderhilda.create.foundation.block.BlockData.FACING;
@@ -67,5 +68,9 @@ public class WorldUtils {
         } else {
             return z;
         }
+    }
+
+    public static boolean isBlockUnbreakable(IBlockState state, World world, BlockPos pos) {
+        return state.getBlockHardness(world, pos) == -1;
     }
 }

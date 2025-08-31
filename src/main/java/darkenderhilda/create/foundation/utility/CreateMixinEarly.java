@@ -1,4 +1,4 @@
-package darkenderhilda.create.foundation.utils;
+package darkenderhilda.create.foundation.utility;
 
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;

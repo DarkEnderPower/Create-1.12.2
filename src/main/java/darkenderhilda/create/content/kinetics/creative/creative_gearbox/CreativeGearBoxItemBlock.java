@@ -1,4 +1,4 @@
-package darkenderhilda.create.content.kinetics.creative_gearbox;
+package darkenderhilda.create.content.kinetics.creative.creative_gearbox;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumRarity;

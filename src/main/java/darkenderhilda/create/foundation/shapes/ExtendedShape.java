@@ -17,38 +17,38 @@ public class ExtendedShape {
     }
 
     public static ExtendedShape of(double x1, double y1, double z1, double x2, double y2, double z2) {
-        return new ExtendedShape().and(x1, y1, z1, x2, y2, z2);
+        return new ExtendedShape().add(x1, y1, z1, x2, y2, z2);
     }
 
-    public ExtendedShape and(AxisAlignedBB aabb) {
+    public ExtendedShape add(AxisAlignedBB aabb) {
         shapes.add(aabb);
         return this;
     }
 
-    public ExtendedShape and(double x1, double y1, double z1, double x2, double y2, double z2) {
+    public ExtendedShape add(double x1, double y1, double z1, double x2, double y2, double z2) {
         shapes.add(createAABB(x1, y1, z1, x2, y2, z2));
         return this;
     }
 
-    public ExtendedShape and(ExtendedShape shape) {
-        shapes.addAll(shape.getShape());
+    public ExtendedShape add(ExtendedShape shape) {
+        shapes.addAll(shape.get());
         return this;
     }
 
-    public ExtendedShape and(List<AxisAlignedBB> aabbs) {
+    public ExtendedShape add(List<AxisAlignedBB> aabbs) {
         shapes.addAll(aabbs);
         return this;
     }
 
-    public List<AxisAlignedBB> getShape() {
+    public List<AxisAlignedBB> get() {
         return shapes;
     }
 
-    public List<AxisAlignedBB> getShape(EnumFacing.Axis axis) {
+    public List<AxisAlignedBB> get(EnumFacing.Axis axis) {
         return rotateForAxis(this, axis).shapes;
     }
 
-    public List<AxisAlignedBB> getShape(EnumFacing facing) {
+    public List<AxisAlignedBB> get(EnumFacing facing) {
         switch (facing) {
             case DOWN: return mirror(this, EnumFacing.Axis.Y).shapes;
             case NORTH: return mirror(UpToSouth(this), EnumFacing.Axis.Z).shapes;
@@ -61,16 +61,16 @@ public class ExtendedShape {
 
     public static ExtendedShape UpToSouth(ExtendedShape shape) {
         ExtendedShape extendedShape = new ExtendedShape();
-        for(AxisAlignedBB aabb : shape.getShape()) {
-            extendedShape.and(ShapeUtils.rotateYtoZ(aabb));
+        for(AxisAlignedBB aabb : shape.get()) {
+            extendedShape.add(ShapeUtils.rotateYtoZ(aabb));
         }
         return extendedShape;
     }
 
     public static ExtendedShape UpToEast(ExtendedShape shape) {
         ExtendedShape extendedShape = new ExtendedShape();
-        for(AxisAlignedBB aabb : shape.getShape()) {
-            extendedShape.and(ShapeUtils.rotateYtoX(aabb));
+        for(AxisAlignedBB aabb : shape.get()) {
+            extendedShape.add(ShapeUtils.rotateYtoX(aabb));
         }
 
         return extendedShape;
@@ -80,15 +80,15 @@ public class ExtendedShape {
         ExtendedShape extendedShape = new ExtendedShape();
         if(axis == EnumFacing.Axis.X) {
             for (AxisAlignedBB aabb: shape.shapes) {
-                extendedShape.and(ShapeUtils.mirrorX(aabb));
+                extendedShape.add(ShapeUtils.mirrorX(aabb));
             }
         } else if(axis == EnumFacing.Axis.Y) {
             for (AxisAlignedBB aabb: shape.shapes) {
-                extendedShape.and(ShapeUtils.mirrorY(aabb));
+                extendedShape.add(ShapeUtils.mirrorY(aabb));
             }
         } else {
             for (AxisAlignedBB aabb: shape.shapes) {
-                extendedShape.and(ShapeUtils.mirrorZ(aabb));
+                extendedShape.add(ShapeUtils.mirrorZ(aabb));
             }
         }
 
@@ -97,8 +97,8 @@ public class ExtendedShape {
 
     public static ExtendedShape rotateForAxis(ExtendedShape shape, EnumFacing.Axis axis) {
         ExtendedShape extendedShape = new ExtendedShape();
-        for(AxisAlignedBB aabb : shape.getShape()) {
-            extendedShape.and(ShapeUtils.rotateToAxis(aabb, axis));
+        for(AxisAlignedBB aabb : shape.get()) {
+            extendedShape.add(ShapeUtils.rotateToAxis(aabb, axis));
         }
 
         return extendedShape;

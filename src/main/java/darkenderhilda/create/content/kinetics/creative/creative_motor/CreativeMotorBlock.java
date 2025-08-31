@@ -1,4 +1,4 @@
-package darkenderhilda.create.content.kinetics.creative_motor;
+package darkenderhilda.create.content.kinetics.creative.creative_motor;
 
 import darkenderhilda.create.AllShapes;
 import darkenderhilda.create.content.kinetics.base.DirectionalKineticBlock;
@@ -26,7 +26,7 @@ public class CreativeMotorBlock extends DirectionalKineticBlock implements ITile
 
     @Override
     public List<AxisAlignedBB> getShape(IBlockState state) {
-        return AllShapes.MOTOR_BLOCK.getShape(state.getValue(FACING));
+        return AllShapes.MOTOR_BLOCK.get(state.getValue(FACING));
     }
 
     @Override

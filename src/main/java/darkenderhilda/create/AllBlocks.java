@@ -1,11 +1,12 @@
 package darkenderhilda.create;
 
-import darkenderhilda.create.content.kinetics.creative_gearbox.CreativeGearBoxBlock;
-import darkenderhilda.create.content.kinetics.creative_gearbox.CreativeGearBoxItemBlock;
-import darkenderhilda.create.content.kinetics.creative_motor.CreativeMotorBlock;
-import darkenderhilda.create.content.kinetics.creative_motor.CreativeMotorItemBlock;
+import darkenderhilda.create.content.kinetics.creative.creative_gearbox.CreativeGearBoxBlock;
+import darkenderhilda.create.content.kinetics.creative.creative_gearbox.CreativeGearBoxItemBlock;
+import darkenderhilda.create.content.kinetics.creative.creative_motor.CreativeMotorBlock;
+import darkenderhilda.create.content.kinetics.creative.creative_motor.CreativeMotorItemBlock;
 import darkenderhilda.create.content.kinetics.drill.DrillBlock;
 import darkenderhilda.create.content.kinetics.gearbox.GearboxBlock;
+import darkenderhilda.create.content.kinetics.millstone.MillstoneBlock;
 import darkenderhilda.create.content.kinetics.simpleRelays.CogWheelBlock;
 import darkenderhilda.create.content.kinetics.simpleRelays.ShaftBlock;
 import darkenderhilda.create.content.MOVEFOLDER.DepotBlock;
@@ -84,6 +85,18 @@ public class AllBlocks {
                     .resistance(BlockData.STONE_RESISTANCE)
                     .soundType(SoundType.STONE)
                     .mapColor(MapColor.OBSIDIAN))
+            .item()
+            .register();
+
+    public static final Block MILLSTONE = REGISTER.block(MillstoneBlock::new)
+            .properties(p -> p
+                    .name("millstone")
+                    .tool("pickaxe", 1)
+                    .material(Material.ROCK)
+                    .hardness(BlockData.STONE_HARDNESS)
+                    .resistance(BlockData.STONE_RESISTANCE)
+                    .soundType(SoundType.STONE)
+                    .mapColor(MapColor.IRON))
             .item()
             .register();
 

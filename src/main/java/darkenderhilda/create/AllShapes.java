@@ -11,10 +11,12 @@ public class AllShapes {
     CASING_13PX = shape(0, 0, 0, 16, 13, 16),
     SIX_VOXEL_POLE = shape(5, 0, 5, 11, 16, 11),
     SMALL_GEAR = shape(2, 6, 2, 14, 10, 14)
-                    .and(SIX_VOXEL_POLE),
+        .add(SIX_VOXEL_POLE),
     LARGE_GEAR = shape(0, 6, 0, 16, 10, 16)
-                    .and(SIX_VOXEL_POLE),
-    MOTOR_BLOCK = shape(3, 0, 3, 13, 14, 13);
+        .add(SIX_VOXEL_POLE),
+    MOTOR_BLOCK = shape(3, 0, 3, 13, 14, 13),
+    MILLSTONE = shape(0, 0, 0, 16, 6, 16)
+        .add(2, 6, 2, 14, 16, 14);
 
 
 

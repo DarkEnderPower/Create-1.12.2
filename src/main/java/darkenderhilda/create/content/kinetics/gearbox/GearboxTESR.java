@@ -1,8 +1,8 @@
 package darkenderhilda.create.content.kinetics.gearbox;
 
 import darkenderhilda.create.content.kinetics.base.KineticTESR;
-import darkenderhilda.create.foundation.utils.Iterate;
-import darkenderhilda.create.foundation.utils.WorldUtils;
+import darkenderhilda.create.foundation.utility.Iterate;
+import darkenderhilda.create.foundation.utility.WorldUtils;
 import net.minecraft.util.EnumFacing;
 
 public class GearboxTESR extends KineticTESR<GearboxTileEntity> {
@@ -15,7 +15,7 @@ public class GearboxTESR extends KineticTESR<GearboxTileEntity> {
                     continue;
                 }
 
-                renderBiDirectionalShaftHalf(te, x, y, z, partialTicks, axis, true);
+                renderBiDirectionalShaftHalf(te, x, y, z, partialTicks, axis, false);
             }
         } else {
             if(WorldUtils.getTEAxis(te) == EnumFacing.Axis.Z) {

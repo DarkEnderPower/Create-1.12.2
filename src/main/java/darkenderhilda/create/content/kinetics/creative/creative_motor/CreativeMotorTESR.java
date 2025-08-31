@@ -1,6 +1,5 @@
-package darkenderhilda.create.content.kinetics.creative_motor;
+package darkenderhilda.create.content.kinetics.creative.creative_motor;
 
-import darkenderhilda.create.content.kinetics.base.DirectionalKineticBlock;
 import darkenderhilda.create.content.kinetics.base.KineticTESR;
 
 import static darkenderhilda.create.foundation.block.BlockData.FACING;

@@ -39,7 +39,7 @@ public class CreateBlock extends Block implements IHasModel, IHasExtendedShape {
 
     @Override
     public List<AxisAlignedBB> getShape(IBlockState state) {
-        return AllShapes.FULL_BLOCK.getShape();
+        return AllShapes.FULL_BLOCK.get();
     }
 
     @Override

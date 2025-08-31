@@ -1,4 +1,4 @@
-package darkenderhilda.create.foundation.utils;
+package darkenderhilda.create.foundation.utility;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;

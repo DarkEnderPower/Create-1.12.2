@@ -17,6 +17,6 @@ public class ShaftBlock extends AbstractSimpleShaftBlock {
 
     @Override
     public List<AxisAlignedBB> getShape(IBlockState state) {
-        return AllShapes.SIX_VOXEL_POLE.getShape(state.getValue(AXIS));
+        return AllShapes.SIX_VOXEL_POLE.get(state.getValue(AXIS));
     }
 }

@@ -1,4 +1,4 @@
-package darkenderhilda.create.content.kinetics.creative_motor;
+package darkenderhilda.create.content.kinetics.creative.creative_motor;
 
 import darkenderhilda.create.content.kinetics.base.GeneratingKineticTileEntity;
 

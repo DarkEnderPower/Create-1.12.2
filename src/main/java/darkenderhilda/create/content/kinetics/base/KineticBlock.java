@@ -1,12 +1,7 @@
 package darkenderhilda.create.content.kinetics.base;
 
-import darkenderhilda.create.api.kinetics.PlacementHelper;
 import darkenderhilda.create.foundation.block.BlockProperties;
 import darkenderhilda.create.foundation.block.BlockWithTE;
-import darkenderhilda.create.foundation.block.CreateBlock;
-import darkenderhilda.create.foundation.block.IBE;
-import darkenderhilda.create.foundation.utils.SideUtils;
-import darkenderhilda.create.foundation.utils.WorldUtils;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;

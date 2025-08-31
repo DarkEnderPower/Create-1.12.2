@@ -1,7 +1,7 @@
 package darkenderhilda.create.foundation.block;
 
 import darkenderhilda.create.foundation.tileEntity.SmartTileEntity;
-import darkenderhilda.create.foundation.utils.WorldUtils;
+import darkenderhilda.create.foundation.utility.WorldUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;

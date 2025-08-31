@@ -1,4 +1,4 @@
-package darkenderhilda.create.foundation.utils;
+package darkenderhilda.create.foundation.utility;
 
 public class SideUtils {
 
