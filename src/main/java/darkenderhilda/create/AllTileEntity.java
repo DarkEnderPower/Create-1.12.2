@@ -12,6 +12,9 @@ import darkenderhilda.create.content.kinetics.millstone.MillstoneTESR;
 import darkenderhilda.create.content.kinetics.millstone.MillstoneTileEntity;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTESR;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTileEntity;
+import darkenderhilda.create.content.kinetics.transmission.ClutchTileEntity;
+import darkenderhilda.create.content.kinetics.transmission.GearshiftTileEntity;
+import darkenderhilda.create.content.kinetics.transmission.SplitShaftTESR;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 
@@ -35,6 +38,16 @@ public class AllTileEntity {
                 .visual(new GearboxTESR())
                 .register();
 
+        REGISTER.tileEntity(ClutchTileEntity.class, "clutchTileEntity")
+                .validBlocks(AllBlocks.CLUTCH)
+                .visual(new SplitShaftTESR())
+                .register();
+
+        REGISTER.tileEntity(GearshiftTileEntity.class, "gearshiftTileEntity")
+                .validBlocks(AllBlocks.GEARSHIFT)
+                .visual(new SplitShaftTESR())
+                .register();
+
         REGISTER.tileEntity(MillstoneTileEntity.class, "millstoneTileEntity")
                 .validBlocks(AllBlocks.MILLSTONE)
                 .visual(new MillstoneTESR())
@@ -54,9 +67,6 @@ public class AllTileEntity {
                 .validBlocks(AllBlocks.CREATIVE_GEARBOX)
                 .visual(new CreativeGearBoxTESR())
                 .register();
-
-
-
     }
 
     public static TileEntity getTEForBlock(Block block) throws InstantiationException, IllegalAccessException {
