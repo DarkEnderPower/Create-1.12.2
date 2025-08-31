@@ -13,6 +13,7 @@ import darkenderhilda.create.content.MOVEFOLDER.DepotBlock;
 import darkenderhilda.create.content.kinetics.transmission.ClutchBlock;
 import darkenderhilda.create.content.kinetics.transmission.GearshiftBlock;
 import darkenderhilda.create.foundation.block.BlockData;
+import darkenderhilda.create.foundation.data.SharedProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -28,164 +29,98 @@ public class AllBlocks {
     public static final List<Block> BLOCKS = new ArrayList<>();
 
     //---Kinetics---
-    public static final Block SHAFT = REGISTER.block(ShaftBlock::new)
+    public static final Block SHAFT = REGISTER.block("shaft", ShaftBlock::new)
+            .initialProperties(SharedProperties.stone())
             .properties(p -> p
-                    .name("shaft")
-                    .tool("pickaxe", 1)
-                    .material(Material.ROCK)
-                    .hardness(BlockData.STONE_HARDNESS)
-                    .resistance(BlockData.STONE_RESISTANCE)
-                    .soundType(SoundType.STONE)
+                      .mapColor(MapColor.GRAY))
+            .item()
+            .register();
+
+    public static final Block COGWHEEL = REGISTER.block("cogwheel", CogWheelBlock::small)
+            .initialProperties(SharedProperties.stone())
+            .properties(p -> p
+                    .mapColor(MapColor.WOOD))
+            .item()
+            .register();
+
+    public static final Block LARGE_COGWHEEL = REGISTER.block("large_cogwheel", CogWheelBlock::large)
+            .initialProperties(SharedProperties.stone())
+            .properties(p -> p
+                    .mapColor(MapColor.WOOD))
+            .item()
+            .register();
+
+    public static final Block GEARBOX = REGISTER.block("gearbox", GearboxBlock::gearbox)
+            .initialProperties(SharedProperties.stone())
+            .properties(p -> p
+                    .mapColor(MapColor.OBSIDIAN))
+            .item()
+            .register();
+
+    public static final Block GEARBOX_VERTICAL = REGISTER.block("gearbox_vertical", GearboxBlock::gearboxVertical)
+            .initialProperties(SharedProperties.stone())
+            .properties(p -> p
+                    .mapColor(MapColor.OBSIDIAN))
+            .item()
+            .register();
+
+    public static final Block CLUTCH = REGISTER.block("clutch", ClutchBlock::new)
+            .initialProperties(SharedProperties.stone())
+            .properties(p -> p
+                    .mapColor(MapColor.OBSIDIAN))
+            .item()
+            .register();
+
+    public static final Block GEARSHIFT = REGISTER.block("gearshift", GearshiftBlock::new)
+            .initialProperties(SharedProperties.stone())
+            .properties(p -> p
+                    .mapColor(MapColor.OBSIDIAN))
+            .item()
+            .register();
+
+    public static final Block MILLSTONE = REGISTER.block("millstone", MillstoneBlock::new)
+            .initialProperties(SharedProperties.stone())
+            .properties(p -> p
                     .mapColor(MapColor.GRAY))
             .item()
             .register();
 
-    public static final Block COGWHEEL = REGISTER.block(CogWheelBlock::small)
+    public static final Block MECHANICAL_DRILL = REGISTER.block("mechanical_drill", DrillBlock::new)
+            .initialProperties(SharedProperties.stone())
             .properties(p -> p
-                    .name("cogwheel")
-                    .tool("axe", 1)
-                    .tool("pickaxe", 1)
-                    .material(Material.WOOD)
-                    .hardness(BlockData.STONE_HARDNESS)
-                    .resistance(BlockData.STONE_RESISTANCE)
-                    .soundType(SoundType.STONE)
-                    .mapColor(MapColor.WOOD))
-            .item()
-            .register();
-
-    public static final Block LARGE_COGWHEEL = REGISTER.block(CogWheelBlock::large)
-            .properties(p -> p
-                    .name("large_cogwheel")
-                    .tool("axe", 1)
-                    .tool("pickaxe", 1)
-                    .material(Material.WOOD)
-                    .hardness(BlockData.STONE_HARDNESS)
-                    .resistance(BlockData.STONE_RESISTANCE)
-                    .soundType(SoundType.STONE)
-                    .mapColor(MapColor.WOOD))
-            .item()
-            .register();
-
-    public static final Block GEARBOX = REGISTER.block(GearboxBlock::gearbox)
-            .properties(p -> p
-                    .name("gearbox")
-                    .tool("axe", 1)
-                    .tool("pickaxe", 1)
-                    .material(Material.WOOD)
-                    .hardness(BlockData.STONE_HARDNESS)
-                    .resistance(BlockData.STONE_RESISTANCE)
-                    .soundType(SoundType.STONE)
                     .mapColor(MapColor.OBSIDIAN))
             .item()
             .register();
 
-    public static final Block GEARBOX_VERTICAL = REGISTER.block(GearboxBlock::gearboxVertical)
+    public static final Block CREATIVE_MOTOR = REGISTER.block("creative_motor", CreativeMotorBlock::new)
+            .initialProperties(SharedProperties.stone())
             .properties(p -> p
-                    .name("gearbox_vertical")
-                    .tool("axe", 1)
-                    .tool("pickaxe", 1)
-                    .material(Material.WOOD)
-                    .hardness(BlockData.STONE_HARDNESS)
-                    .resistance(BlockData.STONE_RESISTANCE)
-                    .soundType(SoundType.STONE)
-                    .mapColor(MapColor.OBSIDIAN))
-            .item()
-            .register();
-
-    public static final Block CLUTCH = REGISTER.block(ClutchBlock::new)
-            .properties(p -> p
-                    .name("clutch")
-                    .tool("axe", 1)
-                    .tool("pickaxe", 1)
-                    .material(Material.WOOD)
-                    .hardness(BlockData.STONE_HARDNESS)
-                    .resistance(BlockData.STONE_RESISTANCE)
-                    .soundType(SoundType.STONE)
-                    .mapColor(MapColor.OBSIDIAN))
-            .item()
-            .register();
-
-    public static final Block GEARSHIFT = REGISTER.block(GearshiftBlock::new)
-            .properties(p -> p
-                    .name("gearshift")
-                    .tool("axe", 1)
-                    .tool("pickaxe", 1)
-                    .material(Material.WOOD)
-                    .hardness(BlockData.STONE_HARDNESS)
-                    .resistance(BlockData.STONE_RESISTANCE)
-                    .soundType(SoundType.STONE)
-                    .mapColor(MapColor.OBSIDIAN))
-            .item()
-            .register();
-
-    public static final Block MILLSTONE = REGISTER.block(MillstoneBlock::new)
-            .properties(p -> p
-                    .name("millstone")
-                    .tool("pickaxe", 1)
-                    .material(Material.ROCK)
-                    .hardness(BlockData.STONE_HARDNESS)
-                    .resistance(BlockData.STONE_RESISTANCE)
-                    .soundType(SoundType.STONE)
-                    .mapColor(MapColor.IRON))
-            .item()
-            .register();
-
-    public static final Block MECHANICAL_DRILL = REGISTER.block(DrillBlock::new)
-            .properties(p -> p
-                    .name("mechanical_drill")
-                    .tool("pickaxe", 1)
-                    .material(Material.ROCK)
-                    .hardness(BlockData.STONE_HARDNESS)
-                    .resistance(BlockData.STONE_RESISTANCE)
-                    .soundType(SoundType.STONE)
-                    .mapColor(MapColor.OBSIDIAN))
-            .item()
-            .register();
-
-    public static final Block CREATIVE_MOTOR = REGISTER.block(CreativeMotorBlock::new)
-            .properties(p -> p
-                    .name("creative_motor")
-                    .tool("pickaxe", 1)
-                    .material(Material.ROCK)
-                    .hardness(BlockData.STONE_HARDNESS)
-                    .resistance(BlockData.STONE_RESISTANCE)
-                    .soundType(SoundType.STONE)
                     .mapColor(MapColor.PURPLE))
             .item(CreativeMotorItemBlock::new)
             .register();
 
-    public static final Block CREATIVE_GEARBOX = REGISTER.block(CreativeGearBoxBlock::new)
+    public static final Block CREATIVE_GEARBOX = REGISTER.block("creative_gearbox", CreativeGearBoxBlock::new)
+            .initialProperties(SharedProperties.stone())
             .properties(p -> p
-                    .name("creative_gearbox")
-                    .tool("pickaxe", 1)
-                    .material(Material.ROCK)
-                    .hardness(BlockData.STONE_HARDNESS)
-                    .resistance(BlockData.STONE_RESISTANCE)
-                    .soundType(SoundType.STONE)
                     .mapColor(MapColor.PURPLE))
             .item(CreativeGearBoxItemBlock::new)
             .register();
 
 
     //---Blocks---
-    public static final Block DEPOT = REGISTER.block(DepotBlock::new)
+    public static final Block DEPOT = REGISTER.block("depot", DepotBlock::new)
+            .initialProperties(SharedProperties.stone())
             .properties(p -> p
-                    .name("depot")
                     .tool("axe", 1)
                     .tool("pickaxe", 1)
-                    .material(Material.WOOD)
-                    .hardness(BlockData.STONE_HARDNESS)
-                    .resistance(BlockData.STONE_RESISTANCE)
-                    .soundType(SoundType.STONE)
                     .mapColor(MapColor.GRAY))
             .item()
             .register();
 
     //---Partials---
-    public static final Block RENDER = REGISTER.block(AllPartialModels::new)
+    public static final Block RENDER = REGISTER.block("render", AllPartialModels::new)
             .properties(p -> p
                     .material(Material.ROCK)
-                    .name("render")
                     .hardness(-1.0f)
                     .resistance(36000000.0f))
             .register();

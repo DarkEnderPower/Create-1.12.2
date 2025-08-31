@@ -24,8 +24,10 @@ public class BlockProperties {
     private MapColor mapColor;
     private float lightLevel = 0.0F;
 
+
+
     //---Setters----
-    public BlockProperties name(String name) {
+    BlockProperties name(String name) {
         this.name = name;
         return this;
     }

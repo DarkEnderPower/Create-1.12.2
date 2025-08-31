@@ -1,7 +1,7 @@
 package darkenderhilda.create;
 
 import darkenderhilda.create.content.kinetics.TorquePropagator;
-import darkenderhilda.create.foundation.data.CreateRegistrate;
+import darkenderhilda.create.foundation.register.CreateRegistrate;
 import darkenderhilda.create.foundation.utility.CreateMixinEarly;
 import darkenderhilda.create.foundation.proxy.CommonProxy;
 import net.minecraft.util.ResourceLocation;

@@ -1,4 +1,4 @@
-package darkenderhilda.create.foundation.data;
+package darkenderhilda.create.foundation.register;
 
 import darkenderhilda.create.foundation.block.BlockProperties;
 import darkenderhilda.create.foundation.block.BlockRegister;
@@ -14,7 +14,7 @@ public class CreateRegistrate {
         return new TileEntityRegister(te, registry);
     }
 
-    public BlockRegister block(Function<BlockProperties, Block> block) {
-        return new BlockRegister(block);
+    public BlockRegister block(String name, Function<BlockProperties, Block> block) {
+        return new BlockRegister(name, block);
     }
 }

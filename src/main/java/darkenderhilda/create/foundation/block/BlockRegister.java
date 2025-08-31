@@ -14,13 +14,19 @@ import java.util.function.Function;
 public class BlockRegister {
 
     private final Function<BlockProperties, Block> block;
-    private final BlockProperties blockProperties;
+    private BlockProperties blockProperties;
     private boolean registerItem = false;
     private Function<Block, ItemBlock> itemBlock;
 
-    public BlockRegister(Function<BlockProperties, Block> block) {
+    public BlockRegister(String name, Function<BlockProperties, Block> block) {
         this.block = block;
-        blockProperties = new BlockProperties();
+        blockProperties = new BlockProperties().name(name);
+    }
+
+    public BlockRegister initialProperties(BlockProperties properties) {
+        properties.name(blockProperties.getName());
+        blockProperties = properties;
+        return this;
     }
 
     public BlockRegister properties(Consumer<BlockProperties> properties) {
