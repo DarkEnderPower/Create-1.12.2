@@ -1,5 +1,7 @@
 package darkenderhilda.create;
 
+import darkenderhilda.create.content.kinetics.crank.HandCrankTESR;
+import darkenderhilda.create.content.kinetics.crank.HandCrankTileEntity;
 import darkenderhilda.create.content.kinetics.creative.creative_gearbox.CreativeGearBoxTESR;
 import darkenderhilda.create.content.kinetics.creative.creative_gearbox.CreativeGearBoxTileEntity;
 import darkenderhilda.create.content.kinetics.creative.creative_motor.CreativeMotorTESR;
@@ -69,6 +71,11 @@ public class AllTileEntity {
         REGISTER.tileEntity(CreativeGearBoxTileEntity.class, "creativeGearBoxTileEntity")
                 .validBlocks(AllBlocks.CREATIVE_GEARBOX)
                 .visual(new CreativeGearBoxTESR())
+                .register();
+
+        REGISTER.tileEntity(HandCrankTileEntity.class, "handCrankTileEntity")
+                .validBlocks(AllBlocks.HAND_CRANK)
+                .visual(new HandCrankTESR())
                 .register();
 
         REGISTER.tileEntity(SpeedControllerTileEntity.class, "speedControllerTileEntity")

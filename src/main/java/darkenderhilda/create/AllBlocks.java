@@ -1,5 +1,6 @@
 package darkenderhilda.create;
 
+import darkenderhilda.create.content.kinetics.crank.HandCrankBlock;
 import darkenderhilda.create.content.kinetics.creative.creative_gearbox.CreativeGearBoxBlock;
 import darkenderhilda.create.content.kinetics.creative.creative_gearbox.CreativeGearBoxItemBlock;
 import darkenderhilda.create.content.kinetics.creative.creative_motor.CreativeMotorBlock;
@@ -105,6 +106,13 @@ public class AllBlocks {
             .properties(p -> p
                     .mapColor(MapColor.PURPLE))
             .item(CreativeGearBoxItemBlock::new)
+            .register();
+
+    public static final Block HAND_CRANK = REGISTER.block("hand_crank", HandCrankBlock::new)
+            .initialProperties(SharedProperties.wooden())
+            .properties(p -> p
+                    .mapColor(MapColor.OBSIDIAN))
+            .item()
             .register();
 
     public static final Block ROTATION_SPEED_CONTROLLER = REGISTER.block("rotation_speed_controller", SpeedControllerBlock::new)

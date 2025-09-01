@@ -27,7 +27,7 @@ public class HandCrankTileEntity extends GeneratingKineticTileEntity {
     }
 
     public float getIndependentAngle(float partialTicks) {
-        return (independentAngle + partialTicks * chasingVelocity) / 360;
+        return ((independentAngle + partialTicks * chasingVelocity) / 360) * 30;
     }
 
     @Override

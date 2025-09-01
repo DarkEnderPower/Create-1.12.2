@@ -19,7 +19,7 @@ public class AllShapes {
             .add(2, 6, 2, 14, 16, 14),
     CRANK = shape(5, 0, 5, 11, 6, 11)
             .add(1, 3, 1, 15, 8, 15),
-   SPEED_CONTROLLER = shape(0, 0, 0, 16, 4, 16)
+    SPEED_CONTROLLER = shape(0, 0, 0, 16, 4, 16)
            .add(1, 1, 1, 15, 13, 15)
            .add(0, 8, 0, 16, 14, 16);
 

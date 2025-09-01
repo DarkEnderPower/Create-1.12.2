@@ -6,9 +6,12 @@ import darkenderhilda.create.foundation.block.BlockProperties;
 import darkenderhilda.create.foundation.block.ITE;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -26,6 +29,28 @@ public class HandCrankBlock extends DirectionalKineticBlock implements ITE<HandC
     }
 
     @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if(player.isSpectator())
+            return false;
+
+        withBlockEntityDo(worldIn, pos, te -> te.turn(player.isSneaking()));
+        player.addExhaustion((float) (getRotationSpeed() * 0.009999999776482582));//AllConfigs.server().kinetics.crankHungerMultiplier.getF());
+
+        return true;
+    }
+
+    //    @Override
+//    public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+//        if (worldIn.isRemote)
+//            return;
+//
+//        EnumFacing facing = state.getValue(FACING);
+//        if(worldIn.getBlockState(pos.offset(facing)).getBlock() == Blocks.AIR) {
+//            worldIn.destroyBlock(pos, true);
+//        }
+//    }
+
+    @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         if (worldIn.isRemote)
             return;
@@ -34,6 +59,16 @@ public class HandCrankBlock extends DirectionalKineticBlock implements ITE<HandC
         if(worldIn.getBlockState(pos.offset(facing)).getBlock() == Blocks.AIR) {
             worldIn.destroyBlock(pos, true);
         }
+    }
+
+    @Override
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+        return super.canPlaceBlockAt(worldIn, pos);
+    }
+
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return getDefaultState().withProperty(FACING, facing);
     }
 
     public int getRotationSpeed() {
