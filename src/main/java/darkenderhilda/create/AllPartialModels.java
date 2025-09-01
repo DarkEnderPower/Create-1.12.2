@@ -31,21 +31,11 @@ public class AllPartialModels extends CreateBlock {
 
         MILLSTONE_COG("millstone_cog");
 
-
         private final String name;
-        private final int id;
 
         Type(String name) {
             this.name = name;
-            this.id = ordinal();
-        }
-
-        public int getId() {
-            return id;
-        }
-        public static Type fromId(int id) {
-            return values()[id % values().length];
-        }
+          }
 
         @Override
         public String getName() {

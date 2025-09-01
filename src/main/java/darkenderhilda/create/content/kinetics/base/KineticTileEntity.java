@@ -467,6 +467,10 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
         return true;
     }
 
+    public int getRotationAngleOffset(EnumFacing.Axis axis) {
+        return 0;
+    }
+
     public float getAxisShift(EnumFacing.Axis axis) {
         return isAxisShifted(this.pos, axis) ? 22.5F : 0.0F;
     }
