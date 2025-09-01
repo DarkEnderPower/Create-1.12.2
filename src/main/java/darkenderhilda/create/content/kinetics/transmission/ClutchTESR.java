@@ -9,6 +9,7 @@ import net.minecraft.util.EnumFacing;
 
 
 public class ClutchTESR extends KineticTESR<ClutchTileEntity> {
+
     @Override
     protected void renderMe(ClutchTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         IBlockState state = WorldUtils.stateFormTE(te);
