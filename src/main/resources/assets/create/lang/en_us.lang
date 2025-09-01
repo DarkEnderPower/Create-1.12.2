@@ -16,6 +16,7 @@ tile.create:millstone.name=Millstone
 tile.create:mechanical_drill.name=Mechanical Drill
 tile.create:creative_motor.name=Creative Motor
 tile.create:creative_gearbox.name=Creative Gearbox
+tile.create:rotation_speed_controller.name=Rotation Speed Controller
 
 # Tile
 tile.create:depot.name=Depot

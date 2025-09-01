@@ -6,6 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import static darkenderhilda.create.foundation.block.BlockData.HORIZONTAL_AXIS;
@@ -14,6 +15,16 @@ public abstract class HorizontalAxisKineticBlock extends KineticBlock {
 
     public HorizontalAxisKineticBlock(BlockProperties properties) {
         super(properties);
+    }
+
+    @Override
+    public EnumFacing.Axis getRotationAxis(IBlockState state) {
+        return state.getValue(HORIZONTAL_AXIS).getAxis();
+    }
+
+    @Override
+    public boolean hasShaftTowards(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing face) {
+        return face.getAxis() == state.getValue(HORIZONTAL_AXIS).getAxis();
     }
 
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {

@@ -10,6 +10,7 @@ import darkenderhilda.create.content.kinetics.millstone.MillstoneBlock;
 import darkenderhilda.create.content.kinetics.simpleRelays.CogWheelBlock;
 import darkenderhilda.create.content.kinetics.simpleRelays.ShaftBlock;
 import darkenderhilda.create.content.MOVEFOLDER.DepotBlock;
+import darkenderhilda.create.content.kinetics.speedController.SpeedControllerBlock;
 import darkenderhilda.create.content.kinetics.transmission.ClutchBlock;
 import darkenderhilda.create.content.kinetics.transmission.GearshiftBlock;
 import darkenderhilda.create.foundation.block.BlockData;
@@ -104,6 +105,13 @@ public class AllBlocks {
             .properties(p -> p
                     .mapColor(MapColor.PURPLE))
             .item(CreativeGearBoxItemBlock::new)
+            .register();
+
+    public static final Block ROTATION_SPEED_CONTROLLER = REGISTER.block("rotation_speed_controller", SpeedControllerBlock::new)
+            .initialProperties(SharedProperties.softMetal())
+            .properties(p -> p
+                    .mapColor(MapColor.YELLOW))
+            .item()
             .register();
 
 

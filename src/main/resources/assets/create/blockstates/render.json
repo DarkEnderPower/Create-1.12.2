@@ -15,6 +15,9 @@
     "type=drill_head_w" : { "model": "create:mechanical_drill/head", "y": 270, "x": 90 },
     "type=drill_head_n" : { "model": "create:mechanical_drill/head", "y": 0,   "x": 90 },
 
-    "type=millstone_cog" : { "model": "create:millstone/inner"}
+    "type=millstone_cog" : { "model": "create:millstone/inner"},
+
+    "type=speed_controller_bracket_x":  { "model": "create:rotation_speed_controller/bracket"          },
+    "type=speed_controller_bracket_z":  { "model": "create:rotation_speed_controller/bracket", "y": 90 }
   }
 }

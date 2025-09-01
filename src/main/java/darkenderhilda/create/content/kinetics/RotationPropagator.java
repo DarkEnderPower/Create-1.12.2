@@ -1,10 +1,12 @@
 package darkenderhilda.create.content.kinetics;
 
+import darkenderhilda.create.AllBlocks;
 import darkenderhilda.create.content.kinetics.base.DirectionalShaftHalvesBlockEntity;
 import darkenderhilda.create.content.kinetics.base.IRotate;
 import darkenderhilda.create.content.kinetics.base.KineticTileEntity;
 import darkenderhilda.create.content.kinetics.gearbox.GearboxTileEntity;
 import darkenderhilda.create.content.kinetics.simpleRelays.ICogWheel;
+import darkenderhilda.create.content.kinetics.speedController.SpeedControllerTileEntity;
 import darkenderhilda.create.content.kinetics.transmission.SplitShaftTileEntity;
 import darkenderhilda.create.foundation.utility.Iterate;
 import darkenderhilda.create.foundation.utility.WorldUtils;
@@ -20,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static darkenderhilda.create.foundation.block.BlockData.AXIS;
+import static darkenderhilda.create.foundation.block.BlockData.HORIZONTAL_AXIS;
 import static darkenderhilda.create.foundation.utility.WorldUtils.choose;
 
 public class RotationPropagator {
@@ -89,7 +92,6 @@ public class RotationPropagator {
 
         // Large Gear <-> Large Gear
         if (isLargeToLargeGear(stateFrom, stateTo, diff)) {
-            //System.out.println("me");
             EnumFacing.Axis sourceAxis = stateFrom.getValue(AXIS);
             EnumFacing.Axis targetAxis = stateTo.getValue(AXIS);
             int sourceAxisDiff = choose(sourceAxis, diff.getX(), diff.getY(), diff.getZ());
@@ -126,12 +128,12 @@ public class RotationPropagator {
         final IBlockState stateTo = WorldUtils.stateFormTE(to);
 
         // Rotation Speed Controller <-> Large Gear
-//        if (isLargeCogToSpeedController(stateFrom, stateTo, to.getPos()
-//                .subtract(from.getPos())))
-//            return SpeedControllerBlockEntity.getConveyedSpeed(from, to, true);
-//        if (isLargeCogToSpeedController(stateTo, stateFrom, from.getPos()
-//                .subtract(to.getPos())))
-//            return SpeedControllerBlockEntity.getConveyedSpeed(to, from, false);
+        if (isLargeCogToSpeedController(stateFrom, stateTo, to.getPos()
+                .subtract(from.getPos())))
+            return SpeedControllerTileEntity.getConveyedSpeed(from, to, true);
+        if (isLargeCogToSpeedController(stateTo, stateFrom, from.getPos()
+                .subtract(to.getPos())))
+            return SpeedControllerTileEntity.getConveyedSpeed(to, from, false);
 
         float rotationSpeedModifier = getRotationSpeedModifier(from, to);
         return from.getTheoreticalSpeed() * rotationSpeedModifier;
@@ -187,17 +189,16 @@ public class RotationPropagator {
     }
 
     private static boolean isLargeCogToSpeedController(IBlockState from, IBlockState to, BlockPos diff) {
-//        if (!ICogWheel.isLargeCog(from) || !AllBlocks.ROTATION_SPEED_CONTROLLER.has(to))
-//            return false;
-//        if (!diff.equals(BlockPos.ZERO.below()))
-//            return false;
-//        Axis axis = from.getValue(CogWheelBlock.AXIS);
-//        if (axis.isVertical())
-//            return false;
-//        if (to.getValue(SpeedControllerBlock.HORIZONTAL_AXIS) == axis)
-//            return false;
-//        return true;
-        return false;
+        if (!ICogWheel.isLargeCog(from) || !WorldUtils.typeOf(AllBlocks.ROTATION_SPEED_CONTROLLER, to))
+            return false;
+        if (!diff.equals(BlockPos.ORIGIN.down()))
+            return false;
+        EnumFacing.Axis axis = from.getValue(AXIS);
+        if (axis.isVertical())
+            return false;
+        if (to.getValue(HORIZONTAL_AXIS).getAxis() == axis)
+            return false;
+        return true;
     }
 
     /**
@@ -333,7 +334,6 @@ public class RotationPropagator {
 
             propagateMissingSource(neighbourBE);
         }
-
     }
 
     /**

@@ -12,6 +12,8 @@ import darkenderhilda.create.content.kinetics.millstone.MillstoneTESR;
 import darkenderhilda.create.content.kinetics.millstone.MillstoneTileEntity;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTESR;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTileEntity;
+import darkenderhilda.create.content.kinetics.speedController.SpeedControllerTESR;
+import darkenderhilda.create.content.kinetics.speedController.SpeedControllerTileEntity;
 import darkenderhilda.create.content.kinetics.transmission.ClutchTESR;
 import darkenderhilda.create.content.kinetics.transmission.ClutchTileEntity;
 import darkenderhilda.create.content.kinetics.transmission.GearshiftTileEntity;
@@ -67,6 +69,11 @@ public class AllTileEntity {
         REGISTER.tileEntity(CreativeGearBoxTileEntity.class, "creativeGearBoxTileEntity")
                 .validBlocks(AllBlocks.CREATIVE_GEARBOX)
                 .visual(new CreativeGearBoxTESR())
+                .register();
+
+        REGISTER.tileEntity(SpeedControllerTileEntity.class, "speedControllerTileEntity")
+                .validBlocks(AllBlocks.ROTATION_SPEED_CONTROLLER)
+                .visual(new SpeedControllerTESR())
                 .register();
     }
 

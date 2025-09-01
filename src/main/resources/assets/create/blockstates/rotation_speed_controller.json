@@ -1,0 +1,9 @@
+{
+  "variants":
+  {
+    "facing=north": { "model": "create:rotation_speed_controller/block" },
+    "facing=south": { "model": "create:rotation_speed_controller/block" },
+    "facing=west":  { "model": "create:rotation_speed_controller/block", "y": 90 },
+    "facing=east":  { "model": "create:rotation_speed_controller/block", "y": 90 }
+  }
+}

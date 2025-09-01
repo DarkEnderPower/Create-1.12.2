@@ -7,8 +7,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 
-import static darkenderhilda.create.foundation.block.BlockData.AXIS;
-import static darkenderhilda.create.foundation.block.BlockData.FACING;
+import static darkenderhilda.create.foundation.block.BlockData.*;
 import static net.minecraft.util.EnumFacing.NORTH;
 import static net.minecraft.util.EnumFacing.VALUES;
 
@@ -20,6 +19,10 @@ public class WorldUtils {
 
     public static EnumFacing getTEFacing(TileEntity te) {
         return stateFormTE(te).getValue(FACING);
+    }
+
+    public static EnumFacing getTEHorizontalFacing(TileEntity te) {
+        return stateFormTE(te).getValue(HORIZONTAL_AXIS);
     }
 
     public static EnumFacing.Axis getTEAxis(TileEntity te) {

@@ -29,7 +29,9 @@ public class AllPartialModels extends CreateBlock {
         DRILL_HEAD_S("drill_head_s"),
         DRILL_HEAD_W("drill_head_w"),
 
-        MILLSTONE_COG("millstone_cog");
+        MILLSTONE_COG("millstone_cog"),
+        SPEED_CONTROLLER_BRACKET_X("speed_controller_bracket_x"),
+        SPEED_CONTROLLER_BRACKET_Z("speed_controller_bracket_z");
 
         private final String name;
 

@@ -3,6 +3,7 @@ package darkenderhilda.create.content.kinetics.base;
 import darkenderhilda.create.AllBlocks;
 import darkenderhilda.create.AllPartialModels;
 import darkenderhilda.create.content.kinetics.simpleRelays.ICogWheel;
+import darkenderhilda.create.foundation.utility.ClientUtils;
 import darkenderhilda.create.foundation.utility.WorldUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -96,9 +97,9 @@ public abstract class KineticTESR<T extends KineticTileEntity> extends TileEntit
 
         GlStateManager.translate(-0.5, -0.5, -0.5);
 
-        IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getModelForState(state);
+        IBakedModel model = ClientUtils.getModelForState(state);
         GlStateManager.rotate(-90, 0, 1, 0);
-        Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightness(model, state, 1.0f, true);
+        ClientUtils.getBlockModelRenderer().renderModelBrightness(model, state, 1.0f, true);
 
         GlStateManager.popMatrix();
     }
