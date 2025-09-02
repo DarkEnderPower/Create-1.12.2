@@ -2,19 +2,14 @@ package darkenderhilda.create.content.kinetics.base;
 
 import darkenderhilda.create.AllBlocks;
 import darkenderhilda.create.AllPartialModels;
-import darkenderhilda.create.content.kinetics.simpleRelays.ICogWheel;
-import darkenderhilda.create.foundation.utility.ClientUtils;
-import darkenderhilda.create.foundation.utility.WorldUtils;
+import darkenderhilda.create.foundation.utility.*;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3i;
 
 import static darkenderhilda.create.foundation.block.BlockData.AXIS;
 
@@ -83,6 +78,7 @@ public abstract class KineticTESR<T extends KineticTileEntity> extends TileEntit
     protected void spinModel(KineticTileEntity te, double x, double y, double z, float partialTicks, EnumFacing.Axis axis, IBlockState state, boolean reverseSpeed) {
         float speed = (reverseSpeed) ? -te.getSpeed() : te.getSpeed();
         rotateModel(calculateAngle(speed, te, axis, partialTicks, 1.0F, true), x, y, z, axis, state);
+        //rotateModel(getAngleForTe(te, new BlockPos(x, y, z), axis), x, y, z, axis, state);
     }
 
     protected void rotateModel(float angle, double x, double y, double z, EnumFacing.Axis axis, IBlockState state) {
@@ -111,32 +107,4 @@ public abstract class KineticTESR<T extends KineticTileEntity> extends TileEntit
         return ((time * 0.3F * speed * m) % 360) + (addOffset ? te.getAxisShift(axis) : 0.0F);
     }
 
-    public static float getRotationOffsetForPosition(KineticTileEntity te, final BlockPos pos, final EnumFacing.Axis axis) {
-        return rotationOffset(WorldUtils.stateFormTE(te), axis, pos) + te.getRotationAngleOffset(axis);
-    }
-
-    public static float rotationOffset(IBlockState state, EnumFacing.Axis axis, Vec3i pos) {
-        if (shouldOffset(axis, pos)) {
-            return 22.5f;
-        } else {
-            return ICogWheel.isLargeCog(state) ? 11.25f : 0;
-        }
-    }
-
-    public static boolean shouldOffset(EnumFacing.Axis axis, Vec3i pos) {
-        // Sum the components of the other 2 axes.
-        int x = (axis == EnumFacing.Axis.X) ? 0 : pos.getX();
-        int y = (axis == EnumFacing.Axis.Y) ? 0 : pos.getY();
-        int z = (axis == EnumFacing.Axis.Z) ? 0 : pos.getZ();
-        return ((x + y + z) % 2) == 0;
-    }
-
-    public static boolean isAxisShifted(BlockPos pos, EnumFacing.Axis axis) {
-        switch (axis) {
-            case X: return (pos.getY() & 1) != (pos.getZ() & 1);
-            case Y: return (pos.getX() & 1) != (pos.getZ() & 1);
-            case Z: return (pos.getX() & 1) != (pos.getY() & 1);
-            default:return false;
-        }
-    }
 }

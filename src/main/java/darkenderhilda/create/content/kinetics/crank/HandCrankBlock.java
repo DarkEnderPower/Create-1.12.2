@@ -39,31 +39,15 @@ public class HandCrankBlock extends DirectionalKineticBlock implements ITE<HandC
         return true;
     }
 
-    //    @Override
-//    public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
-//        if (worldIn.isRemote)
-//            return;
-//
-//        EnumFacing facing = state.getValue(FACING);
-//        if(worldIn.getBlockState(pos.offset(facing)).getBlock() == Blocks.AIR) {
-//            worldIn.destroyBlock(pos, true);
-//        }
-//    }
-
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         if (worldIn.isRemote)
             return;
 
         EnumFacing facing = state.getValue(FACING);
-        if(worldIn.getBlockState(pos.offset(facing)).getBlock() == Blocks.AIR) {
+        if(worldIn.getBlockState(pos.offset(facing.getOpposite())).getBlock() == Blocks.AIR) {
             worldIn.destroyBlock(pos, true);
         }
-    }
-
-    @Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        return super.canPlaceBlockAt(worldIn, pos);
     }
 
     @Override

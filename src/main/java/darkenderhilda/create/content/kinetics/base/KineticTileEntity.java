@@ -15,13 +15,13 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
 import java.util.List;
 
-import static darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTESR.isAxisShifted;
 import static darkenderhilda.create.foundation.utility.WorldUtils.choose;
 
 public abstract class KineticTileEntity extends SmartTileEntity implements IHaveGoggleInformation, IHaveHoveringInformation {
@@ -472,6 +472,14 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
     }
 
     public float getAxisShift(EnumFacing.Axis axis) {
-        return isAxisShifted(this.pos, axis) ? 22.5F : 0.0F;
+        return shouldOffset(axis, pos) ? 22.5f : 0;
+    }
+
+    public static boolean shouldOffset(EnumFacing.Axis axis, Vec3i pos) {
+        // Sum the components of the other 2 axes.
+        int x = (axis == EnumFacing.Axis.X) ? 0 : pos.getX();
+        int y = (axis == EnumFacing.Axis.Y) ? 0 : pos.getY();
+        int z = (axis == EnumFacing.Axis.Z) ? 0 : pos.getZ();
+        return ((x + y + z) % 2) == 0;
     }
 }

@@ -27,17 +27,16 @@ public class HandCrankTileEntity extends GeneratingKineticTileEntity {
     }
 
     public float getIndependentAngle(float partialTicks) {
-        return ((independentAngle + partialTicks * chasingVelocity) / 360) * 30;
+        return ((independentAngle + partialTicks * chasingVelocity) / 360) * 45;
     }
 
     @Override
     public float getGeneratedSpeed() {
         Block block = WorldUtils.stateFormTE(this).getBlock();
-        HandCrankBlock crank;
-        if (!(block instanceof HandCrankBlock )) {
+        if (!(block instanceof HandCrankBlock)) {
             return 0;
         }
-        crank = (HandCrankBlock) block;
+        HandCrankBlock crank = (HandCrankBlock) block;
         int speed = (inUse == 0 ? 0 : clockwise() ? -1 : 1) * crank.getRotationSpeed();
         return convertToDirection(speed, WorldUtils.stateFormTE(this).getValue(FACING));
     }
