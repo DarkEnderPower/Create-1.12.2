@@ -22,7 +22,7 @@ public class ClutchTESR extends KineticTESR<ClutchTileEntity> {
             if(te.getRotationSpeedModifier(facing) == 1)
                 renderShaftHalf(te, x, y, z, partialTicks, facing);
             else {
-                rotateModel(calculateAngle(0, te, axis, partialTicks, 1.0F, true), x, y, z, axis, halfShaftState(facing));
+                rotateModel(calculateAngle(0, te, axis, partialTicks), x, y, z, axis, halfShaftState(facing));
             }
         }
     }

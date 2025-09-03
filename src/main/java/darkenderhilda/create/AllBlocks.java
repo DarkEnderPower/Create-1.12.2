@@ -14,10 +14,8 @@ import darkenderhilda.create.content.MOVEFOLDER.DepotBlock;
 import darkenderhilda.create.content.kinetics.speedController.SpeedControllerBlock;
 import darkenderhilda.create.content.kinetics.transmission.ClutchBlock;
 import darkenderhilda.create.content.kinetics.transmission.GearshiftBlock;
-import darkenderhilda.create.foundation.block.BlockData;
-import darkenderhilda.create.foundation.data.SharedProperties;
+import darkenderhilda.create.foundation.block.SharedProperties;
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 

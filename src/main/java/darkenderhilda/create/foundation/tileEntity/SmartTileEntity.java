@@ -9,9 +9,7 @@ public abstract class SmartTileEntity extends SyncedTileEntity implements ITicka
     protected int lazyTickCounter;
 
     public SmartTileEntity() {
-
         setLazyTickRate(10);
-
     }
 
     @Override
