@@ -1,0 +1,20 @@
+{
+  "variants":
+  {
+    "facing=up,flipped=false": { "model": "create:mechanical_saw/vertical"          },
+    "facing=up,flipped=true":  { "model": "create:mechanical_saw/vertical", "y": 90 },
+
+    "facing=down,flipped=true":  { "model": "create:mechanical_saw/vertical",  "x": 180,"y": 90 },
+    "facing=down,flipped=false":  { "model": "create:mechanical_saw/vertical", "x": 180         },
+
+    "facing=north,flipped=false": { "model": "create:mechanical_saw/horizontal", "x": 90           },
+    "facing=south,flipped=false": { "model": "create:mechanical_saw/horizontal", "y": 180, "x": 90 },
+    "facing=west,flipped=false":  { "model": "create:mechanical_saw/horizontal", "y": 270, "x": 90 },
+    "facing=east,flipped=false":  { "model": "create:mechanical_saw/horizontal", "y": 90,  "x": 90 },
+
+    "facing=north,flipped=true": { "model": "create:mechanical_saw/horizontal", "x": 90           },
+    "facing=south,flipped=true": { "model": "create:mechanical_saw/horizontal", "y": 180, "x": 90 },
+    "facing=west,flipped=true":  { "model": "create:mechanical_saw/horizontal", "y": 270, "x": 90 },
+    "facing=east,flipped=true":  { "model": "create:mechanical_saw/horizontal", "y": 90,  "x": 90 }
+  }
+}

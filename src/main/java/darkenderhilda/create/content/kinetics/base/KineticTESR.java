@@ -55,21 +55,7 @@ public abstract class KineticTESR<T extends KineticTileEntity> extends TileEntit
     }
 
     protected void renderShaftHalf(KineticTileEntity te, double x, double y, double z, float partialTicks, EnumFacing facing, boolean reverseSpeed) {
-        spinModel(te, x, y, z, partialTicks, facing.getAxis(), halfShaftState(facing), reverseSpeed);
-    }
-
-    protected IBlockState halfShaftState(EnumFacing facing) {
-        final IBlockState render = AllBlocks.RENDER.getDefaultState();
-        switch (facing) {
-            case UP:    return render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_U);
-            case DOWN:  return render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_D);
-            case NORTH: return render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_N);
-            case EAST:  return render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_E);
-            case SOUTH: return render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_S);
-            case WEST:  return render.withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SHAFT_HALF_W);
-        }
-
-        return null;
+        spinModel(te, x, y, z, partialTicks, facing.getAxis(), AllPartialModels.shaftHalf(facing), reverseSpeed);
     }
 
     protected void renderBiDirectionalShaftHalf(KineticTileEntity te, double x, double y, double z, float partialTicks, EnumFacing.Axis axis) {
@@ -129,5 +115,10 @@ public abstract class KineticTESR<T extends KineticTileEntity> extends TileEntit
             offset = 22.5f;
         }
         return offset;
+    }
+
+    protected interface ModelRender {
+
+        void render();
     }
 }

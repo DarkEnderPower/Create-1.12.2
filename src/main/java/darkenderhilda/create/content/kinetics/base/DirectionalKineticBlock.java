@@ -6,6 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import static darkenderhilda.create.foundation.block.BlockData.FACING;
@@ -28,6 +29,16 @@ public abstract class DirectionalKineticBlock extends KineticBlock {
 
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta));
+    }
+
+    @Override
+    public EnumFacing.Axis getRotationAxis(IBlockState state) {
+        return state.getValue(FACING).getAxis();
+    }
+
+    @Override
+    public boolean hasShaftTowards(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing face) {
+        return face.getAxis() == getRotationAxis(state);
     }
 
     public int getMetaFromState(IBlockState state) {

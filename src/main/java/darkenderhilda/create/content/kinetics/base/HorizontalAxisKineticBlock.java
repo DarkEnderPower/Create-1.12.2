@@ -27,12 +27,12 @@ public abstract class HorizontalAxisKineticBlock extends KineticBlock {
         return face.getAxis() == state.getValue(HORIZONTAL_AXIS).getAxis();
     }
 
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return this.getDefaultState().withProperty(HORIZONTAL_AXIS, placer.getHorizontalFacing().getOpposite());
-    }
-
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, HORIZONTAL_AXIS);
+    }
+
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getDefaultState().withProperty(HORIZONTAL_AXIS, placer.getHorizontalFacing().getOpposite());
     }
 
     public IBlockState getStateFromMeta(int meta) {

@@ -24,7 +24,7 @@ public class GearshiftBlock extends AbstractEncasedShaftBlock {
 
     public GearshiftBlock(BlockProperties properties) {
         super(properties);
-        setDefaultState(blockState.getBaseState().withProperty(POWERED, Boolean.FALSE));
+        setDefaultState(blockState.getBaseState().withProperty(POWERED, false));
     }
 
     @Override

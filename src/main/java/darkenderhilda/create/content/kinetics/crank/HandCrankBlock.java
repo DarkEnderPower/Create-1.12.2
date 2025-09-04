@@ -33,7 +33,7 @@ public class HandCrankBlock extends DirectionalKineticBlock implements ITE<HandC
         if(player.isSpectator())
             return false;
 
-        withBlockEntityDo(worldIn, pos, te -> te.turn(player.isSneaking()));
+        withTileEntityDo(worldIn, pos, te -> te.turn(player.isSneaking()));
         player.addExhaustion((float) (getRotationSpeed() * 0.009999999776482582));//AllConfigs.server().kinetics.crankHungerMultiplier.getF());
 
         return true;

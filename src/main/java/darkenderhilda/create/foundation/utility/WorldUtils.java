@@ -72,8 +72,4 @@ public class WorldUtils {
             return z;
         }
     }
-
-    public static boolean isBlockUnbreakable(IBlockState state, World world, BlockPos pos) {
-        return state.getBlockHardness(world, pos) == -1;
-    }
 }

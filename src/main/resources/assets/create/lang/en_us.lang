@@ -14,9 +14,11 @@ tile.create:clutch.name=Clutch
 tile.create:gearshift.name=Gearshift
 tile.create:millstone.name=Millstone
 tile.create:mechanical_drill.name=Mechanical Drill
+tile.create:mechanical_saw.name=Mechanical Saw
 tile.create:creative_motor.name=Creative Motor
 tile.create:creative_gearbox.name=Creative Gearbox
 tile.create:hand_crank.name=Hand Crank
+tile.create:belt.name=Belt
 tile.create:rotation_speed_controller.name=Rotation Speed Controller
 
 # Tile

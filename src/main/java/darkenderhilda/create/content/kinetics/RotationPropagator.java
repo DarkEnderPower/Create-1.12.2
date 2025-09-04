@@ -30,15 +30,6 @@ public class RotationPropagator {
 
     private static final int MAX_FLICKER_SCORE = 128;
 
-    /**
-     * Determines the change in rotation between two attached kinetic entities. For
-     * instance, an axis connection returns 1 while a 1-to-1 gear connection
-     * reverses the rotation and therefore returns -1.
-     *
-     * @param from
-     * @param to
-     * @return
-     */
     private static float getRotationSpeedModifier(KineticTileEntity from, KineticTileEntity to) {
         final IBlockState stateFrom = WorldUtils.stateFormTE(from);
         
@@ -201,12 +192,6 @@ public class RotationPropagator {
         return true;
     }
 
-    /**
-     * Insert the added position to the kinetic network.
-     *
-     * @param worldIn
-     * @param pos
-     */
     public static void handleAdded(World worldIn, BlockPos pos, KineticTileEntity addedTE) {
         if (worldIn.isRemote)
             return;
@@ -215,11 +200,6 @@ public class RotationPropagator {
         propagateNewSource(addedTE);
     }
 
-    /**
-     * Search for sourceless networks attached to the given entity and update them.
-     *
-     * @param currentTE
-     */
     private static void propagateNewSource(KineticTileEntity currentTE) {
         BlockPos pos = currentTE.getPos();
         World world = currentTE.getWorld();
@@ -303,13 +283,6 @@ public class RotationPropagator {
         }
     }
 
-    /**
-     * Remove the given entity from the network.
-     *
-     * @param worldIn
-     * @param pos
-     * @param removedBE
-     */
     public static void handleRemoved(World worldIn, BlockPos pos, KineticTileEntity removedBE) {
         if (worldIn.isRemote)
             return;
@@ -336,12 +309,6 @@ public class RotationPropagator {
         }
     }
 
-    /**
-     * Clear the entire subnetwork depending on the given entity and find a new
-     * source
-     *
-     * @param updateTE
-     */
     private static void propagateMissingSource(KineticTileEntity updateTE) {
         final World world = updateTE.getWorld();
 
@@ -364,8 +331,7 @@ public class RotationPropagator {
             currentBE.sendData();
 
             for (KineticTileEntity neighbourBE : getConnectedNeighbours(currentBE)) {
-                if (neighbourBE.getPos()
-                        .equals(missingSource))
+                if (neighbourBE.getPos().equals(missingSource))
                     continue;
                 if (!neighbourBE.hasSource())
                     continue;
@@ -439,7 +405,7 @@ public class RotationPropagator {
         if (!level.isBlockLoaded(blockPos))
             return neighbours;
 
-        for (EnumFacing facing : Iterate.direction) {
+        for (EnumFacing facing : Iterate.directions) {
             BlockPos relative = blockPos.offset(facing);
             if (level.isBlockLoaded(relative))
                 neighbours.add(relative);

@@ -13,7 +13,7 @@ public class GearShiftTESR extends KineticTESR<GearshiftTileEntity> {
     protected void renderMe(GearshiftTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         IBlockState state = WorldUtils.stateFormTE(te);
         EnumFacing.Axis boxAxis = ((IRotate) state.getBlock()).getRotationAxis(state);
-        for(EnumFacing facing : Iterate.direction) {
+        for(EnumFacing facing : Iterate.directions) {
             EnumFacing.Axis axis = facing.getAxis();
             if (boxAxis != axis)
                 continue;

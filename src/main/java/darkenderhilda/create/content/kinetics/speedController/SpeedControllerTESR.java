@@ -19,20 +19,11 @@ public class SpeedControllerTESR extends KineticTESR<SpeedControllerTileEntity> 
             return;
         }
 
-        IBlockState state = bracket(WorldUtils.getTEHorizontalFacing(te));
-
+        IBlockState bracket = AllPartialModels.speedControllerBracket(WorldUtils.getTEHorizontalFacing(te).getAxisDirection());
         GlStateManager.pushMatrix();
         GlStateManager.translate(x, y + 1, z + 1);
-        ClientUtils.getBlockModelRenderer().renderModelBrightness(ClientUtils.getModelForState(state), state, 1.0F, true);
-
+        ClientUtils.getBlockModelRenderer().renderModelBrightness(ClientUtils.getModelForState(bracket), bracket, 1.0F, true);
         GlStateManager.popMatrix();
     }
 
-    private IBlockState bracket(EnumFacing facing) {
-        if(facing == EnumFacing.NORTH || facing == EnumFacing.SOUTH) {
-            return AllBlocks.RENDER.getDefaultState().withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SPEED_CONTROLLER_BRACKET_X);
-        } else {
-            return AllBlocks.RENDER.getDefaultState().withProperty(AllPartialModels.TYPE, AllPartialModels.Type.SPEED_CONTROLLER_BRACKET_Z);
-        }
-    }
 }

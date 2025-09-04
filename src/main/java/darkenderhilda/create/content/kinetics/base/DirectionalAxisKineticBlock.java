@@ -7,5 +7,4 @@ public abstract class DirectionalAxisKineticBlock extends DirectionalKineticBloc
     public DirectionalAxisKineticBlock(BlockProperties properties) {
         super(properties);
     }
-
 }

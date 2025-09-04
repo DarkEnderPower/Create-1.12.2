@@ -18,7 +18,7 @@ public interface ITE<T extends TileEntity> {
 
     Class<T> getTileEntityClass();
 
-    default void withBlockEntityDo(IBlockAccess world, BlockPos pos, Consumer<T> action) {
+    default void withTileEntityDo(IBlockAccess world, BlockPos pos, Consumer<T> action) {
         getBlockEntityOptional(world, pos).ifPresent(action);
     }
 

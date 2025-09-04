@@ -3,6 +3,7 @@ package darkenderhilda.create.content.kinetics.drill;
 import darkenderhilda.create.AllShapes;
 import darkenderhilda.create.content.kinetics.base.DirectionalKineticBlock;
 import darkenderhilda.create.foundation.block.BlockProperties;
+import darkenderhilda.create.foundation.block.ITE;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -26,7 +27,7 @@ import java.util.List;
 
 import static darkenderhilda.create.foundation.block.BlockData.FACING;
 
-public class DrillBlock extends DirectionalKineticBlock {
+public class DrillBlock extends DirectionalKineticBlock implements ITE<DrillTileEntity> {
 
     public DrillBlock(BlockProperties properties) {
         super(properties);
@@ -40,15 +41,32 @@ public class DrillBlock extends DirectionalKineticBlock {
 
     @Nullable
     @Override
-    public Boolean isEntityInsideMaterial(IBlockAccess world, BlockPos blockpos, IBlockState iblockstate, Entity entity, double yToTest, Material materialIn, boolean testingHead) {
+    public Boolean isEntityInsideMaterial(IBlockAccess world, BlockPos pos, IBlockState iblockstate, Entity entity, double yToTest, Material materialIn, boolean testingHead) {
         if(!(entity instanceof EntityItem)) {
-            if(entity.getPosition().compareTo(blockpos) < 0) {
-                entity.attackEntityFrom(DamageSource.GENERIC, (float) getDamage(16));
-                return true;
+            if(new AxisAlignedBB(pos).shrink(-.1f).intersects(entity.getEntityBoundingBox())) {
+                damageEntity(world, pos, entity);
             }
         }
 
-        return super.isEntityInsideMaterial(world, blockpos, iblockstate, entity, yToTest, materialIn, testingHead);
+        return super.isEntityInsideMaterial(world, pos, iblockstate, entity, yToTest, materialIn, testingHead);
+    }
+
+    //for some reason isEntityInsideMaterial doesn't even being called when
+    //entity on top of a block
+    //unfortunately this doesn't trigger if entity(player) is sneaking :(
+    @Override
+    public void onEntityWalk(World world, BlockPos pos, Entity entity) {
+        if(world.getBlockState(pos).getValue(FACING) != EnumFacing.UP)
+            return;
+        damageEntity(world, pos, entity);
+    }
+
+    private void damageEntity(IBlockAccess world, BlockPos pos, Entity entity) {
+        withTileEntityDo(world, pos, te -> {
+            if (te.getSpeed() == 0)
+                return;
+            entity.attackEntityFrom(DamageSource.GENERIC, (float) DrillBlock.getDamage(te.getSpeed()));
+        });
     }
 
     @Override
@@ -93,5 +111,10 @@ public class DrillBlock extends DirectionalKineticBlock {
     @Override
     public boolean hasShaftTowards(IBlockAccess world, BlockPos pos, IBlockState state, EnumFacing face) {
         return face == state.getValue(FACING).getOpposite();
+    }
+
+    @Override
+    public Class<DrillTileEntity> getTileEntityClass() {
+        return DrillTileEntity.class;
     }
 }

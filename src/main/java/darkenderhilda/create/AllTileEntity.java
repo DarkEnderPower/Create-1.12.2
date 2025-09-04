@@ -1,5 +1,7 @@
 package darkenderhilda.create;
 
+import darkenderhilda.create.content.kinetics.belt.BeltTESR;
+import darkenderhilda.create.content.kinetics.belt.BeltTileEntity;
 import darkenderhilda.create.content.kinetics.crank.HandCrankTESR;
 import darkenderhilda.create.content.kinetics.crank.HandCrankTileEntity;
 import darkenderhilda.create.content.kinetics.creative.creative_gearbox.CreativeGearBoxTESR;
@@ -12,6 +14,8 @@ import darkenderhilda.create.content.kinetics.gearbox.GearboxTESR;
 import darkenderhilda.create.content.kinetics.gearbox.GearboxTileEntity;
 import darkenderhilda.create.content.kinetics.millstone.MillstoneTESR;
 import darkenderhilda.create.content.kinetics.millstone.MillstoneTileEntity;
+import darkenderhilda.create.content.kinetics.saw.SawTESR;
+import darkenderhilda.create.content.kinetics.saw.SawTileEntity;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTESR;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTileEntity;
 import darkenderhilda.create.content.kinetics.speedController.SpeedControllerTESR;
@@ -63,6 +67,11 @@ public class AllTileEntity {
                 .visual(new DrillTESR())
                 .register();
 
+        REGISTER.tileEntity(SawTileEntity.class, "sawTileEntity")
+                .validBlocks(AllBlocks.MECHANICAL_SAW)
+                .visual(new SawTESR())
+                .register();
+
         REGISTER.tileEntity(CreativeMotorTileEntity.class, "creativeMotorTileEntity")
                 .validBlocks(AllBlocks.CREATIVE_MOTOR)
                 .visual(new CreativeMotorTESR())
@@ -81,6 +90,11 @@ public class AllTileEntity {
         REGISTER.tileEntity(SpeedControllerTileEntity.class, "speedControllerTileEntity")
                 .validBlocks(AllBlocks.ROTATION_SPEED_CONTROLLER)
                 .visual(new SpeedControllerTESR())
+                .register();
+
+        REGISTER.tileEntity(BeltTileEntity.class, "beltTileEntity")
+                .validBlocks(AllBlocks.BELT)
+                .visual(new BeltTESR())
                 .register();
     }
 

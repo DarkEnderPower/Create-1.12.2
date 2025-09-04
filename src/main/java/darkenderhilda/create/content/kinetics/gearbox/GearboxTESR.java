@@ -12,27 +12,9 @@ public class GearboxTESR extends KineticTESR<GearboxTileEntity> {
 
     @Override
     protected void renderMe(GearboxTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-//        if(!te.isVertical()) {
-//            for(EnumFacing.Axis axis : Iterate.axes) {
-//                if(axis == WorldUtils.getTEAxis(te)) {
-//                    continue;
-//                }
-//
-//                renderBiDirectionalShaftHalf(te, x, y, z, partialTicks, axis, false);
-//            }
-//        } else {
-//            if(WorldUtils.getTEAxis(te) == EnumFacing.Axis.Z) {
-//                renderBiDirectionalShaftHalf(te, x, y, z, partialTicks, EnumFacing.Axis.X, true);
-//                renderBiDirectionalShaftHalf(te, x, y, z, partialTicks, EnumFacing.Axis.Y, false);
-//            } else if(WorldUtils.getTEAxis(te) == EnumFacing.Axis.X) {
-//                renderBiDirectionalShaftHalf(te, x, y, z, partialTicks, EnumFacing.Axis.Z, true);
-//                renderBiDirectionalShaftHalf(te, x, y, z, partialTicks, EnumFacing.Axis.Y, true);
-//            }
-//        }
-
         IBlockState state = WorldUtils.stateFormTE(te);
         EnumFacing.Axis boxAxis = ((IRotate) state.getBlock()).getRotationAxis(state);
-        for (EnumFacing facing : Iterate.direction) {
+        for (EnumFacing facing : Iterate.directions) {
             final EnumFacing.Axis axis = facing.getAxis();
             if (boxAxis == axis)
                 continue;

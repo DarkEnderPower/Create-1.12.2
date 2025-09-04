@@ -13,6 +13,8 @@ public class BlockData {
 
     public static final PropertyEnum<EnumFacing.Axis> AXIS = BlockRotatedPillar.AXIS;
     public static final PropertyDirection FACING = BlockDirectional.FACING;
+    //TODO REWRITE?
     public static final PropertyDirection HORIZONTAL_AXIS = BlockHorizontal.FACING;
+    public static final PropertyDirection HORIZONTAL_FACING = BlockHorizontal.FACING;
     public static final PropertyBool POWERED = BlockLever.POWERED;
 }

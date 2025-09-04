@@ -1,5 +1,7 @@
 package darkenderhilda.create;
 
+import darkenderhilda.create.content.kinetics.belt.BeltBlock;
+import darkenderhilda.create.content.kinetics.belt.item.BeltConnectorItem;
 import darkenderhilda.create.content.kinetics.crank.HandCrankBlock;
 import darkenderhilda.create.content.kinetics.creative.creative_gearbox.CreativeGearBoxBlock;
 import darkenderhilda.create.content.kinetics.creative.creative_gearbox.CreativeGearBoxItemBlock;
@@ -8,6 +10,7 @@ import darkenderhilda.create.content.kinetics.creative.creative_motor.CreativeMo
 import darkenderhilda.create.content.kinetics.drill.DrillBlock;
 import darkenderhilda.create.content.kinetics.gearbox.GearboxBlock;
 import darkenderhilda.create.content.kinetics.millstone.MillstoneBlock;
+import darkenderhilda.create.content.kinetics.saw.SawBlock;
 import darkenderhilda.create.content.kinetics.simpleRelays.CogWheelBlock;
 import darkenderhilda.create.content.kinetics.simpleRelays.ShaftBlock;
 import darkenderhilda.create.content.MOVEFOLDER.DepotBlock;
@@ -16,6 +19,7 @@ import darkenderhilda.create.content.kinetics.transmission.ClutchBlock;
 import darkenderhilda.create.content.kinetics.transmission.GearshiftBlock;
 import darkenderhilda.create.foundation.block.SharedProperties;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 
@@ -92,6 +96,13 @@ public class AllBlocks {
             .item()
             .register();
 
+    public static final Block MECHANICAL_SAW = REGISTER.block("mechanical_saw", SawBlock::new)
+            .initialProperties(SharedProperties.stone())
+            .properties(p -> p
+                    .mapColor(MapColor.OBSIDIAN))
+            .item()
+            .register();
+
     public static final Block CREATIVE_MOTOR = REGISTER.block("creative_motor", CreativeMotorBlock::new)
             .initialProperties(SharedProperties.stone())
             .properties(p -> p
@@ -125,10 +136,16 @@ public class AllBlocks {
     public static final Block DEPOT = REGISTER.block("depot", DepotBlock::new)
             .initialProperties(SharedProperties.stone())
             .properties(p -> p
-                    .tool("axe", 1)
-                    .tool("pickaxe", 1)
                     .mapColor(MapColor.GRAY))
             .item()
+            .register();
+
+    public static final Block BELT = REGISTER.block("belt", BeltBlock::new)
+            .properties(p -> p
+                    .material(Material.CLOTH)
+                    .mapColor(MapColor.GRAY)
+                    .soundType(SoundType.CLOTH))
+            .item(BeltConnectorItem::new)
             .register();
 
     //---Partials---
