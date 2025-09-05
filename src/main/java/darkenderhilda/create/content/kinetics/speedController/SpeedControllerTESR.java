@@ -13,17 +13,17 @@ public class SpeedControllerTESR extends KineticTESR<SpeedControllerTileEntity> 
 
     @Override
     protected void renderMe(SpeedControllerTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-        renderShaft(te, x, y, z, partialTicks, WorldUtils.getTEHorizontalFacing(te).getAxis());
-
-        if(!te.hasBracket) {
-            return;
-        }
-
-        IBlockState bracket = AllPartialModels.speedControllerBracket(WorldUtils.getTEHorizontalFacing(te).getAxisDirection());
-        GlStateManager.pushMatrix();
-        GlStateManager.translate(x, y + 1, z + 1);
-        ClientUtils.getBlockModelRenderer().renderModelBrightness(ClientUtils.getModelForState(bracket), bracket, 1.0F, true);
-        GlStateManager.popMatrix();
+//        renderShaft(te, x, y, z, partialTicks, WorldUtils.getTEHorizontalFacing(te).getAxis());
+//
+//        if(!te.hasBracket) {
+//            return;
+//        }
+//
+//        IBlockState bracket = AllPartialModels.speedControllerBracket(WorldUtils.getTEHorizontalFacing(te).getAxisDirection());
+//        GlStateManager.pushMatrix();
+//        GlStateManager.translate(x, y + 1, z + 1);
+//        ClientUtils.getBlockModelRenderer().renderModelBrightness(ClientUtils.getModelForState(bracket), bracket, 1.0F, true);
+//        GlStateManager.popMatrix();
     }
 
 }

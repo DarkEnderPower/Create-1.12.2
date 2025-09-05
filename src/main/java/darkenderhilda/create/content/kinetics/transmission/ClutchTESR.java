@@ -13,18 +13,18 @@ public class ClutchTESR extends KineticTESR<ClutchTileEntity> {
 
     @Override
     protected void renderMe(ClutchTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-        IBlockState state = WorldUtils.stateFormTE(te);
-        EnumFacing.Axis boxAxis = ((IRotate) state.getBlock()).getRotationAxis(state);
-        for(EnumFacing facing : Iterate.directions) {
-            EnumFacing.Axis axis = facing.getAxis();
-            if (boxAxis != axis)
-                continue;
-
-            if(te.getRotationSpeedModifier(facing) == 1)
-                renderShaftHalf(te, x, y, z, partialTicks, facing);
-            else {
-                rotateModel(calculateAngle(0, te, axis, partialTicks), x, y, z, axis, AllPartialModels.shaftHalf(facing));
-            }
-        }
+//        IBlockState state = WorldUtils.stateFormTE(te);
+//        EnumFacing.Axis boxAxis = ((IRotate) state.getBlock()).getRotationAxis(state);
+//        for(EnumFacing facing : Iterate.directions) {
+//            EnumFacing.Axis axis = facing.getAxis();
+//            if (boxAxis != axis)
+//                continue;
+//
+//            if(te.getRotationSpeedModifier(facing) == 1)
+//                renderShaftHalf(te, x, y, z, partialTicks, facing);
+//            else {
+//                rotateModel(calculateAngle(0, te, axis, partialTicks), x, y, z, axis, AllPartialModels.shaftHalf(facing));
+//            }
+//        }
     }
 }

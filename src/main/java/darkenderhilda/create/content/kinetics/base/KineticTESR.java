@@ -55,7 +55,7 @@ public abstract class KineticTESR<T extends KineticTileEntity> extends TileEntit
     }
 
     protected void renderShaftHalf(KineticTileEntity te, double x, double y, double z, float partialTicks, EnumFacing facing, boolean reverseSpeed) {
-        spinModel(te, x, y, z, partialTicks, facing.getAxis(), AllPartialModels.shaftHalf(facing), reverseSpeed);
+        //spinModel(te, x, y, z, partialTicks, facing.getAxis(), AllPartialModels.shaftHalf(facing), reverseSpeed);
     }
 
     protected void renderBiDirectionalShaftHalf(KineticTileEntity te, double x, double y, double z, float partialTicks, EnumFacing.Axis axis) {

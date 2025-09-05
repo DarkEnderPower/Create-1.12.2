@@ -4,6 +4,7 @@ import darkenderhilda.create.AllBlocks;
 import darkenderhilda.create.CreateClient;
 import darkenderhilda.create.content.kinetics.base.IRotate;
 import darkenderhilda.create.content.kinetics.base.KineticTileEntity;
+import darkenderhilda.create.content.kinetics.simpleRelays.ICogWheel;
 import darkenderhilda.create.foundation.utility.AnimationTickHolder;
 import darkenderhilda.create.foundation.utility.WorldUtils;
 import net.minecraft.block.state.IBlockState;
@@ -11,7 +12,10 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+
+import static darkenderhilda.create.foundation.block.BlockData.AXIS;
 
 public class KineticTileEntityRenderer<T extends KineticTileEntity> extends SafeTileEntityRendererFast<T> {
 
@@ -25,6 +29,10 @@ public class KineticTileEntityRenderer<T extends KineticTileEntity> extends Safe
 	@Override
 	public void renderFast(T te, double x, double y, double z, float partialTicks, int destroyStage, BufferBuilder buffer) {
 		renderRotatingBuffer(te, getWorld(), getRotatedModel(te, WorldUtils.stateFormTE(te)), x, y, z, buffer);
+	}
+
+	protected SuperByteBuffer getRotatedModel(T te, IBlockState state) {
+		return CreateClient.bufferCache.renderBlockIn(KINETIC_TILE, getRenderedBlockState(te));
 	}
 
 	public static void renderRotatingKineticBlock(KineticTileEntity te, World world, IBlockState renderedState, double x,
@@ -73,23 +81,47 @@ public class KineticTileEntityRenderer<T extends KineticTileEntity> extends Safe
 
 		return buffer;
 	}
+//	protected static float getRotationOffsetForPosition(KineticTileEntity te, final BlockPos pos, final EnumFacing.Axis axis) {
+//		float offset = WorldUtils.typeOf(AllBlocks.LARGE_COGWHEEL, WorldUtils.stateFormTE(te)) ? 11.25f : 0;
+//		double d = (((axis == EnumFacing.Axis.X) ? 0 : pos.getX()) + ((axis == EnumFacing.Axis.Y) ? 0 : pos.getY())
+//				+ ((axis == EnumFacing.Axis.Z) ? 0 : pos.getZ())) % 2;
+//		if (d == 0) {
+//			offset = 22.5f;
+//		}
+//		return offset;
 
-	protected static float getRotationOffsetForPosition(KineticTileEntity te, final BlockPos pos, final EnumFacing.Axis axis) {
-		float offset = WorldUtils.typeOf(AllBlocks.LARGE_COGWHEEL, WorldUtils.stateFormTE(te)) ? 11.25f : 0;
-		double d = (((axis == EnumFacing.Axis.X) ? 0 : pos.getX()) + ((axis == EnumFacing.Axis.Y) ? 0 : pos.getY())
-				+ ((axis == EnumFacing.Axis.Z) ? 0 : pos.getZ())) % 2;
-		if (d == 0) {
-			offset = 22.5f;
+//	}
+
+	public static float getRotationOffsetForPosition(KineticTileEntity te, final BlockPos pos, final EnumFacing.Axis axis) {
+		return rotationOffset(WorldUtils.stateFormTE(te), axis, pos) + te.getRotationAngleOffset(axis);
+	}
+
+	public static float rotationOffset(IBlockState state, EnumFacing.Axis axis, Vec3i pos) {
+		if (shouldOffset(axis, pos)) {
+			return 22.5f;
+		} else {
+			return ICogWheel.isLargeCog(state) ? 11.25f : 0;
 		}
-		return offset;
+	}
+
+	public static boolean shouldOffset(EnumFacing.Axis axis, Vec3i pos) {
+		int x = (axis == EnumFacing.Axis.X) ? 0 : pos.getX();
+		int y = (axis == EnumFacing.Axis.Y) ? 0 : pos.getY();
+		int z = (axis == EnumFacing.Axis.Z) ? 0 : pos.getZ();
+		return ((x + y + z) % 2) == 0;
 	}
 
 	protected IBlockState getRenderedBlockState(KineticTileEntity te) {
 		return WorldUtils.stateFormTE(te);
 	}
 
-	protected SuperByteBuffer getRotatedModel(T te, IBlockState state) {
-		return CreateClient.bufferCache.renderBlockIn(KINETIC_TILE, getRenderedBlockState(te));
+	public static IBlockState shaft(EnumFacing.Axis axis) {
+		return AllBlocks.SHAFT.getDefaultState()
+				.withProperty(AXIS, axis);
 	}
 
+	public static EnumFacing.Axis getRotationAxisOf(KineticTileEntity te) {
+		IBlockState state = WorldUtils.stateFormTE(te);
+		return ((IRotate) state.getBlock()).getRotationAxis(state);
+	}
 }

@@ -51,6 +51,7 @@ public class Create {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
+        AllPartialModels.onModelBake();
     }
 
     public static ResourceLocation create(String path) {

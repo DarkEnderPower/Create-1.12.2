@@ -2,6 +2,7 @@ package darkenderhilda.create.foundation.register;
 
 import darkenderhilda.create.AllBlocks;
 import darkenderhilda.create.AllItems;
+import darkenderhilda.create.AllPartialModels;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;

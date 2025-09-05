@@ -1,20 +1,19 @@
 {
   "variants":
   {
+    "type=cogwheel_shaftless": { "model": "create:cogwheel_shaftless" },
+    "type=large_cogwheel_shaftless": { "model": "create:large_cogwheel_shaftless" },
+    "type=cogwheel_shaft": { "model": "create:cogwheel_shaft" },
     "type=shaft_half": { "model": "create:shaft_half" },
-
     "type=drill_head" : { "model": "create:mechanical_drill/head" },
-
-    "type=blade_horizontal_active" :   { "model": "create:mechanical_saw/blade_horizontal_active"   },
+    "type=blade_horizontal_active" :   { "model": "create:mechanical_saw/blade_horizontal_active" },
     "type=blade_horizontal_inactive" : { "model": "create:mechanical_saw/blade_horizontal_inactive" },
     "type=blade_horizontal_reversed" : { "model": "create:mechanical_saw/blade_horizontal_reversed" },
-    "type=blade_vertical_active" :     { "model": "create:mechanical_saw/blade_vertical_active"     },
-    "type=blade_vertical_inactive" :   { "model": "create:mechanical_saw/blade_vertical_inactive"   },
-    "type=blade_vertical_reversed" :   { "model": "create:mechanical_saw/blade_vertical_reversed"   },
-
+    "type=blade_vertical_active" :     { "model": "create:mechanical_saw/blade_vertical_active" },
+    "type=blade_vertical_inactive" :   { "model": "create:mechanical_saw/blade_vertical_inactive" },
+    "type=blade_vertical_reversed" :   { "model": "create:mechanical_saw/blade_vertical_reversed" },
     "type=millstone_cog" : { "model": "create:millstone/inner" },
-
-    "type=speed_controller_bracket_x":  { "model": "create:rotation_speed_controller/bracket"          },
+    "type=speed_controller_bracket_x":  { "model": "create:rotation_speed_controller/bracket" },
     "type=speed_controller_bracket_z":  { "model": "create:rotation_speed_controller/bracket", "y": 90 }
   }
 }
