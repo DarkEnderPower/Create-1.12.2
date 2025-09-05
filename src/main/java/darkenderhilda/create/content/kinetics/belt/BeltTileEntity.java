@@ -13,7 +13,7 @@ public class BeltTileEntity extends KineticTileEntity {
     public boolean hasCasing = false;
 
     public boolean hasPulley() {
-        if(WorldUtils.stateFormTE(this) == AllBlocks.BELT)
+        if(WorldUtils.stateFormTE(this).getBlock() == AllBlocks.BELT)
             return false;
         return beltPart != MIDDLE;
     }

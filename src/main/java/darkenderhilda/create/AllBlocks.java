@@ -18,6 +18,7 @@ import darkenderhilda.create.content.kinetics.speedController.SpeedControllerBlo
 import darkenderhilda.create.content.kinetics.transmission.ClutchBlock;
 import darkenderhilda.create.content.kinetics.transmission.GearshiftBlock;
 import darkenderhilda.create.foundation.block.SharedProperties;
+import darkenderhilda.create.test.TestBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -154,5 +155,11 @@ public class AllBlocks {
                     .material(Material.ROCK)
                     .hardness(-1.0f)
                     .resistance(36000000.0f))
+            .register();
+
+
+    public static final Block TEST = REGISTER.block("test", TestBlock::new)
+            .initialProperties(SharedProperties.stone())
+            .item()
             .register();
 }

@@ -2,14 +2,21 @@ package darkenderhilda.create;
 
 import darkenderhilda.create.foundation.block.BlockProperties;
 import darkenderhilda.create.foundation.block.CreateBlock;
+import darkenderhilda.create.foundation.utility.AngleHelper;
+import darkenderhilda.create.foundation.utility.ClientUtils;
+import darkenderhilda.create.test.SuperByteBuffer;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static darkenderhilda.create.foundation.block.BlockData.FACING;
+import static darkenderhilda.create.foundation.block.BlockData.HORIZONTAL_FACING;
 
 public class AllPartialModels extends CreateBlock {
 
@@ -19,19 +26,8 @@ public class AllPartialModels extends CreateBlock {
 
     public enum Model implements IStringSerializable {
 
-        SHAFT_HALF_UP("shaft_half_up"),
-        SHAFT_HALF_DOWN("shaft_half_down"),
-        SHAFT_HALF_NORTH("shaft_half_north"),
-        SHAFT_HALF_SOUTH("shaft_half_south"),
-        SHAFT_HALF_WEST("shaft_half_west"),
-        SHAFT_HALF_EAST("shaft_half_east"),
-
-        DRILL_HEAD_UP("drill_head_up"),
-        DRILL_HEAD_DOWN("drill_head_down"),
-        DRILL_HEAD_NORTH("drill_head_north"),
-        DRILL_HEAD_SOUTH("drill_head_south"),
-        DRILL_HEAD_WEST("drill_head_west"),
-        DRILL_HEAD_EAST("drill_head_east"),
+        SHAFT_HALF("shaft_half"),
+        DRILL_HEAD("drill_head"),
 
         SAW_BLADE_HORIZONTAL_ACTIVE("blade_horizontal_active"),
         SAW_BLADE_HORIZONTAL_INACTIVE("blade_horizontal_inactive"),
@@ -56,8 +52,33 @@ public class AllPartialModels extends CreateBlock {
             return name;
         }
 
-        public IBlockState get() {
+        public IBlockState getState() {
             return getStaticModel(name);
+        }
+
+        public IBakedModel get() {
+            return ClientUtils.getModelForState(getState());
+        }
+
+        public SuperByteBuffer renderOn(IBlockState referenceState) {
+            return CreateClient.bufferCache.renderPartial(this, referenceState);
+        }
+
+        public SuperByteBuffer renderOnDirectional(IBlockState referenceState) {
+            EnumFacing facing = referenceState.getValue(FACING);
+            return renderOnDirectional(referenceState, facing);
+        }
+
+        public SuperByteBuffer renderOnHorizontal(IBlockState referenceState) {
+            EnumFacing facing = referenceState.getValue(HORIZONTAL_FACING);
+            return renderOnDirectional(referenceState, facing);
+        }
+
+        public SuperByteBuffer renderOnDirectional(IBlockState referenceState, EnumFacing facing) {
+            SuperByteBuffer renderPartial = CreateClient.bufferCache.renderPartial(this, referenceState);
+            renderPartial.rotateCentered(EnumFacing.Axis.X, AngleHelper.rad(AngleHelper.verticalAngle(facing)));
+            renderPartial.rotateCentered(EnumFacing.Axis.Y, AngleHelper.rad(AngleHelper.horizontalAngle(facing)));
+            return renderPartial;
         }
     }
 

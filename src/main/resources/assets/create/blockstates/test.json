@@ -1,0 +1,4 @@
+{
+  "variants":
+  { "normal": { "model": "create:model" } }
+}

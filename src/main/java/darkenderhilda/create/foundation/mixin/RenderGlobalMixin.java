@@ -30,6 +30,8 @@ public class RenderGlobalMixin {
             IBlockState state = world.getBlockState(blockpos);
             Block block = state.getBlock();
             if(block instanceof IHasExtendedShape) {
+                GlStateManager.pushMatrix();
+
                 GlStateManager.enableBlend();
                 GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
                 GlStateManager.glLineWidth(2.0F);
@@ -51,6 +53,7 @@ public class RenderGlobalMixin {
                 GlStateManager.enableTexture2D();
                 GlStateManager.disableBlend();
 
+                GlStateManager.popMatrix();
                 ci.cancel();
             }
         }

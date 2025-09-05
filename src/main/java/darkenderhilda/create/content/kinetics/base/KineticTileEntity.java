@@ -47,9 +47,13 @@ public abstract class KineticTileEntity extends SmartTileEntity implements IHave
 
     //public SequenceContext sequenceContext;
 
-
     public KineticTileEntity() {
         updateSpeed = true;
+    }
+
+    @Override
+    public boolean hasFastRenderer() {
+        return true;
     }
 
     @Override

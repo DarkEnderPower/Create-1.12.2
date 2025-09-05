@@ -8,6 +8,6 @@ public class MillstoneTESR extends KineticTESR<MillstoneTileEntity> {
 
     @Override
     protected void renderMe(MillstoneTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-        spinModel(te, x, y, z, partialTicks, EnumFacing.Axis.Y, AllPartialModels.Model.MILLSTONE_COG.get());
+        spinModel(te, x, y, z, partialTicks, EnumFacing.Axis.Y, AllPartialModels.Model.MILLSTONE_COG.getState());
     }
 }

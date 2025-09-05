@@ -29,11 +29,11 @@ public class SawTESR extends KineticTESR<SawTileEntity> {
         IBlockState blade;
         if(SawBlock.isHorizontal(WorldUtils.stateFormTE(te))) {
             if (speed > 0) {
-                blade = AllPartialModels.Model.SAW_BLADE_HORIZONTAL_ACTIVE.get();
+                blade = AllPartialModels.Model.SAW_BLADE_HORIZONTAL_ACTIVE.getState();
             } else if (speed < 0) {
-                blade = AllPartialModels.Model.SAW_BLADE_HORIZONTAL_REVERSED.get();
+                blade = AllPartialModels.Model.SAW_BLADE_HORIZONTAL_REVERSED.getState();
             } else {
-                blade = AllPartialModels.Model.SAW_BLADE_HORIZONTAL_INACTIVE.get();
+                blade = AllPartialModels.Model.SAW_BLADE_HORIZONTAL_INACTIVE.getState();
             }
 
             GlStateManager.pushMatrix();
@@ -57,11 +57,11 @@ public class SawTESR extends KineticTESR<SawTileEntity> {
 
         } else {
             if (te.getSpeed() > 0) {
-                blade = AllPartialModels.Model.SAW_BLADE_VERTICAL_ACTIVE.get();
+                blade = AllPartialModels.Model.SAW_BLADE_VERTICAL_ACTIVE.getState();
             } else if (speed < 0) {
-                blade = AllPartialModels.Model.SAW_BLADE_VERTICAL_REVERSED.get();
+                blade = AllPartialModels.Model.SAW_BLADE_VERTICAL_REVERSED.getState();
             } else {
-                blade = AllPartialModels.Model.SAW_BLADE_VERTICAL_INACTIVE.get();
+                blade = AllPartialModels.Model.SAW_BLADE_VERTICAL_INACTIVE.getState();
             }
             GlStateManager.pushMatrix();
             GlStateManager.translate(x, y, z + 1);
