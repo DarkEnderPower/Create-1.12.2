@@ -23,13 +23,12 @@ public class BracketedKineticBlockEntityRenderer extends KineticTileEntityRender
             return;
         }
 
-        // Large cogs sometimes have to offset their teeth by 11.25 degrees in order to
-        // mesh properly
-
         EnumFacing.Axis axis = getRotationAxisOf(te);
+        EnumFacing facing = WorldUtils.fromAxisAndDirection(axis, EnumFacing.AxisDirection.POSITIVE);
+        renderRotatingBuffer(te, getWorld(), AllPartialModels.Model.LARGE_COGWHEEL_SHAFTLESS.renderOnDirectional(state, facing), x, y, z, buffer);
 
         float angle = getAngleForLargeCogShaft(te, axis);
-        SuperByteBuffer shaft = AllPartialModels.Model.COGWHEEL_SHAFT.renderOn(state);
+        SuperByteBuffer shaft = AllPartialModels.Model.COGWHEEL_SHAFT.renderOnDirectional(state, facing);
         kineticRotationTransform(shaft, te, axis, angle, getWorld());
         shaft.translate(x, y, z).renderInto(buffer);
     }

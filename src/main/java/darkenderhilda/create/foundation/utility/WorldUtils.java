@@ -8,8 +8,7 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 
 import static darkenderhilda.create.foundation.block.BlockData.*;
-import static net.minecraft.util.EnumFacing.NORTH;
-import static net.minecraft.util.EnumFacing.VALUES;
+import static net.minecraft.util.EnumFacing.*;
 
 public class WorldUtils {
 
@@ -27,6 +26,15 @@ public class WorldUtils {
 
     public static EnumFacing.Axis getTEAxis(TileEntity te) {
         return stateFormTE(te).getValue(AXIS);
+    }
+
+    public static EnumFacing fromAxisAndDirection(EnumFacing.Axis axis, EnumFacing.AxisDirection axisDirection) {
+        switch (axis.ordinal()) {
+            case 0 : return axisDirection == EnumFacing.AxisDirection.POSITIVE ? EAST : WEST;
+            case 1 : return axisDirection == EnumFacing.AxisDirection.POSITIVE ? UP : DOWN;
+            case 2 : return axisDirection == EnumFacing.AxisDirection.POSITIVE ? SOUTH : NORTH;
+            default : throw new IncompatibleClassChangeError();
+        }
     }
 
     public static boolean typeOf(Block block, IBlockState state) {
