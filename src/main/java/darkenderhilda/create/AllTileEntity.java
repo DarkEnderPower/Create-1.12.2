@@ -14,7 +14,7 @@ import darkenderhilda.create.content.kinetics.gearbox.GearboxRenderer;
 import darkenderhilda.create.content.kinetics.gearbox.GearboxTileEntity;
 import darkenderhilda.create.content.kinetics.millstone.MillstoneRenderer;
 import darkenderhilda.create.content.kinetics.millstone.MillstoneTileEntity;
-import darkenderhilda.create.content.kinetics.saw.SawTESR;
+import darkenderhilda.create.content.kinetics.saw.SawRenderer;
 import darkenderhilda.create.content.kinetics.saw.SawTileEntity;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticBlockEntityRenderer;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTileEntity;
@@ -70,7 +70,7 @@ public class AllTileEntity {
 
         REGISTER.tileEntity(SawTileEntity.class, "sawTileEntity")
                 .validBlocks(AllBlocks.MECHANICAL_SAW)
-                .renderer(new SawTESR())
+                .renderer(new SawRenderer())
                 .register();
 
         REGISTER.tileEntity(CreativeMotorTileEntity.class, "creativeMotorTileEntity")

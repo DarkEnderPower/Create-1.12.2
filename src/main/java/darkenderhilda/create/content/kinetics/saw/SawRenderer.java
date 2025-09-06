@@ -1,19 +1,12 @@
 package darkenderhilda.create.content.kinetics.saw;
 
-import darkenderhilda.create.AllPartialModels;
 import darkenderhilda.create.content.kinetics.base.KineticTESR;
-import darkenderhilda.create.foundation.utility.ClientUtils;
-import darkenderhilda.create.foundation.utility.WorldUtils;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.EnumFacing;
+import darkenderhilda.create.foundation.block.SafeTileEntityRenderer;
 
-import static darkenderhilda.create.content.kinetics.saw.SawBlock.FLIPPED;
+public class SawRenderer extends SafeTileEntityRenderer<SawTileEntity> {
 
-public class SawTESR extends KineticTESR<SawTileEntity> {
-
-    @Override
-    protected void renderMe(SawTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+//    @Override
+//    protected void renderMe(SawTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 //        EnumFacing facing = WorldUtils.getTEFacing(te);
 //        if(facing.getAxis() != EnumFacing.Axis.Y) {
 //            renderShaftHalf(te, x, y, z, partialTicks, facing.getOpposite());
@@ -22,6 +15,15 @@ public class SawTESR extends KineticTESR<SawTileEntity> {
 //        }
 //
 //        renderBlade(te, facing, x, y, z);
+//    }
+
+    @Override
+    protected void renderWithGL(SawTileEntity tileEntityIn, double x, double y, double z, float partialTicks, int destroyStage) {
+
+    }
+
+    private void renderShaft() {
+
     }
 
 //    protected void renderBlade(SawTileEntity te, EnumFacing facing, double x, double y, double z) {
