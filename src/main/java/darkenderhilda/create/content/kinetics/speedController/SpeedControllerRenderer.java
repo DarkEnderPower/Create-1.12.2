@@ -38,7 +38,7 @@ public class SpeedControllerRenderer extends SmartTileEntityRenderer<SpeedContro
 
         EnumFacing facing = (state.getValue(HORIZONTAL_AXIS).getAxis() == EnumFacing.Axis.X)
                 ? EnumFacing.NORTH : EnumFacing.WEST;
-        bufferBuilder.putBulkData(AllPartialModels.Model.SPEED_CONTROLLER_BRACKET_X.renderOnDirectional(state, facing).translate(x, y + 1, z).build());
+        bufferBuilder.putBulkData(AllPartialModels.SPEED_CONTROLLER_BRACKET.renderOnDirectional(state, facing).translate(x, y + 1, z).build());
 
         TessellatorHelper.draw();
     }

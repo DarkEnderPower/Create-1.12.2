@@ -9,6 +9,6 @@ public class CreativeMotorRenderer extends KineticTileEntityRenderer<CreativeMot
 
     @Override
     protected SuperByteBuffer getRotatedModel(CreativeMotorTileEntity te, IBlockState state) {
-        return AllPartialModels.Model.SHAFT_HALF.renderOnDirectional(state);
+        return AllPartialModels.SHAFT_HALF.renderOnDirectional(state);
     }
 }

@@ -16,21 +16,15 @@ import darkenderhilda.create.content.kinetics.millstone.MillstoneRenderer;
 import darkenderhilda.create.content.kinetics.millstone.MillstoneTileEntity;
 import darkenderhilda.create.content.kinetics.saw.SawRenderer;
 import darkenderhilda.create.content.kinetics.saw.SawTileEntity;
-import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticBlockEntityRenderer;
+import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTileEntityRenderer;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTileEntity;
 import darkenderhilda.create.content.kinetics.speedController.SpeedControllerRenderer;
 import darkenderhilda.create.content.kinetics.speedController.SpeedControllerTileEntity;
 import darkenderhilda.create.content.kinetics.transmission.*;
-import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static darkenderhilda.create.Create.REGISTER;
 
 public class AllTileEntity {
 
@@ -50,7 +44,7 @@ public class AllTileEntity {
     }
 
     public static void initTileEntityRenderers() {
-        ClientRegistry.bindTileEntitySpecialRenderer(BracketedKineticTileEntity.class, new BracketedKineticBlockEntityRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(BracketedKineticTileEntity.class, new BracketedKineticTileEntityRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(GearboxTileEntity.class, new GearboxRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(ClutchTileEntity.class, new SplitShaftRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(GearshiftTileEntity.class, new SplitShaftRenderer());

@@ -12,7 +12,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
 
-public class BracketedKineticBlockEntityRenderer extends KineticTileEntityRenderer<BracketedKineticTileEntity> {
+public class BracketedKineticTileEntityRenderer extends KineticTileEntityRenderer<BracketedKineticTileEntity> {
 
     @Override
     public void renderFast(BracketedKineticTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, BufferBuilder buffer) {
@@ -24,10 +24,10 @@ public class BracketedKineticBlockEntityRenderer extends KineticTileEntityRender
 
         EnumFacing.Axis axis = getRotationAxisOf(te);
         EnumFacing facing = WorldUtils.fromAxisAndDirection(axis, EnumFacing.AxisDirection.POSITIVE);
-        renderRotatingBuffer(te, getWorld(), AllPartialModels.Model.LARGE_COGWHEEL_SHAFTLESS.renderOnDirectional(state, facing), x, y, z, buffer);
+        renderRotatingBuffer(te, getWorld(), AllPartialModels.LARGE_COGWHEEL_SHAFTLESS.renderOnDirectional(state, facing), x, y, z, buffer);
 
         float angle = getAngleForLargeCogShaft(te, axis);
-        SuperByteBuffer shaft = AllPartialModels.Model.COGWHEEL_SHAFT.renderOnDirectional(state, facing);
+        SuperByteBuffer shaft = AllPartialModels.COGWHEEL_SHAFT.renderOnDirectional(state, facing);
         kineticRotationTransform(shaft, te, axis, angle, getWorld());
         shaft.translate(x, y, z).renderInto(buffer);
     }

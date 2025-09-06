@@ -149,7 +149,7 @@ public class AllBlocks {
             .register();
 
     //---Partials---
-    public static final Block RENDER = REGISTER.block("render", AllPartialModels::new)
+    public static final Block RENDER = REGISTER.block("render", AllPartialModels.Render::new)
             .properties(p -> p
                     .material(Material.ROCK)
                     .hardness(-1.0f)

@@ -26,7 +26,7 @@ public class SuperByteBufferCache {
 	}
 
 	public static final Compartment<IBlockState> GENERIC_TILE = new Compartment<>();
-	public static final Compartment<AllPartialModels.Model> PARTIAL = new Compartment<>();
+	public static final Compartment<AllPartialModels> PARTIAL = new Compartment<>();
 
 	Map<Compartment<?>, Cache<Object, SuperByteBuffer>> cache;
 
@@ -40,7 +40,7 @@ public class SuperByteBufferCache {
 		return getGeneric(toRender, () -> standardBlockRender(toRender));
 	}
 
-	public SuperByteBuffer renderPartial(AllPartialModels.Model partial, IBlockState referenceState) {
+	public SuperByteBuffer renderPartial(AllPartialModels partial, IBlockState referenceState) {
 		return get(PARTIAL, partial, () -> standardModelRender(partial.get(), referenceState));
 	}
 

@@ -15,91 +15,93 @@ import net.minecraft.util.IStringSerializable;
 import static darkenderhilda.create.foundation.block.BlockData.FACING;
 import static darkenderhilda.create.foundation.block.BlockData.HORIZONTAL_FACING;
 
-public class AllPartialModels extends CreateBlock {
+public enum AllPartialModels implements IStringSerializable {
 
-    public AllPartialModels(BlockProperties properties) {
-        super(properties);
+    COGWHEEL_SHAFTLESS("cogwheel_shaftless"), LARGE_COGWHEEL_SHAFTLESS("large_cogwheel_shaftless"),
+    COGWHEEL_SHAFT("cogwheel_shaft"), SHAFT_HALF("shaft_half"),
+
+    DRILL_HEAD("drill_head"),
+
+    SAW_BLADE_HORIZONTAL_ACTIVE("blade_horizontal_active"),
+    SAW_BLADE_HORIZONTAL_INACTIVE("blade_horizontal_inactive"),
+    SAW_BLADE_HORIZONTAL_REVERSED("blade_horizontal_reversed"),
+    SAW_BLADE_VERTICAL_ACTIVE("blade_vertical_active"),
+    SAW_BLADE_VERTICAL_INACTIVE("blade_vertical_inactive"),
+    SAW_BLADE_VERTICAL_REVERSED("blade_vertical_reversed"),
+
+    MILLSTONE_COG("millstone_cog"),
+
+    SPEED_CONTROLLER_BRACKET("speed_controller_bracket_x");
+
+    private final String name;
+    private IBakedModel bakedModel;
+
+    AllPartialModels(String name) {
+        this.name = name;
     }
 
-    public enum Model implements IStringSerializable {
+    @Override
+    public String getName() {
+        return name;
+    }
 
-        COGWHEEL_SHAFTLESS("cogwheel_shaftless"), LARGE_COGWHEEL_SHAFTLESS("large_cogwheel_shaftless"),
-        COGWHEEL_SHAFT("cogwheel_shaft"), SHAFT_HALF("shaft_half"),
-        DRILL_HEAD("drill_head"),
-        SAW_BLADE_HORIZONTAL_ACTIVE("blade_horizontal_active"),
-        SAW_BLADE_HORIZONTAL_INACTIVE("blade_horizontal_inactive"),
-        SAW_BLADE_HORIZONTAL_REVERSED("blade_horizontal_reversed"),
-        SAW_BLADE_VERTICAL_ACTIVE("blade_vertical_active"),
-        SAW_BLADE_VERTICAL_INACTIVE("blade_vertical_inactive"),
-        SAW_BLADE_VERTICAL_REVERSED("blade_vertical_reversed"),
-        MILLSTONE_COG("millstone_cog"),
-        SPEED_CONTROLLER_BRACKET_X("speed_controller_bracket_x"),
-        SPEED_CONTROLLER_BRACKET_Z("speed_controller_bracket_z");
+    public IBakedModel get() {
+        return bakedModel;
+    }
 
-        private final String name;
-        private IBakedModel bakedModel;
+    public SuperByteBuffer renderOn(IBlockState referenceState) {
+        return CreateClient.bufferCache.renderPartial(this, referenceState);
+    }
 
-        Model(String name) {
-            this.name = name;
-          }
+    public SuperByteBuffer renderOnDirectional(IBlockState referenceState) {
+        EnumFacing facing = referenceState.getValue(FACING);
+        return renderOnDirectional(referenceState, facing);
+    }
+
+    public SuperByteBuffer renderOnHorizontal(IBlockState referenceState) {
+        EnumFacing facing = referenceState.getValue(HORIZONTAL_FACING);
+        return renderOnDirectional(referenceState, facing);
+    }
+
+    public SuperByteBuffer renderOnDirectional(IBlockState referenceState, EnumFacing facing) {
+        SuperByteBuffer renderPartial = CreateClient.bufferCache.renderPartial(this, referenceState);
+        renderPartial.rotateCentered(EnumFacing.Axis.X, AngleHelper.rad(AngleHelper.verticalAngle(facing)));
+        renderPartial.rotateCentered(EnumFacing.Axis.Y, AngleHelper.rad(AngleHelper.horizontalAngle(facing)));
+        return renderPartial;
+    }
+
+    public static void initPartialModels() {
+        for(AllPartialModels model : AllPartialModels.values()) {
+            model.bakedModel = ClientUtils.getModelForState(AllBlocks.RENDER.getDefaultState().withProperty(AllPartialModels.Render.TYPE, model));
+        }
+    }
+
+    public static class Render extends CreateBlock {
+
+        public Render(BlockProperties properties) {
+            super(properties);
+        }
+
+        public static final PropertyEnum<AllPartialModels> TYPE = PropertyEnum.create("type", AllPartialModels.class);
 
         @Override
-        public String getName() {
-            return name;
+        protected BlockStateContainer createBlockState() {
+            return new BlockStateContainer(this, TYPE);
         }
 
-        public IBakedModel get() {
-            return bakedModel;
+        @Override
+        public int getMetaFromState(IBlockState state) {
+            return 0;
         }
 
-        public SuperByteBuffer renderOn(IBlockState referenceState) {
-            return CreateClient.bufferCache.renderPartial(this, referenceState);
+        @Override
+        public IBlockState getStateFromMeta(int meta) {
+            return getDefaultState();
         }
 
-        public SuperByteBuffer renderOnDirectional(IBlockState referenceState) {
-            EnumFacing facing = referenceState.getValue(FACING);
-            return renderOnDirectional(referenceState, facing);
+        @Override
+        protected boolean registerItem() {
+            return false;
         }
-
-        public SuperByteBuffer renderOnHorizontal(IBlockState referenceState) {
-            EnumFacing facing = referenceState.getValue(HORIZONTAL_FACING);
-            return renderOnDirectional(referenceState, facing);
-        }
-
-        public SuperByteBuffer renderOnDirectional(IBlockState referenceState, EnumFacing facing) {
-            SuperByteBuffer renderPartial = CreateClient.bufferCache.renderPartial(this, referenceState);
-            renderPartial.rotateCentered(EnumFacing.Axis.X, AngleHelper.rad(AngleHelper.verticalAngle(facing)));
-            renderPartial.rotateCentered(EnumFacing.Axis.Y, AngleHelper.rad(AngleHelper.horizontalAngle(facing)));
-            return renderPartial;
-        }
-    }
-
-    public static void onModelBake() {
-        for(AllPartialModels.Model model : AllPartialModels.Model.values()) {
-            model.bakedModel = ClientUtils.getModelForState(AllBlocks.RENDER.getDefaultState().withProperty(AllPartialModels.TYPE, model));
-        }
-    }
-
-    //dummy
-    public static final PropertyEnum<Model> TYPE = PropertyEnum.create("type", Model.class);
-
-    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, TYPE);
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return 0;
-    }
-
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState();
-    }
-
-    @Override
-    protected boolean registerItem() {
-        return false;
     }
 }

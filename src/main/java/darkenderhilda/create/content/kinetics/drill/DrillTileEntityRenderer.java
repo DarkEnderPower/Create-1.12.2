@@ -14,6 +14,6 @@ public class DrillTileEntityRenderer extends KineticTileEntityRenderer<DrillTile
     }
 
     protected static SuperByteBuffer getRotatingModel(IBlockState state) {
-        return AllPartialModels.Model.DRILL_HEAD.renderOnDirectional(state);
+        return AllPartialModels.DRILL_HEAD.renderOnDirectional(state);
     }
 }

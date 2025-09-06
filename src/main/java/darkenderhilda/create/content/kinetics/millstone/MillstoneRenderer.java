@@ -9,6 +9,6 @@ public class MillstoneRenderer extends KineticTileEntityRenderer<MillstoneTileEn
 
     @Override
     protected SuperByteBuffer getRotatedModel(MillstoneTileEntity te, IBlockState state) {
-        return AllPartialModels.Model.MILLSTONE_COG.renderOn(state);
+        return AllPartialModels.MILLSTONE_COG.renderOn(state);
     }
 }
