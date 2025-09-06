@@ -1,39 +1,25 @@
 package darkenderhilda.create.foundation.block;
 
-import com.mojang.realmsclient.util.Pair;
 import darkenderhilda.create.AllCreativeModeTabs;
-import darkenderhilda.create.Create;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class BlockProperties {
 
     private String name;
     private Material material;
-    private final List<Pair<String, Integer>> harvestLevels = new ArrayList<>();
     private CreativeTabs creativeTab = AllCreativeModeTabs.CREATE_TAB;
-
     private float hardness = 0.0F;
     private float resistance = 0.0F;
     private SoundType soundType = SoundType.STONE;
     private MapColor mapColor;
     private float lightLevel = 0.0F;
 
-
-
     //---Setters----
     BlockProperties name(String name) {
         this.name = name;
-        return this;
-    }
-
-    public BlockProperties tool(String toolClass, int level) {
-        harvestLevels.add(Pair.of(toolClass, level));
         return this;
     }
 
@@ -79,10 +65,6 @@ public class BlockProperties {
 
     public Material getMaterial() {
         return material;
-    }
-
-    public List<Pair<String, Integer>> getHarvestLevels() {
-        return harvestLevels;
     }
 
     public CreativeTabs getCreativeTab() {
