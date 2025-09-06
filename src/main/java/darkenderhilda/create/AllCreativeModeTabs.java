@@ -13,7 +13,7 @@ public class AllCreativeModeTabs {
         @SideOnly(Side.CLIENT)
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(Items.GOLDEN_PICKAXE);
+            return new ItemStack(AllBlocks.COGWHEEL);
         }
     };
 

@@ -47,7 +47,6 @@ public class AllTileEntity {
         registerTile(HandCrankTileEntity.class, "handCrankTileEntity");
         registerTile(SpeedControllerTileEntity.class, "speedControllerTileEntity");
         registerTile(BeltTileEntity.class, "beltTileEntity");
-
     }
 
     public static void initTileEntityRenderers() {
@@ -66,10 +65,6 @@ public class AllTileEntity {
     }
 
     private static void registerTile(Class<? extends TileEntity> clazz, String key) {
-        GameRegistry.registerTileEntity(clazz, resourceLocation(key));
-    }
-
-    private static ResourceLocation resourceLocation(String key) {
-        return new ResourceLocation(Create.ID + ":" + key);
+        GameRegistry.registerTileEntity(clazz, new ResourceLocation(Create.ID + ":" + key));
     }
 }

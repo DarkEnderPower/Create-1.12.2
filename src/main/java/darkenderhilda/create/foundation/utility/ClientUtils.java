@@ -41,12 +41,8 @@ public class ClientUtils {
         return getBlockRenderDispatcher().getModelForState(state);
     }
 
-    public static float getPartialTicks() {
-        return getMc().getRenderPartialTicks();
-    }
-
     public static BlockPos getRayTraceBlockPos() {
-        RayTraceResult mouseOver = getPlayer().rayTrace(Minecraft.getMinecraft().playerController.getBlockReachDistance(), ClientUtils.getPartialTicks());
+        RayTraceResult mouseOver = getPlayer().rayTrace(Minecraft.getMinecraft().playerController.getBlockReachDistance(), Minecraft.getMinecraft().getRenderPartialTicks());
         if(mouseOver != null) {
             if (mouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
                 return mouseOver.getBlockPos();
