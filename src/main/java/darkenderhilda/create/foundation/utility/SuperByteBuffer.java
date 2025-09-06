@@ -1,5 +1,6 @@
-package darkenderhilda.create.test;
+package darkenderhilda.create.foundation.utility;
 
+import darkenderhilda.create.foundation.block.render.SpriteShiftEntry;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;

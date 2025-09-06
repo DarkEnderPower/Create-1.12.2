@@ -1,5 +1,7 @@
 package darkenderhilda.create.foundation.tileEntity;
 
+import darkenderhilda.create.foundation.utility.WorldUtils;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -47,5 +49,9 @@ public abstract class SyncedTileEntity extends TileEntity {
     // Special handling for client update packets
     public NBTTagCompound writeToClient(NBTTagCompound tag) {
         return writeToNBT(tag);
+    }
+
+    public IBlockState getBlockState() {
+        return WorldUtils.stateFormTE(this);
     }
 }

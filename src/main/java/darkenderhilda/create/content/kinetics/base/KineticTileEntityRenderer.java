@@ -1,11 +1,12 @@
-package darkenderhilda.create.test;
+package darkenderhilda.create.content.kinetics.base;
 
 import darkenderhilda.create.AllBlocks;
 import darkenderhilda.create.CreateClient;
-import darkenderhilda.create.content.kinetics.base.IRotate;
-import darkenderhilda.create.content.kinetics.base.KineticTileEntity;
 import darkenderhilda.create.content.kinetics.simpleRelays.ICogWheel;
+import darkenderhilda.create.foundation.tileEntity.SafeTileEntityRendererFast;
 import darkenderhilda.create.foundation.utility.AnimationTickHolder;
+import darkenderhilda.create.foundation.utility.SuperByteBuffer;
+import darkenderhilda.create.foundation.utility.SuperByteBufferCache;
 import darkenderhilda.create.foundation.utility.WorldUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -81,16 +82,6 @@ public class KineticTileEntityRenderer<T extends KineticTileEntity> extends Safe
 
 		return buffer;
 	}
-//	protected static float getRotationOffsetForPosition(KineticTileEntity te, final BlockPos pos, final EnumFacing.Axis axis) {
-//		float offset = WorldUtils.typeOf(AllBlocks.LARGE_COGWHEEL, WorldUtils.stateFormTE(te)) ? 11.25f : 0;
-//		double d = (((axis == EnumFacing.Axis.X) ? 0 : pos.getX()) + ((axis == EnumFacing.Axis.Y) ? 0 : pos.getY())
-//				+ ((axis == EnumFacing.Axis.Z) ? 0 : pos.getZ())) % 2;
-//		if (d == 0) {
-//			offset = 22.5f;
-//		}
-//		return offset;
-
-//	}
 
 	public static float getRotationOffsetForPosition(KineticTileEntity te, final BlockPos pos, final EnumFacing.Axis axis) {
 		return rotationOffset(WorldUtils.stateFormTE(te), axis, pos) + te.getRotationAngleOffset(axis);

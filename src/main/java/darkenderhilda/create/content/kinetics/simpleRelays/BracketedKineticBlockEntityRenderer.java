@@ -4,13 +4,12 @@ import darkenderhilda.create.AllBlocks;
 import darkenderhilda.create.AllPartialModels;
 import darkenderhilda.create.foundation.utility.AnimationTickHolder;
 import darkenderhilda.create.foundation.utility.WorldUtils;
-import darkenderhilda.create.test.KineticTileEntityRenderer;
-import darkenderhilda.create.test.SuperByteBuffer;
+import darkenderhilda.create.content.kinetics.base.KineticTileEntityRenderer;
+import darkenderhilda.create.foundation.utility.SuperByteBuffer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 
 public class BracketedKineticBlockEntityRenderer extends KineticTileEntityRenderer<BracketedKineticTileEntity> {

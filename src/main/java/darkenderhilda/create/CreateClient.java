@@ -1,7 +1,7 @@
 package darkenderhilda.create;
 
-import darkenderhilda.create.test.KineticTileEntityRenderer;
-import darkenderhilda.create.test.SuperByteBufferCache;
+import darkenderhilda.create.content.kinetics.base.KineticTileEntityRenderer;
+import darkenderhilda.create.foundation.utility.SuperByteBufferCache;
 
 public class CreateClient {
 

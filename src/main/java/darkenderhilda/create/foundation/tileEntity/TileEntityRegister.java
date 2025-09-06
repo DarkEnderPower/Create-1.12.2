@@ -25,13 +25,13 @@ public class TileEntityRegister {
         this.registry = registry;
     }
 
-    public TileEntityRegister visual(TileEntitySpecialRenderer<?> tesr) {
-        this.tesr = tesr;
+    public TileEntityRegister validBlocks(Block...blocks) {
+        validBlocks.addAll(Arrays.asList(blocks));
         return this;
     }
 
-    public TileEntityRegister validBlocks(Block...blocks) {
-        validBlocks.addAll(Arrays.asList(blocks));
+    public TileEntityRegister renderer(TileEntitySpecialRenderer<?> tesr) {
+        this.tesr = tesr;
         return this;
     }
 

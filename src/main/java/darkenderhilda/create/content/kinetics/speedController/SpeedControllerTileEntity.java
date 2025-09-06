@@ -18,6 +18,11 @@ public class SpeedControllerTileEntity extends KineticTileEntity {
     }
 
     @Override
+    public boolean hasFastRenderer() {
+        return false;
+    }
+
+    @Override
     public void lazyTick() {
         super.lazyTick();
         updateBracket();

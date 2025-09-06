@@ -4,7 +4,7 @@ import darkenderhilda.create.foundation.block.BlockProperties;
 import darkenderhilda.create.foundation.block.CreateBlock;
 import darkenderhilda.create.foundation.utility.AngleHelper;
 import darkenderhilda.create.foundation.utility.ClientUtils;
-import darkenderhilda.create.test.SuperByteBuffer;
+import darkenderhilda.create.foundation.utility.SuperByteBuffer;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;

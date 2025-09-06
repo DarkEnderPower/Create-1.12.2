@@ -18,12 +18,9 @@ import darkenderhilda.create.content.kinetics.saw.SawTESR;
 import darkenderhilda.create.content.kinetics.saw.SawTileEntity;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticBlockEntityRenderer;
 import darkenderhilda.create.content.kinetics.simpleRelays.BracketedKineticTileEntity;
-import darkenderhilda.create.content.kinetics.speedController.SpeedControllerTESR;
+import darkenderhilda.create.content.kinetics.speedController.SpeedControllerRenderer;
 import darkenderhilda.create.content.kinetics.speedController.SpeedControllerTileEntity;
-import darkenderhilda.create.content.kinetics.transmission.ClutchTESR;
-import darkenderhilda.create.content.kinetics.transmission.ClutchTileEntity;
-import darkenderhilda.create.content.kinetics.transmission.GearshiftTileEntity;
-import darkenderhilda.create.content.kinetics.transmission.GearShiftTESR;
+import darkenderhilda.create.content.kinetics.transmission.*;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 
@@ -43,62 +40,62 @@ public class AllTileEntity {
     static {
         REGISTER.tileEntity(BracketedKineticTileEntity.class, "bracketedKineticTileEntity")
                 .validBlocks(AllBlocks.SHAFT, AllBlocks.COGWHEEL, AllBlocks.LARGE_COGWHEEL)
-                .visual(new BracketedKineticBlockEntityRenderer())
+                .renderer(new BracketedKineticBlockEntityRenderer())
                 .register();
 
         REGISTER.tileEntity(GearboxTileEntity.class, "gearboxTileEntity")
                 .validBlocks(AllBlocks.GEARBOX, AllBlocks.GEARBOX_VERTICAL)
-                .visual(new GearboxRenderer())
+                .renderer(new GearboxRenderer())
                 .register();
 
         REGISTER.tileEntity(ClutchTileEntity.class, "clutchTileEntity")
                 .validBlocks(AllBlocks.CLUTCH)
-                .visual(new ClutchTESR())
+                .renderer(new SplitShaftRenderer())
                 .register();
 
         REGISTER.tileEntity(GearshiftTileEntity.class, "gearshiftTileEntity")
                 .validBlocks(AllBlocks.GEARSHIFT)
-                .visual(new GearShiftTESR())
+                .renderer(new SplitShaftRenderer())
                 .register();
 
         REGISTER.tileEntity(MillstoneTileEntity.class, "millstoneTileEntity")
                 .validBlocks(AllBlocks.MILLSTONE)
-                .visual(new MillstoneRenderer())
+                .renderer(new MillstoneRenderer())
                 .register();
 
         REGISTER.tileEntity(DrillTileEntity.class, "drillTileEntity")
                 .validBlocks(AllBlocks.MECHANICAL_DRILL)
-                .visual(new DrillTileEntityRenderer())
+                .renderer(new DrillTileEntityRenderer())
                 .register();
 
         REGISTER.tileEntity(SawTileEntity.class, "sawTileEntity")
                 .validBlocks(AllBlocks.MECHANICAL_SAW)
-                .visual(new SawTESR())
+                .renderer(new SawTESR())
                 .register();
 
         REGISTER.tileEntity(CreativeMotorTileEntity.class, "creativeMotorTileEntity")
                 .validBlocks(AllBlocks.CREATIVE_MOTOR)
-                .visual(new CreativeMotorRenderer())
+                .renderer(new CreativeMotorRenderer())
                 .register();
 
         REGISTER.tileEntity(CreativeGearBoxTileEntity.class, "creativeGearBoxTileEntity")
                 .validBlocks(AllBlocks.CREATIVE_GEARBOX)
-                .visual(new CreativeGearBoxTESR())
+                .renderer(new CreativeGearBoxTESR())
                 .register();
 
         REGISTER.tileEntity(HandCrankTileEntity.class, "handCrankTileEntity")
                 .validBlocks(AllBlocks.HAND_CRANK)
-                .visual(new HandCrankTESR())
+                .renderer(new HandCrankTESR())
                 .register();
 
         REGISTER.tileEntity(SpeedControllerTileEntity.class, "speedControllerTileEntity")
                 .validBlocks(AllBlocks.ROTATION_SPEED_CONTROLLER)
-                .visual(new SpeedControllerTESR())
+                .renderer(new SpeedControllerRenderer())
                 .register();
 
         REGISTER.tileEntity(BeltTileEntity.class, "beltTileEntity")
                 .validBlocks(AllBlocks.BELT)
-                .visual(new BeltTESR())
+                .renderer(new BeltTESR())
                 .register();
     }
 }
