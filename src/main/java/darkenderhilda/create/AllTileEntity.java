@@ -23,6 +23,9 @@ import darkenderhilda.create.content.kinetics.speedController.SpeedControllerTil
 import darkenderhilda.create.content.kinetics.transmission.*;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,71 +34,42 @@ import static darkenderhilda.create.Create.REGISTER;
 
 public class AllTileEntity {
 
-    public static final Map<Block, Class<? extends TileEntity>> TILE_ENTITIES = new HashMap<>();
+    public static void initTileEntities() {
+        registerTile(BracketedKineticTileEntity.class, "bracketedKineticTileEntity");
+        registerTile(GearboxTileEntity.class, "gearboxTileEntity");
+        registerTile(ClutchTileEntity.class, "clutchTileEntity");
+        registerTile(GearshiftTileEntity.class, "gearshiftTileEntity");
+        registerTile(MillstoneTileEntity.class, "millstoneTileEntity");
+        registerTile(DrillTileEntity.class, "drillTileEntity");
+        registerTile(SawTileEntity.class, "sawTileEntity");
+        registerTile(CreativeMotorTileEntity.class, "creativeMotorTileEntity");
+        registerTile(CreativeGearBoxTileEntity.class, "creativeGearBoxTileEntity");
+        registerTile(HandCrankTileEntity.class, "handCrankTileEntity");
+        registerTile(SpeedControllerTileEntity.class, "speedControllerTileEntity");
+        registerTile(BeltTileEntity.class, "beltTileEntity");
 
-    public static TileEntity getTEForBlock(Block block) throws InstantiationException, IllegalAccessException {
-        return TILE_ENTITIES.get(block).newInstance();
     }
 
-    static {
-        REGISTER.tileEntity(BracketedKineticTileEntity.class, "bracketedKineticTileEntity")
-                .validBlocks(AllBlocks.SHAFT, AllBlocks.COGWHEEL, AllBlocks.LARGE_COGWHEEL)
-                .renderer(new BracketedKineticBlockEntityRenderer())
-                .register();
+    public static void initTileEntityRenderers() {
+        ClientRegistry.bindTileEntitySpecialRenderer(BracketedKineticTileEntity.class, new BracketedKineticBlockEntityRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(GearboxTileEntity.class, new GearboxRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(ClutchTileEntity.class, new SplitShaftRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(GearshiftTileEntity.class, new SplitShaftRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(MillstoneTileEntity.class, new MillstoneRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(DrillTileEntity.class, new DrillTileEntityRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(SawTileEntity.class, new SawRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(CreativeMotorTileEntity.class, new CreativeMotorRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(CreativeGearBoxTileEntity.class, new CreativeGearBoxTESR());
+        ClientRegistry.bindTileEntitySpecialRenderer(HandCrankTileEntity.class, new HandCrankTESR());
+        ClientRegistry.bindTileEntitySpecialRenderer(SpeedControllerTileEntity.class, new SpeedControllerRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(BeltTileEntity.class, new BeltTESR());
+    }
 
-        REGISTER.tileEntity(GearboxTileEntity.class, "gearboxTileEntity")
-                .validBlocks(AllBlocks.GEARBOX, AllBlocks.GEARBOX_VERTICAL)
-                .renderer(new GearboxRenderer())
-                .register();
+    private static void registerTile(Class<? extends TileEntity> clazz, String key) {
+        GameRegistry.registerTileEntity(clazz, resourceLocation(key));
+    }
 
-        REGISTER.tileEntity(ClutchTileEntity.class, "clutchTileEntity")
-                .validBlocks(AllBlocks.CLUTCH)
-                .renderer(new SplitShaftRenderer())
-                .register();
-
-        REGISTER.tileEntity(GearshiftTileEntity.class, "gearshiftTileEntity")
-                .validBlocks(AllBlocks.GEARSHIFT)
-                .renderer(new SplitShaftRenderer())
-                .register();
-
-        REGISTER.tileEntity(MillstoneTileEntity.class, "millstoneTileEntity")
-                .validBlocks(AllBlocks.MILLSTONE)
-                .renderer(new MillstoneRenderer())
-                .register();
-
-        REGISTER.tileEntity(DrillTileEntity.class, "drillTileEntity")
-                .validBlocks(AllBlocks.MECHANICAL_DRILL)
-                .renderer(new DrillTileEntityRenderer())
-                .register();
-
-        REGISTER.tileEntity(SawTileEntity.class, "sawTileEntity")
-                .validBlocks(AllBlocks.MECHANICAL_SAW)
-                .renderer(new SawRenderer())
-                .register();
-
-        REGISTER.tileEntity(CreativeMotorTileEntity.class, "creativeMotorTileEntity")
-                .validBlocks(AllBlocks.CREATIVE_MOTOR)
-                .renderer(new CreativeMotorRenderer())
-                .register();
-
-        REGISTER.tileEntity(CreativeGearBoxTileEntity.class, "creativeGearBoxTileEntity")
-                .validBlocks(AllBlocks.CREATIVE_GEARBOX)
-                .renderer(new CreativeGearBoxTESR())
-                .register();
-
-        REGISTER.tileEntity(HandCrankTileEntity.class, "handCrankTileEntity")
-                .validBlocks(AllBlocks.HAND_CRANK)
-                .renderer(new HandCrankTESR())
-                .register();
-
-        REGISTER.tileEntity(SpeedControllerTileEntity.class, "speedControllerTileEntity")
-                .validBlocks(AllBlocks.ROTATION_SPEED_CONTROLLER)
-                .renderer(new SpeedControllerRenderer())
-                .register();
-
-        REGISTER.tileEntity(BeltTileEntity.class, "beltTileEntity")
-                .validBlocks(AllBlocks.BELT)
-                .renderer(new BeltTESR())
-                .register();
+    private static ResourceLocation resourceLocation(String key) {
+        return new ResourceLocation(Create.ID + ":" + key);
     }
 }

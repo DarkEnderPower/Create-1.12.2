@@ -2,9 +2,11 @@ package darkenderhilda.create.content.kinetics.gearbox;
 
 import darkenderhilda.create.content.kinetics.base.RotatedPillarKineticBlock;
 import darkenderhilda.create.foundation.block.BlockProperties;
+import darkenderhilda.create.foundation.block.ITE;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -14,11 +16,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
 import static darkenderhilda.create.foundation.block.BlockData.AXIS;
 
-public class GearboxBlock extends RotatedPillarKineticBlock {
+public class GearboxBlock extends RotatedPillarKineticBlock implements ITE<GearboxTileEntity> {
 
     protected final boolean isVertical;
 
@@ -75,5 +78,16 @@ public class GearboxBlock extends RotatedPillarKineticBlock {
     @Override
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new GearboxTileEntity();
+    }
+
+    @Override
+    public Class<GearboxTileEntity> getTileEntityClass() {
+        return GearboxTileEntity.class;
     }
 }

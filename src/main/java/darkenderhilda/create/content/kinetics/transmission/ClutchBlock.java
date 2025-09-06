@@ -3,8 +3,11 @@ package darkenderhilda.create.content.kinetics.transmission;
 import darkenderhilda.create.foundation.block.BlockProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 import static darkenderhilda.create.foundation.block.BlockData.POWERED;
 
@@ -24,5 +27,11 @@ public class ClutchBlock extends GearshiftBlock {
             worldIn.setBlockState(pos, state.cycleProperty(POWERED), 2 | 16);
             detachKinetics(worldIn, pos, previouslyPowered);
         }
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new ClutchTileEntity();
     }
 }

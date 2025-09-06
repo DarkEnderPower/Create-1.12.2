@@ -4,19 +4,23 @@ import darkenderhilda.create.AllShapes;
 import darkenderhilda.create.content.kinetics.base.KineticBlock;
 import darkenderhilda.create.content.kinetics.simpleRelays.ICogWheel;
 import darkenderhilda.create.foundation.block.BlockProperties;
+import darkenderhilda.create.foundation.block.ITE;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
-public class MillstoneBlock extends KineticBlock implements ICogWheel {
+public class MillstoneBlock extends KineticBlock implements ITE<MillstoneTileEntity>, ICogWheel {
 
     public MillstoneBlock(BlockProperties properties) {
         super(properties);
@@ -46,5 +50,16 @@ public class MillstoneBlock extends KineticBlock implements ICogWheel {
     @Override
     public EnumFacing.Axis getRotationAxis(IBlockState state) {
         return EnumFacing.Axis.Y;
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new MillstoneTileEntity();
+    }
+
+    @Override
+    public Class<MillstoneTileEntity> getTileEntityClass() {
+        return MillstoneTileEntity.class;
     }
 }

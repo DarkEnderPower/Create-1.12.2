@@ -45,16 +45,16 @@ public class BeltBlock extends HorizontalKineticBlock
         return state.getValue(HORIZONTAL_FACING).getAxis();
     }
 
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return beltTileEntity.hasCasing ? EnumBlockRenderType.MODEL : EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+    }
+
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         beltTileEntity = new BeltTileEntity();
         return beltTileEntity;
-    }
-
-    @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return beltTileEntity.hasCasing ? EnumBlockRenderType.MODEL : EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 
     @Override

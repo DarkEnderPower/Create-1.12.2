@@ -1,5 +1,6 @@
 package darkenderhilda.create.foundation.proxy;
 
+import darkenderhilda.create.AllTileEntity;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
@@ -12,6 +13,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+        AllTileEntity.initTileEntityRenderers();
     }
 
     @Override

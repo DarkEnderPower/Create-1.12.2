@@ -6,6 +6,7 @@ import darkenderhilda.create.foundation.block.BlockProperties;
 import darkenderhilda.create.foundation.block.ITE;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -13,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 import static darkenderhilda.create.foundation.block.BlockData.HORIZONTAL_AXIS;
@@ -42,6 +44,12 @@ public class SpeedControllerBlock extends HorizontalAxisKineticBlock implements 
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.MODEL;
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new SpeedControllerTileEntity();
     }
 
     @Override

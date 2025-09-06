@@ -18,16 +18,10 @@ public class TileEntityRegister {
     private final Class<? extends TileEntity> te;
     private final String registry;
     private TileEntitySpecialRenderer<?> tesr;
-    private final List<Block> validBlocks = new ArrayList<>();
 
     public TileEntityRegister(Class<? extends TileEntity> te, String registry) {
         this.te = te;
         this.registry = registry;
-    }
-
-    public TileEntityRegister validBlocks(Block...blocks) {
-        validBlocks.addAll(Arrays.asList(blocks));
-        return this;
     }
 
     public TileEntityRegister renderer(TileEntitySpecialRenderer<?> tesr) {
@@ -37,8 +31,6 @@ public class TileEntityRegister {
 
     public void register() {
         registerTE(te, registry, tesr);
-
-        validBlocks.forEach(b -> AllTileEntity.TILE_ENTITIES.put(b, te));
     }
 
     private static void registerTE(Class<? extends TileEntity> te, String registry, @Nullable TileEntitySpecialRenderer<?> renderer) {

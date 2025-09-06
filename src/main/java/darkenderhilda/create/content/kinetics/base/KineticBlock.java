@@ -1,7 +1,8 @@
 package darkenderhilda.create.content.kinetics.base;
 
 import darkenderhilda.create.foundation.block.BlockProperties;
-import darkenderhilda.create.foundation.block.BlockWithTE;
+import darkenderhilda.create.foundation.block.CreateBlock;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -11,10 +12,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-public abstract class KineticBlock extends BlockWithTE implements IRotate {
+public abstract class KineticBlock extends CreateBlock implements IRotate, ITileEntityProvider {
 
     public KineticBlock(BlockProperties properties) {
         super(properties);

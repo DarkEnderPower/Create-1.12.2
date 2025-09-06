@@ -3,6 +3,7 @@ package darkenderhilda.create.foundation.register;
 import darkenderhilda.create.AllBlocks;
 import darkenderhilda.create.AllItems;
 import darkenderhilda.create.AllPartialModels;
+import darkenderhilda.create.AllTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -18,6 +19,8 @@ public class ItemAndBlockRegistryEvents {
         for(Item item : AllItems.ITEMS) {
             event.getRegistry().register(item);
         }
+
+        AllTileEntity.initTileEntities();
     }
 
     @SubscribeEvent

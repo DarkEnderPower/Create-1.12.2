@@ -22,10 +22,4 @@ public class ShaftBlock extends AbstractSimpleShaftBlock {
     public List<AxisAlignedBB> getShape(IBlockState state) {
         return AllShapes.SIX_VOXEL_POLE.get(state.getValue(AXIS));
     }
-
-    @Nullable
-    @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new BracketedKineticTileEntity();
-    }
 }

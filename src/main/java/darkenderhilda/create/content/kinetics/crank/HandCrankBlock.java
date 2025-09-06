@@ -9,6 +9,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -17,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 import static darkenderhilda.create.foundation.block.BlockData.FACING;
@@ -80,12 +82,18 @@ public class HandCrankBlock extends DirectionalKineticBlock implements ITE<HandC
     }
 
     @Override
-    public Class<HandCrankTileEntity> getTileEntityClass() {
-        return HandCrankTileEntity.class;
+    public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
+        return false;
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new HandCrankTileEntity();
     }
 
     @Override
-    public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-        return false;
+    public Class<HandCrankTileEntity> getTileEntityClass() {
+        return HandCrankTileEntity.class;
     }
 }

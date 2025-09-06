@@ -1,7 +1,9 @@
 package darkenderhilda.create.content.kinetics.simpleRelays;
 
+import darkenderhilda.create.content.kinetics.base.KineticTileEntity;
 import darkenderhilda.create.content.kinetics.base.RotatedPillarKineticBlock;
 import darkenderhilda.create.foundation.block.BlockProperties;
+import darkenderhilda.create.foundation.block.ITE;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
@@ -15,7 +17,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import static darkenderhilda.create.foundation.block.BlockData.AXIS;
 
-public abstract class AbstractShaftBlock extends RotatedPillarKineticBlock implements ITileEntityProvider {
+public abstract class AbstractShaftBlock extends RotatedPillarKineticBlock implements ITE<KineticTileEntity>, ITileEntityProvider {
 
     public AbstractShaftBlock(BlockProperties properties) {
         super(properties);
@@ -40,5 +42,10 @@ public abstract class AbstractShaftBlock extends RotatedPillarKineticBlock imple
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+    }
+
+    @Override
+    public Class<KineticTileEntity> getTileEntityClass() {
+        return KineticTileEntity.class;
     }
 }

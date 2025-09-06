@@ -3,7 +3,9 @@ package darkenderhilda.create.content.kinetics.transmission;
 import darkenderhilda.create.content.kinetics.RotationPropagator;
 import darkenderhilda.create.content.kinetics.base.AbstractEncasedShaftBlock;
 import darkenderhilda.create.content.kinetics.base.KineticTileEntity;
+import darkenderhilda.create.content.kinetics.gearbox.GearboxTileEntity;
 import darkenderhilda.create.foundation.block.BlockProperties;
+import darkenderhilda.create.foundation.block.ITE;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -17,10 +19,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
+
 import static darkenderhilda.create.foundation.block.BlockData.AXIS;
 import static darkenderhilda.create.foundation.block.BlockData.POWERED;
 
-public class GearshiftBlock extends AbstractEncasedShaftBlock {
+public class GearshiftBlock extends AbstractEncasedShaftBlock implements ITE<SplitShaftTileEntity> {
 
     public GearshiftBlock(BlockProperties properties) {
         super(properties);
@@ -87,5 +91,16 @@ public class GearshiftBlock extends AbstractEncasedShaftBlock {
     @Override
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
+    }
+
+    @Override
+    public Class<SplitShaftTileEntity> getTileEntityClass() {
+        return SplitShaftTileEntity.class;
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new GearshiftTileEntity();
     }
 }
