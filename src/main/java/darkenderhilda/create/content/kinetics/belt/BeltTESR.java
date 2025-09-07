@@ -1,11 +1,11 @@
 package darkenderhilda.create.content.kinetics.belt;
 
-import darkenderhilda.create.content.kinetics.base.KineticTESR;
+import darkenderhilda.create.foundation.block.SafeTileEntityRenderer;
 
-public class BeltTESR extends KineticTESR<BeltTileEntity> {
+public class BeltTESR extends SafeTileEntityRenderer<BeltTileEntity> {
 
     @Override
-    protected void renderMe(BeltTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+    protected void renderWithGL(BeltTileEntity tileEntityIn, double x, double y, double z, float partialTicks, int destroyStage) {
 
     }
 }

@@ -1,9 +1,13 @@
 package darkenderhilda.create.content.kinetics.crank;
 
+import darkenderhilda.create.AllPartialModels;
 import darkenderhilda.create.content.kinetics.base.GeneratingKineticTileEntity;
+import darkenderhilda.create.foundation.utility.SuperByteBuffer;
 import darkenderhilda.create.foundation.utility.WorldUtils;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -27,7 +31,7 @@ public class HandCrankTileEntity extends GeneratingKineticTileEntity {
     }
 
     public float getIndependentAngle(float partialTicks) {
-        return ((independentAngle + partialTicks * chasingVelocity) / 360) * 45;
+        return ((independentAngle + partialTicks * chasingVelocity) / 360);
     }
 
     @Override
@@ -75,6 +79,12 @@ public class HandCrankTileEntity extends GeneratingKineticTileEntity {
                 updateGeneratedRotation();
             }
         }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public SuperByteBuffer getRenderedHandle() {
+        IBlockState state = getBlockState();
+        return AllPartialModels.HAND_CRANK_HANDLE.renderOnDirectional(state, state.getValue(FACING).getOpposite());
     }
 
     @SideOnly(Side.CLIENT)

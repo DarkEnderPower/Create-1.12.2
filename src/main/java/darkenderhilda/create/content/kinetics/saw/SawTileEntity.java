@@ -16,6 +16,11 @@ import static darkenderhilda.create.foundation.block.BlockData.FACING;
 
 public class SawTileEntity extends BlockBreakingKineticTileEntity {
 
+    @Override
+    public boolean hasFastRenderer() {
+        return false;
+    }
+
     protected boolean canProcess() {
         return getWorld().getBlockState(getPos()).getValue(FACING) == EnumFacing.UP;
     }

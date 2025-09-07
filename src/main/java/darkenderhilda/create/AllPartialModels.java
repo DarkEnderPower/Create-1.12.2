@@ -31,7 +31,8 @@ public enum AllPartialModels implements IStringSerializable {
 
     MILLSTONE_COG("millstone_cog"),
 
-    SPEED_CONTROLLER_BRACKET("speed_controller_bracket");
+    SPEED_CONTROLLER_BRACKET("speed_controller_bracket"),
+    HAND_CRANK_HANDLE("hand_crank_handle");
 
     private final String name;
     private IBakedModel bakedModel;

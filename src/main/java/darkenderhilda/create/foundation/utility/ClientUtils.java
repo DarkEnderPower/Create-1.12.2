@@ -29,16 +29,8 @@ public class ClientUtils {
         return getMc().getSoundHandler();
     }
 
-    public static BlockRendererDispatcher getBlockRenderDispatcher() {
-        return getMc().getBlockRendererDispatcher();
-    }
-
-    public static BlockModelRenderer getBlockModelRenderer() {
-        return getBlockRenderDispatcher().getBlockModelRenderer();
-    }
-
     public static IBakedModel getModelForState(IBlockState state) {
-        return getBlockRenderDispatcher().getModelForState(state);
+        return getMc().getBlockRendererDispatcher().getModelForState(state);
     }
 
     public static BlockPos getRayTraceBlockPos() {

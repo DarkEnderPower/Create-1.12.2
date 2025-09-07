@@ -2,7 +2,7 @@ package darkenderhilda.create;
 
 import darkenderhilda.create.content.kinetics.belt.BeltTESR;
 import darkenderhilda.create.content.kinetics.belt.BeltTileEntity;
-import darkenderhilda.create.content.kinetics.crank.HandCrankTESR;
+import darkenderhilda.create.content.kinetics.crank.HandCrankRenderer;
 import darkenderhilda.create.content.kinetics.crank.HandCrankTileEntity;
 import darkenderhilda.create.content.kinetics.creative.creative_gearbox.CreativeGearBoxTESR;
 import darkenderhilda.create.content.kinetics.creative.creative_gearbox.CreativeGearBoxTileEntity;
@@ -53,7 +53,7 @@ public class AllTileEntity {
         ClientRegistry.bindTileEntitySpecialRenderer(SawTileEntity.class, new SawRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(CreativeMotorTileEntity.class, new CreativeMotorRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(CreativeGearBoxTileEntity.class, new CreativeGearBoxTESR());
-        ClientRegistry.bindTileEntitySpecialRenderer(HandCrankTileEntity.class, new HandCrankTESR());
+        ClientRegistry.bindTileEntitySpecialRenderer(HandCrankTileEntity.class, new HandCrankRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(SpeedControllerTileEntity.class, new SpeedControllerRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(BeltTileEntity.class, new BeltTESR());
     }

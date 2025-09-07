@@ -14,8 +14,11 @@
     "type=blade_vertical_active" :     { "model": "create:mechanical_saw/blade_vertical_active" },
     "type=blade_vertical_inactive" :   { "model": "create:mechanical_saw/blade_vertical_inactive" },
     "type=blade_vertical_reversed" :   { "model": "create:mechanical_saw/blade_vertical_reversed" },
+
     "type=millstone_cog" : { "model": "create:millstone/inner" },
 
-    "type=speed_controller_bracket":  { "model": "create:rotation_speed_controller/bracket" }
+    "type=speed_controller_bracket":  { "model": "create:rotation_speed_controller/bracket" },
+
+    "type=hand_crank_handle":  { "model": "create:hand_crank/handle" }
   }
 }
