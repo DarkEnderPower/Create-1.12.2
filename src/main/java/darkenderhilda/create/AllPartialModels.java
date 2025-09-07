@@ -31,7 +31,7 @@ public enum AllPartialModels implements IStringSerializable {
 
     MILLSTONE_COG("millstone_cog"),
 
-    SPEED_CONTROLLER_BRACKET("speed_controller_bracket_x");
+    SPEED_CONTROLLER_BRACKET("speed_controller_bracket");
 
     private final String name;
     private IBakedModel bakedModel;
@@ -72,17 +72,19 @@ public enum AllPartialModels implements IStringSerializable {
 
     public static void initPartialModels() {
         for(AllPartialModels model : AllPartialModels.values()) {
-            model.bakedModel = ClientUtils.getModelForState(AllBlocks.RENDER.getDefaultState().withProperty(AllPartialModels.Render.TYPE, model));
+            model.bakedModel = ClientUtils.getModelForState(AllBlocks.RENDER.getDefaultState().withProperty(AllPartialModels.TYPE, model));
         }
     }
 
+    private static final PropertyEnum<AllPartialModels> TYPE = PropertyEnum.create("type", AllPartialModels.class);
+
+
+    //dummy
     public static class Render extends CreateBlock {
 
         public Render(BlockProperties properties) {
             super(properties);
         }
-
-        public static final PropertyEnum<AllPartialModels> TYPE = PropertyEnum.create("type", AllPartialModels.class);
 
         @Override
         protected BlockStateContainer createBlockState() {
