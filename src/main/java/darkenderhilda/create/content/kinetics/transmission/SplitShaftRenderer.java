@@ -17,7 +17,7 @@ public class SplitShaftRenderer extends KineticTileEntityRenderer<SplitShaftTile
 
         IBlockState state = te.getBlockState();
         final EnumFacing.Axis boxAxis = ((IRotate) state.getBlock()).getRotationAxis(state);
-        float time = AnimationTickHolder.getRenderTick();
+        float time = AnimationTickHolder.getRenderTime();
 
         for(EnumFacing facing : Iterate.directions) {
             EnumFacing.Axis axis = facing.getAxis();

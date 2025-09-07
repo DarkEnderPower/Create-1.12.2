@@ -20,7 +20,7 @@ public class GearboxRenderer extends KineticTileEntityRenderer<GearboxTileEntity
         IBlockState state = WorldUtils.stateFormTE(te);
         final EnumFacing.Axis boxAxis = state.getValue(AXIS);
         final BlockPos pos = te.getPos();
-        float time = AnimationTickHolder.getRenderTick();
+        float time = AnimationTickHolder.getRenderTime();
 
         for (EnumFacing direction : Iterate.directions) {
             final EnumFacing.Axis axis = direction.getAxis();

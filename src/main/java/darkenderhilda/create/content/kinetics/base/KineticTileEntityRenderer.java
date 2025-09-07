@@ -48,7 +48,7 @@ public class KineticTileEntityRenderer<T extends KineticTileEntity> extends Safe
 	}
 
 	public static float getAngleForTe(KineticTileEntity te, final BlockPos pos, EnumFacing.Axis axis) {
-		float time = AnimationTickHolder.getRenderTick();
+		float time = AnimationTickHolder.getRenderTime();
 		float offset = getRotationOffsetForPosition(te, pos, axis);
         return ((time * te.getSpeed() * 3f / 10 + offset) % 360) / 180 * (float) Math.PI;
 	}

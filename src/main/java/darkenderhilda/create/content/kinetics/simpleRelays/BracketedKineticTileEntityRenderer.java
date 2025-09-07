@@ -35,7 +35,7 @@ public class BracketedKineticTileEntityRenderer extends KineticTileEntityRendere
     public static float getAngleForLargeCogShaft(SimpleKineticBlockEntity te, EnumFacing.Axis axis) {
         BlockPos pos = te.getPos();
         float offset = getShaftAngleOffset(axis, pos);
-        float time = AnimationTickHolder.getRenderTick();
+        float time = AnimationTickHolder.getRenderTime();
         return ((time * te.getSpeed() * 3f / 10 + offset) % 360) / 180 * (float) Math.PI;
     }
 

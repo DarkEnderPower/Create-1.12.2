@@ -7,11 +7,16 @@ public class AnimationTickHolder {
 	public static int ticks;
 
 	public static void tick() {
-		ticks++;
+		if (!Minecraft.getMinecraft().isGamePaused()) {
+			ticks = (ticks + 1) % 1_728_000; // wrap around every 24 hours so we maintain enough floating point precision
+		}
 	}
 
-	public static float getRenderTick() {
-		return ticks + Minecraft.getMinecraft().getRenderPartialTicks();
+	public static int getTicks() {
+		return ticks;
 	}
 
+	public static float getRenderTime() {
+		return getTicks() + Minecraft.getMinecraft().getRenderPartialTicks();
+	}
 }

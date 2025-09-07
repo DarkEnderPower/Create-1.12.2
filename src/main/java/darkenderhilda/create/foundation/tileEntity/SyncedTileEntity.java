@@ -41,12 +41,10 @@ public abstract class SyncedTileEntity extends TileEntity {
         readClientUpdate(pkt.getNbtCompound());
     }
 
-    // Special handling for client update packets
     public void readClientUpdate(NBTTagCompound tag) {
         readFromNBT(tag);
     }
 
-    // Special handling for client update packets
     public NBTTagCompound writeToClient(NBTTagCompound tag) {
         return writeToNBT(tag);
     }
