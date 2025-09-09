@@ -11,10 +11,6 @@ import javax.annotation.Nullable;
 
 public abstract class SyncedTileEntity extends TileEntity {
 
-    @Override
-    public NBTTagCompound getTileData() {
-        return super.getTileData();
-    }
 
     @Override
     public NBTTagCompound getUpdateTag() {
